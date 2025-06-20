@@ -6,145 +6,125 @@
   <meta name="description" content="Recompound Strategy – Tactical Wealth Building through Real Estate Reinvestment."/>
   <title>Recompound Strategy</title>
   <link 
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
     rel="stylesheet"
   />
+
+  <!-- tsParticles (for the network of moving dots) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js" defer></script>
+
   <style>
-    /*───────────────────── Global Variables ─────────────────────*/
+    /* ─── Variables ─── */
     :root {
-      --clr-bg: #f9f9f9;
-      --clr-white: #ffffff;
-      --clr-dark: #1c1c1e;
-      --clr-text: #333333;
-      --clr-primary: #4faaff;
-      --clr-secondary: #ff5c5c;
-      --radius: 0.75rem;
-      --transition: 0.3s ease;
-      --fw-light: 300;
-      --fw-base: 400;
-      --fw-bold: 600;
+      --dark: #111;
+      --light: #f9f9f9;
+      --accent: #4faaff;
+      --accent2: #ff5c5c;
+      --text: #333;
+      --radius: 8px;
+      --transition: 0.25s ease;
     }
 
-    /*───────────────────── Reset / Base ─────────────────────*/
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-    }
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
+    /* ─── Global Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--clr-bg);
-      color: var(--clr-text);
+      color: var(--text);
+      background: linear-gradient(135deg, var(--accent), var(--accent2), #ffd74f);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
     }
-    img { display: block; max-width: 100%; height: auto; }
+    img { max-width:100%; display:block; }
 
-    a {
-      color: var(--clr-primary);
-      text-decoration: none;
-      transition: color var(--transition);
+    /* ─── Gradient Animation ─── */
+    @keyframes gradientShift {
+      0%   { background-position: 0%   50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0%   50%; }
     }
-    a:hover { color: var(--clr-secondary); }
 
-    /*───────────────────── Layout ─────────────────────*/
-    header, footer, main { width: 90%; max-width: 900px; margin: 0 auto; }
+    /* ─── Particle Canvas ─── */
+    #tsparticles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── Layout ─── */
+    header, footer, main { position: relative; z-index: 1; }
+    header, footer { text-align:center; }
+    main { max-width: 900px; margin: 0 auto; padding: 1rem; }
     section { margin-bottom: 3rem; }
 
-    /*───────────────────── Hero ─────────────────────*/
+    /* ─── Hero ─── */
     .hero {
-      background: linear-gradient(135deg, var(--clr-primary), var(--clr-secondary));
-      color: var(--clr-white);
-      text-align: center;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
       padding: 4rem 1rem;
       border-radius: var(--radius);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      margin: 3rem 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,.1);
+      margin: 2rem 1rem;
+      backdrop-filter: blur(10px);
     }
-    .hero .logo {
-      width: 120px;
-      margin: 0 auto 1.5rem;
-      border-radius: var(--radius);
-      background: var(--clr-white);
-      padding: 0.5rem;
-    }
-    .hero h1 {
-      font-size: 2.75rem;
-      font-weight: var(--fw-bold);
-      margin-bottom: 0.5rem;
-    }
-    .hero h2 {
-      font-size: 1.25rem;
-      font-weight: var(--fw-light);
-      opacity: 0.9;
-      line-height: 1.4;
-    }
+    .hero .logo { width: 120px; margin: 0 auto 1.5rem; }
+    .hero h1 { font-size: 2.75rem; font-weight: 700; margin-bottom: .5rem; }
+    .hero h2 { font-size: 1.25rem; font-weight: 400; opacity: .9; }
 
-    /*───────────────────── Cards ─────────────────────*/
+    /* ─── Cards ─── */
     .card {
-      background: var(--clr-white);
+      background: #fff;
       border-radius: var(--radius);
       padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
     }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    .card + .card { margin-top: 2rem; }
-
+    .card:not(:last-child) { margin-bottom: 2rem; }
     .card h3 {
       font-size: 1.5rem;
-      font-weight: var(--fw-bold);
       margin-bottom: 1rem;
-      color: var(--clr-dark);
+      color: var(--text);
     }
-    .card p { margin-top: 1rem; }
     .card ul {
       list-style: none;
       margin-left: 1rem;
     }
-    .card ul li {
-      position: relative;
-      padding-left: 1.5em;
-      margin-bottom: 0.5rem;
-      font-weight: var(--fw-base);
-    }
     .card ul li::before {
       content: '▹';
-      position: absolute;
-      left: 0;
-      color: var(--clr-primary);
+      color: var(--accent);
+      display: inline-block;
+      width: 1em;
     }
+    .card p { margin-top: 1rem; }
 
-    /*───────────────────── Button ─────────────────────*/
+    /* ─── Button ─── */
     .btn {
       display: inline-block;
-      background: var(--clr-primary);
-      color: var(--clr-white);
-      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .75rem 1.5rem;
       border-radius: var(--radius);
-      font-weight: var(--fw-bold);
-      transition: background var(--transition), transform var(--transition);
+      font-weight: 600;
+      transition: background var(--transition);
       margin-top: 1rem;
+      text-decoration: none;
     }
     .btn:hover {
-      background: var(--clr-secondary);
-      transform: translateY(-2px);
+      background: var(--accent2);
     }
 
-    /*───────────────────── Footer ─────────────────────*/
+    /* ─── Footer ─── */
     footer {
-      text-align: center;
-      font-size: 0.875rem;
-      color: #777777;
-      padding: 2rem 0;
+      font-size: .875rem;
+      color: #777;
+      padding: 2rem 1rem;
     }
 
-    /*───────────────────── Responsive ─────────────────────*/
+    /* ─── Responsive ─── */
     @media (max-width: 600px) {
       .hero h1 { font-size: 2rem; }
       .hero h2 { font-size: 1rem; }
@@ -153,6 +133,8 @@
 </head>
 
 <body>
+  <!-- Particle Background -->
+  <div id="tsparticles"></div>
 
   <header class="hero">
     <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo">
@@ -163,24 +145,26 @@
   <main>
     <section class="card">
       <h3>Core Belief</h3>
-      <p><strong>Recompound Strategy</strong> is built on one immutable truth: you don’t need millions to build wealth—you need <em>momentum</em>!</p>
-      <p>Through strategic, recurring investments in fractional real estate, we compound income month after month. Every share generates cash flow. Every reinvestment multiplies it. This is execution, not theory.</p>
+      <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth you need momentum!</p>
+      <p>Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. This isn’t theory. It’s execution real ownership, backed by real assets.</p>
     </section>
 
     <section class="card">
       <h3>Vision</h3>
-      <p>Applying the timeless principles of Warren Buffett—but in real estate.</p>
       <ul>
-        <li>Long-term ownership</li>
+        <p>I’m applying the timeless principles of Warren Buffett but in real estate.<p>
+        <li>Long term ownership</li>
         <li>Monthly income</li>
         <li>Relentless reinvestment</li>
       </ul>
-      <p>While others chase hype, we build a fortress—one brick at a time. This is the Buy–Hold–Recompound model. No shortcuts. No selling. Exponential outcomes by design.</p>
+      <p>While others chase hype, I’m building a fortres one brick at a time. This is the Buy Hold Recompound model. No shortcuts. No selling. Just exponential outcomes by design.</p>
     </section>
 
     <section class="card">
       <h3>About</h3>
-      <p>We’re not “gurus.” We’re strategists who started from zero and built a compounding engine powered by real estate—not flipping or hype, but real ownership over time.</p>
+      <p>I’m not a Real Estate “Guru”. I'm a strategist.</p>
+      <p>I started from zero and i'm building a compounding engine powered by real estate.</p>
+      <p>Not flipping. Not by hype, but owning of productive assets and letting time do what it does best: grow wealth.</p>
     </section>
 
     <section class="card">
@@ -195,5 +179,37 @@
     &copy; 2025 Recompound Strategy. All rights reserved.
   </footer>
 
+  <script>
+    /* ─── tsParticles Init ─── */
+    tsParticles.load("tsparticles", {
+      fpsLimit: 60,
+      background: { color: "transparent" },
+      particles: {
+        number: { value: 60, density: { enable: true, area: 800 } },
+        color: { value: "#ffffff" },
+        opacity: { value: 0.2 },
+        size: { value: 3, random: { enable: true, minimumValue: 1 } },
+        move: { enable: true, speed: 1.5, outModes: "out" },
+        links: {
+          enable: true,
+          distance: 120,
+          color: "#ffffff",
+          opacity: 0.15,
+          width: 1
+        }
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "grab" },
+          onClick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 140, links: { opacity: 0.3 } },
+          push: { quantity: 4 }
+        }
+      },
+      detectRetina: true
+    });
+  </script>
 </body>
 </html>
