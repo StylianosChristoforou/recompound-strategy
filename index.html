@@ -9,8 +9,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
     rel="stylesheet"
   />
-
-  <!-- tsParticles (for the network of moving dots) -->
+  <!-- tsParticles for the subtle network layer -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js" defer></script>
 
   <style>
@@ -25,22 +24,43 @@
       --transition: 0.25s ease;
     }
 
-    /* ─── Global Reset ─── */
+    /* ─── Reset ─── */
     *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text);
-      background: linear-gradient(135deg, var(--accent), var(--accent2), #ffd74f);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
       line-height: 1.6;
       position: relative;
       overflow-x: hidden;
+      background: transparent;
     }
-    img { max-width:100%; display:block; }
 
-    /* ─── Gradient Animation ─── */
+    /* ─── Real-life Satellite Background ─── */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url("https://eoimages.gsfc.nasa.gov/images/imagerecords/74000/74428/world.201212.3x21600x10800.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(90%) blur(3px) brightness(0.6);
+      z-index: -2;
+    }
+
+    /* ─── Animated Gradient Overlay ─── */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2), #ffd74f);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      opacity: 0.4;
+      z-index: -1;
+    }
     @keyframes gradientShift {
       0%   { background-position: 0%   50%; }
       50%  { background-position: 100% 50%; }
@@ -64,13 +84,13 @@
 
     /* ─── Hero ─── */
     .hero {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.15);
       color: #fff;
       padding: 4rem 1rem;
       border-radius: var(--radius);
-      box-shadow: 0 8px 20px rgba(0,0,0,.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
       margin: 2rem 1rem;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
     .hero .logo { width: 120px; margin: 0 auto 1.5rem; }
     .hero h1 { font-size: 2.75rem; font-weight: 700; margin-bottom: .5rem; }
@@ -131,9 +151,8 @@
     }
   </style>
 </head>
-
 <body>
-  <!-- Particle Background -->
+  <!-- particles.js container -->
   <div id="tsparticles"></div>
 
   <header class="hero">
@@ -170,7 +189,7 @@
     <section class="card">
       <h3>Contact</h3>
       <p>📧 <a href="mailto:info@recompoundstrategy.com">info@recompoundstrategy.com</a><br>
-         📱 <a href="https://instagram.com/recompound_strategy" target="_blank">@recompound_strategy</a></p>
+      📱 <a href="https://instagram.com/recompound_strategy" target="_blank">@recompound_strategy</a></p>
       <a href="mailto:info@recompoundstrategy.com" class="btn">Let’s Talk Strategy</a>
     </section>
   </main>
@@ -180,7 +199,7 @@
   </footer>
 
   <script>
-    /* ─── tsParticles Init ─── */
+    /* ─── Initialize tsParticles ─── */
     tsParticles.load("tsparticles", {
       fpsLimit: 60,
       background: { color: "transparent" },
@@ -190,13 +209,7 @@
         opacity: { value: 0.2 },
         size: { value: 3, random: { enable: true, minimumValue: 1 } },
         move: { enable: true, speed: 1.5, outModes: "out" },
-        links: {
-          enable: true,
-          distance: 120,
-          color: "#ffffff",
-          opacity: 0.15,
-          width: 1
-        }
+        links: { enable: true, distance: 120, color: "#ffffff", opacity: 0.15, width: 1 }
       },
       interactivity: {
         events: {
