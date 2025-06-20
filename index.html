@@ -3,127 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Recompound Strategy – Tactical Wealth Building through Real Estate Reinvestment" />
+  <meta name="description" content="Recompound Strategy – Tactical Wealth Building through Real Estate Reinvestment."/>
   <title>Recompound Strategy</title>
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
     rel="stylesheet"
   />
-
   <style>
-    /* RESET -------------------------------------------------------------- */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { 
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: #111;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+    /* Variables */
+    :root {
+      --dark: #111;
+      --light: #f9f9f9;
+      --accent: #4faaff;
+      --accent2: #ff5c5c;
+      --text: #333;
+      --radius: 8px;
+      --transition: 0.25s ease;
     }
-    a { color: inherit; text-decoration: none; }
 
-    /* LAYOUT ------------------------------------------------------------- */
-    header, main, footer { width: 100%; max-width: 960px; margin: 0 auto; padding: 1rem; }
-    header { text-align: center; padding-top: 2rem; }
-    main { flex: 1; }
-    footer { text-align: center; font-size: 0.875rem; padding: 2rem 1rem; color: #666; }
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.6;
+    }
+    img { max-width:100%; display:block; }
 
-    /* LOGO ---------------------------------------------------------------- */
-    .logo { width: 140px; height: auto; margin-bottom: 1rem; }
+    /* Layout */
+    header, footer { text-align:center; }
+    main { max-width: 900px; margin: 0 auto; padding: 1rem; }
+    section { margin-bottom: 3rem; }
 
-    /* TYPOGRAPHY ---------------------------------------------------------- */
-    h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.25rem; font-weight: 400; color: #555; margin-bottom: 2rem; }
-    p { margin-bottom: 1.5rem; }
-    .highlight-blue { color: #4faaff; }
-    .highlight-red  { color: #ff5c5c; }
-    .highlight-green{ color: #4cff4c; }
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      padding: 4rem 1rem;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 20px rgba(0,0,0,.1);
+      margin: 2rem 1rem;
+    }
+    .hero .logo { width: 120px; filter: invert(1); margin: 0 auto 1.5rem; }
+    .hero h1 { font-size: 2.75rem; font-weight: 700; margin-bottom: .5rem; }
+    .hero h2 { font-size: 1.25rem; font-weight: 400; opacity: .9; }
 
-    /* BUTTON -------------------------------------------------------------- */
+    /* Content Cards */
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    }
+    .card:not(:last-child) { margin-bottom: 2rem; }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .card ul {
+      list-style: none;
+      margin-left: 1rem;
+    }
+    .card ul li::before {
+      content: '▹';
+      color: var(--accent);
+      display: inline-block;
+      width: 1em;
+    }
+    .card p { margin-top: 1rem; }
+
+    /* Button */
     .btn {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: #111;
+      background: var(--accent);
       color: #fff;
+      padding: .75rem 1.5rem;
+      border-radius: var(--radius);
       font-weight: 600;
-      border-radius: 4px;
-      transition: background 0.2s ease;
+      transition: background var(--transition);
+      margin-top: 1rem;
     }
-    .btn:hover { background: #333; }
+    .btn:hover {
+      background: var(--accent2);
+    }
 
-    /* SECTIONS ------------------------------------------------------------ */
-    .section { padding: 2rem 0; }
-    .section + .section { border-top: 1px solid #eee; }
+    /* Footer */
+    footer {
+      font-size: .875rem;
+      color: #777;
+      padding: 2rem 1rem;
+    }
 
-    /* MEDIA QUERIES ------------------------------------------------------- */
+    /* Responsive */
     @media (max-width: 600px) {
-      h1 { font-size: 1.75rem; }
-      h2 { font-size: 1.1rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero h2 { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="logo.png" alt="Recompound Strategy Logo" class="logo" />
+  <header class="hero">
+    <img src="logo.png" alt="Recompound Strategy Logo" class="logo">
     <h1>Recompound Strategy</h1>
-    <h2><span class="highlight-blue">Where Capital Becomes Ownership.</span><br>
-        <span class="highlight-red">And Ownership Becomes Freedom.</span>
-    </h2>
+    <h2>Where Capital Becomes Ownership.<br>And Ownership Becomes Freedom.</h2>
   </header>
 
   <main>
-    <!-- Core Belief -->
-    <section class="section">
-      <p>
-        <strong>Recompound Strategy</strong> is built on one core belief:  
-        You don’t need millions to build wealth — you need <em>momentum</em>.
-      </p>
-      <p>
-        Through strategic, recurring investments in fractional real estate,  
-        we compound income month after month. Every share generates cash flow.  
-        Every reinvestment multiplies it. This isn’t theory — it’s execution.
-      </p>
+    <section class="card">
+      <h3>Core Belief</h3>
+      <p><strong>Recompound Strategy</strong> is built on one immutable truth: you don’t need millions to build wealth—you need <em>momentum</em>.</p>
+      <p>Through strategic, recurring investments in fractional real estate, we compound income month after month. Every share generates cash flow. Every reinvestment multiplies it. This is execution, not theory.</p>
     </section>
 
-    <!-- Vision -->
-    <section class="section">
+    <section class="card">
       <h3>🟦 Vision</h3>
       <ul>
-        <li><span class="highlight-green">Long-term ownership</span></li>
-        <li><span class="highlight-blue">Monthly income</span></li>
-        <li><span class="highlight-red">Relentless reinvestment</span></li>
+        <li>Long-term ownership</li>
+        <li>Monthly income</li>
+        <li>Relentless reinvestment</li>
       </ul>
-      <p>
-        While others chase hype, we’re building a fortress —  
-        one brick at a time. This is the Buy–Hold–Recompound model.  
-        No shortcuts. No selling. Just exponential outcomes by design.
-      </p>
+      <p>While others chase hype, we build a fortress—one brick at a time. This is the Buy–Hold–Recompound model. No shortcuts. No selling. Just exponential outcomes by design.</p>
     </section>
 
-    <!-- About -->
-    <section class="section">
+    <section class="card">
       <h3>🟥 About</h3>
-      <p>
-        We’re not “gurus.” We’re strategists.  
-        We started from zero — building a compounding engine powered by real estate,  
-        not flipping; by owning productive assets and letting time do what it does best:  
-        grow wealth.
-      </p>
+      <p>We’re not “gurus.” We’re strategists who started from zero and built a compounding engine powered by real estate—not flipping or hype, but ownership of productive assets and letting time do what it does best: grow wealth.</p>
     </section>
 
-    <!-- Contact -->
-    <section class="section">
+    <section class="card">
       <h3>🟩 Contact</h3>
-      <p>
-        📧 <a href="mailto:info@recompoundstrategy.com">info@recompoundstrategy.com</a><br>
-        📱 <a href="https://instagram.com/recompound_strategy" target="_blank">@recompound_strategy</a>
-      </p>
+      <p>📧 <a href="mailto:info@recompoundstrategy.com">info@recompoundstrategy.com</a><br>
+         📱 <a href="https://instagram.com/recompound_strategy" target="_blank">@recompound_strategy</a></p>
       <a href="mailto:info@recompoundstrategy.com" class="btn">Let’s Talk Strategy</a>
     </section>
   </main>
