@@ -134,9 +134,14 @@
 <body>
 
   <!-- Background Video -->
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="13382270-uhd_2560_1440_24fps.mp4" type="video/mp4">
-  </video>
+  <video
+    id="bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4"
+  ></video>
 
   <!-- Starfield Overlay -->
   <div id="tsparticles"></div>
@@ -144,7 +149,7 @@
   <header>
     <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo">
     <h1>Recompound Strategy</h1>
-    <h2>Where Capital Becomes Ownership.<br>And Ownership Becomes Freedom.</h2>
+    <h2>Where Capital Becomes Ownership<br>And Ownership Becomes Freedom</h2>
   </header>
 
   <main>
@@ -157,15 +162,15 @@
     <section class="reveal">
       <h3>Vision</h3>
       <ul>
-        <p>I’m applying the timeless principles of Warren Buffett but in real estate.</p>
-        <li>Long-term ownership</li>
+      <p>I’m applying the timeless principles of Warren Buffett but in real estate.<p>
+        <li>Long term ownership</li>
         <li>Monthly income</li>
         <li>Relentless reinvestment</li>
       </ul>
       <p>While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.</p>
     </section>
 
-    <section class="reveal">
+    <section id="about-section" class="reveal">
       <h3>About</h3>
       <p>I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.</p>
     </section>
@@ -173,15 +178,15 @@
 
   <footer>&copy; 2025 Recompound Strategy. All rights reserved.</footer>
 
-  <!-- scroll-direction contact bar -->
+  <!-- scroll-in contact bar -->
   <div id="contact-bar">
-    <span>📧 info@recompoundstrategy.com</span>
-    <a href="https://instagram.com/recompound_strategy" target="_blank">Follow @recompound_strategy</a>
+    <span>Email: info@recompoundstrategy.com</span>
+    <a href="https://instagram.com/recompound_strategy" target="_blank">Instagram: @recompound_strategy</a>
   </div>
 
   <script>
     // tsParticles starfield
-    window.addEventListener('load', ()=> {
+    window.addEventListener('load', () => {
       tsParticles.load("tsparticles", {
         fpsLimit:60,
         particles:{
@@ -195,37 +200,36 @@
       });
     });
 
-    // reveal-on-scroll
-    document.querySelectorAll('.reveal').forEach(el=>{
-      new IntersectionObserver((entries, obs)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
+    // reveal-on-scroll for sections
+    document.querySelectorAll('.reveal').forEach(el => {
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
             e.target.classList.add('visible');
             obs.unobserve(e.target);
           }
         });
-      },{threshold:0.15}).observe(el);
+      }, { threshold: 0.15 }).observe(el);
     });
 
-    // show contact bar when SCROLLING UP past 75%
-    const bar = document.getElementById('contact-bar');
-    let lastY = window.scrollY;
-    window.addEventListener('scroll', ()=>{
-      const currentY = window.scrollY;
-      const trigger = document.body.scrollHeight * 0.75;
-
-      if (currentY > trigger) {
-        if (currentY < lastY) {
-          // scrolling UP
-          bar.classList.add('show');
+    // show/hide contact bar when "About" enters/exits viewport
+    const contactBar = document.getElementById('contact-bar');
+    const aboutSection = document.getElementById('about-section');
+    new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          contactBar.classList.add('show');
         } else {
-          // scrolling DOWN
-          bar.classList.remove('show');
+          contactBar.classList.remove('show');
         }
-      } else {
-        bar.classList.remove('show');
-      }
-      lastY = currentY;
+      });
+    }, { threshold: 0.5 }).observe(aboutSection);
+
+    // reinforce video looping
+    const bgVideo = document.getElementById('bg-video');
+    bgVideo.addEventListener('ended', () => {
+      bgVideo.currentTime = 0;
+      bgVideo.play();
     });
   </script>
 </body>
