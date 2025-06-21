@@ -142,13 +142,12 @@
       .kpi-card { min-width: 0; padding: 0.88rem 1.14rem;}
       .hero-section h1 { font-size:2rem;}
     }
-    section, .testimonial-section, .about-bottom-inner {
-      opacity: 0; transform: translateY(32px);
-      transition: opacity 1.1s cubic-bezier(.7,.2,.2,1), transform 1.1s cubic-bezier(.7,.2,.2,1);
-      will-change: opacity, transform;
-    }
-    section.visible, .testimonial-section.visible, .about-bottom-inner.visible {
-      opacity: 1; transform: translateY(0);
+    /* Remove all fade-in/out styles by setting opacity/transform statically: */
+    section, .testimonial-section, .about-bottom-inner, .chart-content-fade {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto !important;
     }
     .site-section, .site-section.alt {
       width: 100vw;
@@ -195,7 +194,6 @@
       letter-spacing: 0;
     }
     .testimonial-author { color: #3052e6; font-weight: 700; font-size: 1.08rem; }
-    /* CHART SECTION FIXED: only chart content fades in, background always white */
     .chart-section {
       width: 100vw;
       background: #f8fbff !important;
@@ -212,16 +210,6 @@
       padding: 2.2rem 1.5rem 2rem 1.5rem;
       background: transparent;
       position: relative;
-    }
-    .chart-content-fade {
-      opacity: 0;
-      transform: translateY(36px);
-      transition: opacity 1.15s cubic-bezier(.7,.2,.2,1), transform 1.15s cubic-bezier(.7,.2,.2,1);
-      will-change: opacity, transform;
-    }
-    .chart-content-fade.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     .chart-section h3 { color: #222c3a; font-weight:800;}
     .chart-section canvas {
@@ -341,20 +329,20 @@
     <h1>Recompound Strategy</h1>
     <h2>Where Capital Becomes Ownership<br>And Ownership Becomes Freedom</h2>
     <a class="hero-btn" href="#contact-bottom">Contact Us</a>
-<div class="kpi-row">
-  <div class="kpi-card">
-    <span class="kpi-number" data-to="34"></span>
-    <span class="kpi-label">Years of Data</span>
-  </div>
-  <div class="kpi-card">
-    <span class="kpi-number percent" data-to="346"></span>
-    <span class="kpi-label">HPI Increase</span>
-  </div>
-  <div class="kpi-card">
-    <span class="kpi-number percent" data-to="139"></span>
-    <span class="kpi-label">CPI Inflation</span>
-  </div>
-</div>
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <span class="kpi-number" data-to="34"></span>
+        <span class="kpi-label">Years of Data</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-number percent" data-to="346"></span>
+        <span class="kpi-label">HPI Increase</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-number percent" data-to="139"></span>
+        <span class="kpi-label">CPI Inflation</span>
+      </div>
+    </div>
   </section>
   <div class="accent-bar"></div>
   <!-- Main full-width sections -->
@@ -363,26 +351,31 @@
       <section id="mission">
         <h3>My Mission</h3>
         <p>
-          I started <b>Recompound Strategy</b> to prove you don’t need to be born rich to build real, lasting wealth.<br>
-          This brand documents the journey from zero to a self made legacy.<br>
-          <b>It’s not about sales. It’s about strategy, discipline, and transparency.</b>
+          <b>Recompound Strategy</b> was founded to reclaim everything my family lost from being refugees twice, to nearly losing our business, our savings, and being burdened with debt caused by a corrupt government during the 2013 financial collapse. I come from survival, not privilege. My mission is to fight corruption, break out of this rigged system, and prove that wealth can be built from zero. Through strategy, ownership, and relentless reinvestment, I’m building real freedom outside the Matrix.
         </p>
       </section>
       <section id="vision">
-        <h3>Core Belief</h3>
-        <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth, you need momentum!</p>
-        <p>Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets.</p>
-      </section>
-      <section>
-        <h3>Vision</h3>
-        <ul>
-          <li>Applying the timeless principles of Warren Buffett but in real estate</li>
-          <li>Long term ownership</li>
-          <li>Monthly income</li>
-          <li>Relentless reinvestment</li>
-        </ul>
-        <p>While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.</p>
-      </section>
+  <h3>Core Belief</h3>
+  <p>
+    <b>Recompound Strategy is built on one core belief:</b>
+  </p>
+  <p>You don’t need millions to build wealth you need momentum!</p>
+  <p>
+    Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets. And by holding hard assets, I stay in full control, even if the banks collapse.
+  </p>
+</section>
+     <section>
+  <h3>Vision</h3>
+  <p><b>Applying the timeless principles of Warren Buffett but in real estate</b></p>
+  <ul>
+    <li>Long term ownership</li>
+    <li>Monthly income</li>
+    <li>Relentless reinvestment</li>
+  </ul>
+  <p>
+    While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.
+  </p>
+</section>
       <section class="testimonial-section">
         <blockquote>
           <span class="testimonial-quote">
@@ -415,7 +408,7 @@
       <h3>Partner With Me</h3>
       <p>
         I’m open to strategic partnerships and joint investments.<br>
-        If you share a long-term vision and value transparency, let’s connect.
+        If you share a long term vision and value transparency, let’s connect.
       </p>
       <a href="#contact-bottom" class="contact-btn">Contact Me</a>
       <a href="https://wa.me/35796318896" target="_blank" class="whatsapp-btn">WhatsApp Me</a>
@@ -443,42 +436,18 @@
   <script>
     // Animated KPIs
     document.querySelectorAll('.kpi-number').forEach(el => {
-  const target = +el.dataset.to;
-  let cur = 0;
-  const inc = Math.ceil(target/70);
-  const isPercent = el.classList.contains('percent');
-  function update() {
-    cur += inc; if(cur>target) cur=target;
-    el.textContent = isPercent ? `${cur}%` : cur;
-    if(cur < target) requestAnimationFrame(update);
-  }
-  update();
-});
-    // reveal-on-scroll for main sections
-    document.querySelectorAll('section, .testimonial-section, .about-bottom-inner').forEach(el => {
-      new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-          } else {
-            e.target.classList.remove('visible');
-          }
-        });
-      }, { threshold: 0.12 }).observe(el);
+      const target = +el.dataset.to;
+      let cur = 0;
+      const inc = Math.ceil(target/70);
+      const isPercent = el.classList.contains('percent');
+      function update() {
+        cur += inc; if(cur>target) cur=target;
+        el.textContent = isPercent ? `${cur}%` : cur;
+        if(cur < target) requestAnimationFrame(update);
+      }
+      update();
     });
-    // NEW: fade-in for just the chart content, not background
-    const chartContentFade = document.getElementById('chartContentFade');
-    if (chartContentFade) {
-      new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            chartContentFade.classList.add('visible');
-          } else {
-            chartContentFade.classList.remove('visible');
-          }
-        });
-      }, { threshold: 0.10 }).observe(chartContentFade);
-    }
+
     // Nav link active highlight on scroll
     const navLinks = Array.from(document.querySelectorAll('.navbar a'));
     const sectionEls = [
@@ -499,6 +468,7 @@
       }
       navLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
     });
+
     // CHART CODE
     const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
     async function fetchFRED(seriesId) {
