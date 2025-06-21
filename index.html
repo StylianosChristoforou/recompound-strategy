@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- UPDATED VIEWPORT META FOR iPHONE SAFE AREA SUPPORT -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Recompound Strategy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="logo.jpg" />
@@ -30,6 +31,9 @@
       margin: 0; padding: 0;
       min-height: 100vh;
       box-sizing: border-box;
+      width: 100vw;
+      max-width: 100vw;
+      overflow-x: hidden;
     }
     .navbar {
       position: fixed; top: 0; left: 0; width: 100vw;
@@ -42,47 +46,43 @@
       transition: box-shadow 0.2s;
     }
     .nav-content {
-  max-width: var(--max-width);
-  margin: 0 auto; 
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-  gap: 1.6rem;
-  padding: 0 2rem;
-}
+      max-width: var(--max-width);
+      margin: 0 auto; 
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      gap: 1.6rem;
+      padding: 0 2rem;
+    }
     .nav-logo-hide {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s;
-}
-.nav-logo-show {
-  opacity: 1;
-  pointer-events: auto;
-  transition: opacity 0.25s;
-}
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .nav-logo-show {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 0.25s;
+    }
     .nav-logo { height: 44px; border-radius: 8px; }
-    .navbar ul { list-style: none; display: flex; gap: 2.3rem; margin: 0; }
+    .navbar ul { list-style: none; display: flex; gap: 2.3rem; margin: 0; padding: 0;}
     .nav-menu a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: color .18s;
-  letter-spacing: .02em;
-  padding-bottom: 2px;
-  border-bottom: 2px solid transparent;
-  transition: color 0.18s, border-bottom 0.18s;
-}
-.nav-menu a.active {
-  color: var(--accent);
-  border-bottom: 2px solid var(--accent);
-}
-.nav-menu a:hover {
-  color: var(--accent2);
-}
-    @media (max-width: 700px) {
-      .nav-content { flex-direction: column; gap: 0.7rem; padding: 0 1rem;}
-      .navbar ul { gap: 1.1rem; }
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: color .18s;
+      letter-spacing: .02em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.18s, border-bottom 0.18s;
+    }
+    .nav-menu a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .nav-menu a:hover {
+      color: var(--accent2);
     }
     .hero-section {
       width: 100vw;
@@ -193,12 +193,6 @@
       background: linear-gradient(90deg,#4faaff,#3052e6);
       border-radius: 7px;
       margin: 0.5rem auto 1.5rem auto;
-    }
-    @media (max-width:600px) {
-      .hero-section { min-height: 310px; padding-bottom: 1.1rem;}
-      .kpi-row { flex-direction: column; gap: 1.1rem; }
-      .kpi-card { min-width: 0; padding: 0.88rem 1.14rem;}
-      .hero-section h1 { font-size:1.47rem; }
     }
     section, .testimonial-section, .about-bottom-inner, .chart-content-fade {
       opacity: 1 !important;
@@ -327,14 +321,6 @@
       background: #1da851;
       transform: scale(1.04);
     }
-    @media (max-width: 900px) {
-      .section-inner, .chart-section-inner, .about-bottom-inner { padding: 1rem 0.5rem 1.2rem 0.5rem; }
-    }
-    @media (max-width: 600px) {
-      .section-inner, .chart-section-inner, .about-bottom-inner { padding: 0.8rem 0.1rem 1.1rem 0.1rem; }
-      .site-section h3, .chart-section h3, .about-bottom-inner h3 { font-size: 1.3rem; }
-      .contact-btn, .whatsapp-btn { padding: 0.75rem 1.2rem; font-size: 1rem; }
-    }
     .chart-section { margin-bottom: 0; }
     footer {
       width: 100vw;
@@ -361,9 +347,6 @@
     .footer-socials a { color: #4faaff; font-weight: 700; font-size: 1.13rem; text-decoration:none; display:flex; align-items:center;}
     .footer-socials a:hover { color: var(--accent);}
     .footer-socials svg { margin-right: 6px; vertical-align: middle;}
-    @media(max-width:600px) {
-      .footer-row { flex-direction: column; gap: 0.7rem;}
-    }
     /* Back to Top */
     #backToTop {
       position:fixed;right:2vw;bottom:3vh;z-index:999;
@@ -381,6 +364,51 @@
       opacity: 1;
       transform: translateY(0);
     }
+    /* ------------------- MOBILE IMPROVEMENTS ------------------- */
+    @media (max-width: 900px) {
+      .section-inner, .chart-section-inner, .about-bottom-inner { padding: 1rem 0.5rem 1.2rem 0.5rem; }
+    }
+    @media (max-width: 700px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 0.7rem;
+        padding: 0 0.6rem;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      .navbar ul {
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+      }
+      .nav-logo {
+        margin-bottom: 0.4rem;
+      }
+    }
+    @media (max-width: 600px) {
+      html, body {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      .section-inner,
+      .about-bottom-inner,
+      .chart-section-inner {
+        padding: 1.2rem 0.7rem 1.1rem 0.7rem !important;
+      }
+      .hero-section {
+        padding-left: 0.7rem !important;
+        padding-right: 0.7rem !important;
+      }
+      .navbar ul {
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+      }
+      .site-section h3, .chart-section h3, .about-bottom-inner h3 { font-size: 1.3rem; }
+      .contact-btn, .whatsapp-btn { padding: 0.75rem 1.2rem; font-size: 1rem; }
+      .footer-row { flex-direction: column; gap: 0.7rem;}
+    }
   </style>
 </head>
 <body>
@@ -388,7 +416,7 @@
     <div class="nav-content">
       <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
       <ul class="nav-menu">
-  <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#home" class="active">Home</a></li>
         <li><a href="#mission">Mission</a></li>
         <li><a href="#vision">Vision</a></li>
         <li><a href="#comparisonChartSection">Chart</a></li>
@@ -649,19 +677,20 @@
       });
     }
     window.addEventListener('DOMContentLoaded', renderChart);
+
     // LOGO SHOW/HIDE ON SCROLL
-window.addEventListener('scroll', function() {
-  var navLogo = document.querySelector('.nav-logo');
-  var heroSection = document.getElementById('home');
-  var heroBottom = heroSection.getBoundingClientRect().bottom;
-  if (heroBottom <= 80) {
-    navLogo.classList.remove('nav-logo-hide');
-    navLogo.classList.add('nav-logo-show');
-  } else {
-    navLogo.classList.remove('nav-logo-show');
-    navLogo.classList.add('nav-logo-hide');
-  }
-});
+    window.addEventListener('scroll', function() {
+      var navLogo = document.querySelector('.nav-logo');
+      var heroSection = document.getElementById('home');
+      var heroBottom = heroSection.getBoundingClientRect().bottom;
+      if (heroBottom <= 80) {
+        navLogo.classList.remove('nav-logo-hide');
+        navLogo.classList.add('nav-logo-show');
+      } else {
+        navLogo.classList.remove('nav-logo-show');
+        navLogo.classList.add('nav-logo-hide');
+      }
+    });
 
   </script>
 </body>
