@@ -16,8 +16,8 @@
       --accent: #4faaff;
       --accent2: #ff5c5c;
       --text-light: #fff;
-      --card-bg: rgba(0,0,0,0.15);  /* ultra transparent */
-      --chart-bg: rgba(0,0,0,0.13); /* chart block even more transparent */
+      --card-bg: rgba(0,0,0,0.15);
+      --chart-bg: rgba(0,0,0,0.13);
       --transition: .3s ease;
       --video-brightness: 0.6;
       --video-contrast: 1.1;
@@ -201,6 +201,8 @@
     <span>Email: info@recompoundstrategy.com</span>
     <a href="https://instagram.com/recompound_strategy" target="_blank">Instagram: @recompound_strategy</a>
   </div>
+  <!-- This is the BOTTOM trigger for the contact bar -->
+  <div id="scroll-end"></div>
 
   <script>
     // tsParticles starfield
@@ -216,21 +218,22 @@
       detectRetina:true
     });
 
-    // reveal-on-scroll for sections
+    // reveal-on-scroll for sections (fade in AND fade out)
     document.querySelectorAll('.reveal').forEach(el => {
-      new IntersectionObserver((entries, obs) => {
+      new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
             e.target.classList.add('visible');
-            obs.unobserve(e.target);
+          } else {
+            e.target.classList.remove('visible');
           }
         });
       }, { threshold: 0.15 }).observe(el);
     });
 
-    // show/hide contact bar when "About" enters/exits viewport
+    // show/hide contact bar ONLY when bottom of page is reached
     const contactBar = document.getElementById('contact-bar');
-    const aboutSection = document.getElementById('about-section');
+    const scrollEnd = document.getElementById('scroll-end');
     new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -239,7 +242,7 @@
           contactBar.classList.remove('show');
         }
       });
-    }, { threshold: 0.5 }).observe(aboutSection);
+    }, { threshold: 0.7 }).observe(scrollEnd);
 
     // reinforce video looping
     const bgVideo = document.getElementById('bg-video');
@@ -330,7 +333,7 @@
               grid: {
                 color: 'rgba(180,180,180,0.12)',
                 display: true,
-                drawBorder: false   // REMOVE axis line
+                drawBorder: false
               }
             },
             y: {
@@ -343,7 +346,7 @@
               grid: {
                 color: 'rgba(180,180,180,0.12)',
                 display: true,
-                drawBorder: false   // REMOVE axis line
+                drawBorder: false
               }
             }
           }
