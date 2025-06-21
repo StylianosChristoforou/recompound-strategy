@@ -4,222 +4,340 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Recompound Strategy</title>
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
-    rel="stylesheet"
-  />
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     :root {
       --accent: #4faaff;
-      --accent2: #ff5c5c;
-      --text-light: #fff;
-      --card-bg: rgba(0,0,0,0.50);
-      --chart-bg: rgba(0,0,0,0.50);
-      --transition: .3s ease;
-      --video-brightness: 0.9;
-      --video-contrast: 1.1;
-      --contact-bg: #000;
-      --contact-text: #fff;
+      --accent2: #3052e6;
+      --text-dark: #161d2b;
+      --hero-bg: #16181e;
+      --section-white: #fff;
+      --section-gray: #f5f7fa;
+      --footer-bg: #13151b;
+      --footer-text: #fff;
+      --max-width: 1100px;
     }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text-light);
-      overflow-x: hidden;
-      position: relative;
+    html, body {
+      margin: 0;
+      padding: 0;
       min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: #16181e;
+      color: var(--text-dark);
+      box-sizing: border-box;
     }
-    #bg-video {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -3;
-      filter: brightness(var(--video-brightness)) contrast(var(--video-contrast));
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100vw;
+      background: rgba(16,22,34,0.99); 
+      z-index: 100; padding: 0.5rem 0;
+      box-shadow: 0 3px 18px 0 rgba(0,0,0,0.14);
+      border-bottom: 1.5px solid #23242b;
     }
-    #tsparticles {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
+    .nav-content {
+      max-width: var(--max-width);
+      margin: 0 auto; display: flex;
+      align-items: center; justify-content: space-between; padding: 0 2rem;
     }
-    header, main, footer { position: relative; z-index: 1; }
-    header { text-align:center; padding:4rem 1rem; }
-    .logo { width:120px; margin:0 auto 1.5rem; display:block; }
-    h1 { font-size:2.75rem; margin-bottom:.5rem; }
-    h2 { font-size:1.25rem; opacity:.9; }
-    main { max-width:900px; margin:0 auto; padding:1rem; }
-    section {
-      background: var(--card-bg);
-      padding:2rem;
-      border-radius:8px;
-      margin-bottom:3rem;
-      opacity:0; transform: translateY(20px);
-      transition: opacity .6s ease, transform .6s ease;
+    .nav-logo { height: 44px; border-radius: 8px; }
+    .navbar ul { list-style: none; display: flex; gap: 2.3rem; margin: 0; }
+    .navbar a {
+      color: #fff; text-decoration: none; font-weight: 600;
+      font-size: 1rem; transition: color .18s;
+      letter-spacing: .02em; padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
     }
-    section.visible {
-      opacity:1; transform: translateY(0);
+    .navbar a.active { color: var(--accent); border-bottom: 2px solid var(--accent);}
+    .navbar a:hover { color: var(--accent2);}
+    @media (max-width: 700px) {
+      .nav-content { flex-direction: column; gap: 0.7rem; padding: 0 1rem;}
+      .navbar ul { gap: 1.1rem; }
     }
-    section h3 { font-size:1.5rem; margin-bottom:1rem; }
-    section p, section ul li { color: var(--text-light); line-height:1.5; }
-    ul { list-style:none; margin-left:1rem; }
-    ul li {
-      position: relative;
-      padding-left:1.2em;
-      margin-bottom:.5em;
+    .hero-section {
+      width: 100vw;
+      min-height: 540px;
+      background: var(--hero-bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+      text-align: center;
+      padding-top: 6.7rem;
+      padding-bottom: 4.5rem;
+      color: #fff;
     }
-    ul li::before {
-      content:'▹'; position:absolute; left:0; color:var(--accent);
+    .hero-section .logo {
+      width:120px; margin:1.7rem auto 1.7rem; display:block;
+      filter: drop-shadow(0 2px 8px #2228);
     }
-    .btn {
-      display:inline-block;
-      background:var(--accent);
-      color:var(--text-light);
-      padding:.75rem 1.5rem;
-      border-radius:8px;
-      font-weight:600;
-      text-decoration:none;
-      transition:background var(--transition);
-      margin-top:1rem;
+    .hero-section h1 {
+      font-size:2.75rem; font-weight: 800; margin-bottom:.5rem;
+      background: linear-gradient(90deg,#4faaff 20%,#fff 100%);
+      background-clip: text; -webkit-background-clip: text; color: transparent;
+      letter-spacing: 0.03em;
     }
-    .btn:hover { background:var(--accent2); }
+    .hero-section h2 { font-size:1.23rem; font-weight:600; opacity:.95; margin-bottom: 2.1rem; }
+    .hero-btn {
+      display: inline-block; margin: 1.7rem auto 1.3rem auto;
+      padding: 1.1rem 2.6rem; border-radius: 40px;
+      font-size: 1.13rem; font-weight: 700; background: linear-gradient(90deg,#4faaff 40%,#3052e6 100%);
+      color: #fff; text-decoration: none; transition: background .3s, color .2s, transform .2s;
+      box-shadow: 0 3px 18px 0 #277bfa19;
+      border: none; letter-spacing: .06em;
+    }
+    .hero-btn:hover {
+      background: linear-gradient(90deg,#3052e6 10%,#4faaff 90%);
+      transform: scale(1.05);
+      box-shadow: 0 10px 26px 0 #4faaff33;
+    }
+    .kpi-row {
+      display: flex; justify-content: center; gap: 2.5rem; margin: 2.1rem 0 0.7rem 0;
+      flex-wrap: wrap;
+    }
+    .kpi-card {
+      background: rgba(34,44,68,0.46);
+      border-radius: 13px;
+      box-shadow: 0 2px 18px 0 #1a1e2522;
+      padding: 1.15rem 2.4rem;
+      min-width: 110px; text-align: center;
+      backdrop-filter: blur(4px);
+      transition: box-shadow .2s;
+    }
+    .kpi-number {
+      font-size: 2.1rem; font-weight: bold; color: var(--accent);
+      letter-spacing: .01em; text-shadow: 0 2px 12px #277bfa22;
+      display: block;
+    }
+    .kpi-label {
+      color: #b8c7e2; font-size: 1rem; margin-top: .16rem; font-weight: 600; letter-spacing: .02em;
+      display: block;
+    }
+    @media (max-width:600px) {
+      .hero-section { min-height: 390px; padding-bottom: 1.1rem;}
+      .kpi-row { flex-direction: column; gap: 1.1rem; }
+      .kpi-card { min-width: 0; padding: 0.8rem 1.1rem;}
+      .hero-section h1 { font-size:2rem;}
+    }
+    /* FULL WIDTH MAIN SECTIONS */
+    .site-section, .site-section.alt {
+      width: 100vw;
+      background: var(--section-white);
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      display: block;
+    }
+    .site-section.alt { background: var(--section-gray);}
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.2rem 1.5rem 1.5rem 1.5rem;
+    }
+    .site-section:not(:first-child) {
+      border-top: 1px solid #f2f2f2;
+    }
+    .site-section h3 {
+      font-size:2.05rem;
+      margin-bottom:1.2rem;
+      color: var(--accent2);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .site-section p, .site-section ul li {
+      color: #252b3f; line-height:1.73; font-size:1.08rem;
+    }
+    .site-section ul { margin-left:1.3rem; }
+    .site-section ul li {
+      position: relative; padding-left:1.1em; margin-bottom:.4em; font-size:1.09rem;
+    }
+    .site-section ul li::before {
+      content:'▹'; position:absolute; left:0; color:var(--accent); font-size:1rem;
+    }
+    .testimonial-section {
+      margin: 2.6rem 0 2.7rem 0;
+      text-align: center;
+      background: none;
+      border: none;
+    }
+    .testimonial-quote {
+      font-size: 1.35rem; color: #222; font-style: italic;
+      font-weight: 700; display: block; margin-bottom: 0.8rem;
+      letter-spacing: 0;
+    }
+    .testimonial-author { color: #3052e6; font-weight: 500; font-size: 1.03rem; }
+    /* CHART SECTION */
     .chart-section {
-      background: var(--chart-bg);
-      padding: 2rem;
-      border-radius: 8px;
-      margin-bottom: 3rem;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100vw;
+      background: #f8fbff;
+      border-top: 1px solid #f2f2f2;
+      margin: 0;
+      box-shadow: 0 2px 24px 0 #277bfa0d;
       display: block;
-      opacity: 1;
-      transform: none;
     }
-    .chart-section h3 {
-      margin-bottom: 1.2rem;
-      font-size: 1.5rem;
+    .chart-section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.2rem 1.5rem 2rem 1.5rem;
     }
-    canvas {
+    .chart-section h3 { color: #222c3a; }
+    .chart-section canvas {
       max-width: 100%;
-      border: none !important;
-      border-radius: 0 !important;
-      padding: 0 !important;
-      margin: 2rem auto 1rem;
+      width: 100%;
+      margin: 2rem auto 0.5rem auto;
       display: block;
-      background: transparent !important;
-      box-shadow: none !important;
+      background: transparent;
     }
+    @media (max-width: 900px) {
+      .section-inner, .chart-section-inner { padding: 1rem 0.5rem 1.2rem 0.5rem; }
+    }
+    @media (max-width: 600px) {
+      .section-inner, .chart-section-inner { padding: 0.8rem 0.1rem 1.1rem 0.1rem; }
+      .site-section h3, .chart-section h3 { font-size: 1.3rem; }
+    }
+    .chart-section { margin-bottom: 0; }
     footer {
-      text-align:center;
-      padding:2rem 1rem;
-      font-size:.875rem;
-      color:rgba(255,255,255,0.7);
+      width: 100vw;
+      background: var(--footer-bg);
+      text-align: center;
+      padding: 2rem 1rem 1.4rem 1rem;
+      font-size: 1rem;
+      color: var(--footer-text);
+      border-radius: 0;
+      margin: 0;
+      box-shadow: none;
     }
-    #contact-bar {
-      position:fixed;
-      left:50%; bottom:-120px; transform:translateX(-50%);
-      background: var(--contact-bg);
-      color: var(--contact-text);
-      padding:1rem 2rem; border-radius:8px 8px 0 0;
-      box-shadow:0 -4px 12px rgba(0,0,0,0.5);
-      transition:bottom .5s ease;
-      z-index:2;
-      display:flex; align-items:center; gap:1rem;
+    .footer-row { 
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.4rem; margin: 0 auto; max-width: 900px;
     }
-    #contact-bar.show {
-      bottom:0;
-    }
-    #contact-bar span, #contact-bar a {
-      color: var(--contact-text);
-      text-decoration:none; font-weight:600;
-      transition:color .25s ease;
-    }
-    #contact-bar a:hover { color: var(--accent); }
+    .footer-link { color: #4faaff; font-size: 1rem; text-decoration: underline;}
+    .footer-link:hover { color: var(--accent2);}
+    .footer-socials a { margin: 0 0.7rem; color: #4faaff; font-weight: 600; font-size: 1.07rem;}
+    .footer-socials a:hover { color: var(--accent);}
     @media(max-width:600px) {
-      h1 { font-size:2rem; }
-      h2 { font-size:1rem; }
-      #contact-bar { flex-direction:column; text-align:center; }
-      section, .chart-section { padding: 1rem; }
+      .footer-row { flex-direction: column; gap: 0.7rem;}
     }
   </style>
 </head>
 <body>
-  <!-- Background Video -->
-  <video
-    id="bg-video"
-    autoplay
-    muted
-    loop
-    playsinline
-    src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4"
-  ></video>
-  <!-- Starfield Overlay -->
-  <div id="tsparticles"></div>
-
-  <header>
+  <nav class="navbar">
+    <div class="nav-content">
+      <img src="logo.jpg" class="nav-logo" alt="Logo" />
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#about-section">About</a></li>
+        <li><a href="#comparisonChart">Chart</a></li>
+        <li><a href="#scroll-end">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <section class="hero-section" id="home">
     <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo">
     <h1>Recompound Strategy</h1>
     <h2>Where Capital Becomes Ownership<br>And Ownership Becomes Freedom</h2>
-  </header>
-
-  <main>
-    <section class="reveal">
-      <h3>Core Belief</h3>
-      <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth you need momentum!</p>
-      <p>Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets.</p>
-    </section>
-
-    <section class="reveal">
-      <h3>Vision</h3>
-      <ul>
-      <p>I’m applying the timeless principles of Warren Buffett but in real estate.<p>
-        <li>Long term ownership</li>
-        <li>Monthly income</li>
-        <li>Relentless reinvestment</li>
-      </ul>
-      <p>While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.</p>
-    </section>
-
-    <section id="about-section" class="reveal">
-      <h3>About</h3>
-      <p>I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.</p>
-    </section>
-
-    <!-- CHART AT THE VERY BOTTOM -->
-    <section class="chart-section">
-      <h3>Inflation vs Real Estate (Live, 1990–Now)</h3>
-      <p style="color: #ccc; font-size: 1rem; margin-bottom: 0.5rem;">Live data: CPI Inflation vs Real Estate HPI (1990–Today)</p>
-      <canvas id="comparisonChart" width="1000" height="400"></canvas>
-    </section>
-  </main>
-
-  <footer>&copy; 2025 Recompound Strategy. All rights reserved.</footer>
-  <div id="contact-bar">
-    <span>Email: info@recompoundstrategy.com</span>
-    <a href="https://instagram.com/recompound_strategy" target="_blank">Instagram: @recompound_strategy</a>
+    <a class="hero-btn" href="#scroll-end">Contact Us</a>
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <span class="kpi-number" data-to="34">0</span>
+        <span class="kpi-label">Years of Data</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-number" data-to="346">0</span>
+        <span class="kpi-label">HPI Increase (%)</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-number" data-to="139">0</span>
+        <span class="kpi-label">CPI Inflation (%)</span>
+      </div>
+    </div>
+  </section>
+  <!-- Main full-width sections -->
+  <div class="site-section">
+    <div class="section-inner">
+      <section id="mission">
+        <h3>My Mission</h3>
+        <p>
+          I started <b>Recompound Strategy</b> to prove you don’t need to be born rich to build real, lasting wealth.<br>
+          This brand documents the journey from zero to a self made legacy.<br>
+          <b>It’s not about sales. It’s about strategy, discipline, and transparency.</b>
+        </p>
+      </section>
+      <section id="vision">
+        <h3>Core Belief</h3>
+        <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth, you need momentum!</p>
+        <p>Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets.</p>
+      </section>
+      <section>
+        <h3>Vision</h3>
+        <ul>
+          <li>Applying the timeless principles of Warren Buffett but in real estate</li>
+          <li>Long term ownership</li>
+          <li>Monthly income</li>
+          <li>Relentless reinvestment</li>
+        </ul>
+        <p>While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.</p>
+      </section>
+      <section class="testimonial-section">
+        <blockquote>
+          <span class="testimonial-quote">
+            “The first rule of compounding: Never interrupt it unnecessarily.”
+          </span>
+          <span class="testimonial-author">— Charlie Munger</span>
+        </blockquote>
+      </section>
+    </div>
   </div>
-  <!-- This is the BOTTOM trigger for the contact bar -->
+  <!-- CHART SECTION: FULL WIDTH -->
+  <section class="chart-section">
+    <div class="chart-section-inner">
+      <h3>Inflation vs Real Estate (Live, 1990–Now)</h3>
+      <p style="color: #777; font-size: 1rem; margin-bottom: 0.5rem;">Live data: CPI Inflation vs Real Estate HPI (1990–Today)</p>
+      <canvas id="comparisonChart" height="400"></canvas>
+    </div>
+  </section>
+  <!-- ABOUT/PARTNER FULL WIDTH (optionally: in site-section alt for gray bg) -->
+  <div class="site-section alt">
+    <div class="section-inner">
+      <section id="about-section">
+        <h3>About</h3>
+        <p>I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.</p>
+      </section>
+      <section id="partner" style="text-align:center;">
+        <h3>Partner With Me</h3>
+        <p>
+          I’m open to strategic partnerships and joint investments.<br>
+          If you share a long-term vision and value transparency, let’s connect.<br>
+          <a href="mailto:info@recompoundstrategy.com" style="color:#3052e6; font-weight:600;">Contact me directly to discuss partnership opportunities.</a>
+        </p>
+      </section>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-row">
+      <span>&copy; 2025 Recompound Strategy. All rights reserved.</span>
+      <a href="#" class="footer-link">Privacy Policy</a>
+      <span class="footer-socials">
+        <a href="https://instagram.com/recompound_strategy" target="_blank">Instagram</a>
+        <a href="mailto:info@recompoundstrategy.com">Email</a>
+      </span>
+    </div>
+  </footer>
   <div id="scroll-end"></div>
-
   <script>
-    // tsParticles starfield
-    tsParticles.load("tsparticles", {
-      fpsLimit:60,
-      particles:{
-        number:{ value:80, density:{ enable:true, area:800 } },
-        color:{ value:"#ffffff" },
-        opacity:{ value:0.05 },
-        size:{ value:1.2, random:{ enable:true, minimumValue:0.6 } },
-        move:{ enable:true, speed:0.2, outModes:"out" }
-      },
-      detectRetina:true
+    // Animated KPIs
+    document.querySelectorAll('.kpi-number').forEach(el => {
+      const target = +el.dataset.to;
+      let cur = 0;
+      const inc = Math.ceil(target/70);
+      function update() {
+        cur += inc; if(cur>target) cur=target;
+        el.textContent = cur;
+        if(cur < target) requestAnimationFrame(update);
+      }
+      update();
     });
-
-    // reveal-on-scroll for sections (fade in AND fade out)
-    document.querySelectorAll('.reveal').forEach(el => {
+    // reveal-on-scroll for sections
+    document.querySelectorAll('section, .testimonial-section').forEach(el => {
       new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -228,30 +346,24 @@
             e.target.classList.remove('visible');
           }
         });
-      }, { threshold: 0.15 }).observe(el);
+      }, { threshold: 0.13 }).observe(el);
     });
-
-    // show/hide contact bar ONLY when bottom of page is reached
-    const contactBar = document.getElementById('contact-bar');
-    const scrollEnd = document.getElementById('scroll-end');
-    new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          contactBar.classList.add('show');
-        } else {
-          contactBar.classList.remove('show');
-        }
-      });
-    }, { threshold: 0.7 }).observe(scrollEnd);
-
-    // reinforce video looping
-    const bgVideo = document.getElementById('bg-video');
-    bgVideo.addEventListener('ended', () => {
-      bgVideo.currentTime = 0;
-      bgVideo.play();
+    // Nav link active highlight on scroll
+    const navLinks = document.querySelectorAll('.navbar a');
+    const sections = Array.from(document.querySelectorAll('.hero-section, .site-section section, .chart-section'));
+    window.addEventListener('scroll', () => {
+      let cur = sections[0];
+      for (const sec of sections) {
+        const top = sec.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.22) cur = sec;
+      }
+      navLinks.forEach(a => a.classList.remove('active'));
+      const id = cur.id || (cur.classList.contains('chart-section') ? 'comparisonChart' : '');
+      if (id) {
+        navLinks.forEach(a => { if (a.href.includes(id)) a.classList.add('active'); });
+      }
     });
-
-    // CHART CODE with CORS proxy + grid lines, NO border/outline
+    // CHART CODE
     const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
     async function fetchFRED(seriesId) {
       const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
@@ -285,9 +397,7 @@
         fetchFRED('CPIAUCSL'),
         fetchFRED('USSTHPI')
       ]);
-      if (!cpiRaw.length || !hpiRaw.length) {
-        return;
-      }
+      if (!cpiRaw.length || !hpiRaw.length) return;
       const cpi = normalize(cpiRaw);
       const hpi = normalize(hpiRaw);
       const years = cpi.map(d => d.year);
@@ -319,35 +429,20 @@
         options: {
           responsive: true,
           plugins: {
-            legend: { labels: { color: '#fff' } },
+            legend: { labels: { color: '#222' } },
             tooltip: { mode: 'index', intersect: false }
           },
           layout: { padding: 0 },
-          elements: {
-            line: { borderWidth: 3 },
-            point: { radius: 2 }
-          },
+          elements: { line: { borderWidth: 3 }, point: { radius: 2 }},
           scales: {
             x: {
-              ticks: { color: '#fff' },
-              grid: {
-                color: 'rgba(180,180,180,0.12)',
-                display: true,
-                drawBorder: false
-              }
+              ticks: { color: '#444' },
+              grid: { color: 'rgba(120,120,120,0.11)', display: true, drawBorder: false }
             },
             y: {
-              title: {
-                display: true,
-                text: 'Index (Normalized to 1990)',
-                color: '#fff'
-              },
-              ticks: { color: '#fff' },
-              grid: {
-                color: 'rgba(180,180,180,0.12)',
-                display: true,
-                drawBorder: false
-              }
+              title: { display: true, text: 'Index (Normalized to 1990)', color: '#444' },
+              ticks: { color: '#444' },
+              grid: { color: 'rgba(120,120,120,0.09)', display: true, drawBorder: false }
             }
           }
         }
