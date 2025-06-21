@@ -64,13 +64,11 @@
       padding:2rem;
       border-radius:8px;
       margin-bottom:3rem;
-      opacity:0;
-      transform: translateY(20px);
+      opacity:0; transform: translateY(20px);
       transition: opacity .6s ease, transform .6s ease;
     }
     section.visible {
-      opacity:1;
-      transform: translateY(0);
+      opacity:1; transform: translateY(0);
     }
     section h3 { font-size:1.5rem; margin-bottom:1rem; }
     section p, section ul li { color: var(--text-light); line-height:1.5; }
@@ -137,7 +135,7 @@
 
   <!-- Background Video -->
   <video id="bg-video" autoplay muted loop playsinline>
-    <source src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4" type="video/mp4">
+    <source src="13382270-uhd_2560_1440_24fps.mp4" type="video/mp4">
   </video>
 
   <!-- Starfield Overlay -->
@@ -174,7 +172,7 @@
 
   <footer>&copy; 2025 Recompound Strategy. All rights reserved.</footer>
 
-  <!-- scroll-in contact bar -->
+  <!-- scroll-direction contact bar -->
   <div id="contact-bar">
     <span>📧 info@recompoundstrategy.com</span>
     <a href="https://instagram.com/recompound_strategy" target="_blank">Follow @recompound_strategy</a>
@@ -196,31 +194,37 @@
       });
     });
 
-    // reveal-in-and-out on scroll
-    document.querySelectorAll('.reveal').forEach(el => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          } else {
-            entry.target.classList.remove('visible');
+    // reveal-on-scroll
+    document.querySelectorAll('.reveal').forEach(el=>{
+      new IntersectionObserver((entries, obs)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
           }
         });
-      }, {
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
-      });
-      observer.observe(el);
+      },{threshold:0.15}).observe(el);
     });
 
-    // show contact bar at 75% scroll
+    // show contact bar when SCROLLING UP past 75%
     const bar = document.getElementById('contact-bar');
-    window.addEventListener('scroll', ()=> {
-      const triggerPoint = document.body.scrollHeight * 0.75;
-      if (window.scrollY + window.innerHeight > triggerPoint) {
-        bar.classList.add('show');
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', ()=>{
+      const currentY = window.scrollY;
+      const trigger = document.body.scrollHeight * 0.75;
+
+      if (currentY > trigger) {
+        if (currentY < lastY) {
+          // scrolling UP
+          bar.classList.add('show');
+        } else {
+          // scrolling DOWN
+          bar.classList.remove('show');
+        }
       } else {
         bar.classList.remove('show');
       }
+      lastY = currentY;
     });
   </script>
 </body>
