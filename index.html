@@ -24,23 +24,23 @@
       --max-width: 1100px;
     }
     html, body {
-    background: #111;
-    color: var(--text-dark);
-    font-family: 'Inter', sans-serif;
-    margin: 0; padding: 0;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
+      background: #000;
+      color: var(--text-dark);
+      font-family: 'Inter', sans-serif;
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
     .navbar {
-    position: fixed; top: 0; left: 0; width: 100vw;
-    background: linear-gradient(120deg, #11131a 0%, #1a2234 55%, #223259 80%, #245cf4 100%);
-    background-size: 200% 200%;
-    animation: gradientMove 8s ease-in-out infinite;
-    z-index: 100; padding: 0.5rem 0;
-    box-shadow: 0 3px 24px 0 rgba(0,0,0,0.20);
-    border-bottom: 1.5px solid #23242b;
-    transition: box-shadow 0.2s;
-}
+      position: fixed; top: 0; left: 0; width: 100vw;
+      background: linear-gradient(120deg, #11131a 0%, #1a2234 55%, #223259 80%, #245cf4 100%);
+      background-size: 200% 200%;
+      animation: gradientMove 8s ease-in-out infinite;
+      z-index: 100; padding: 0.5rem 0;
+      box-shadow: 0 3px 24px 0 rgba(0,0,0,0.20);
+      border-bottom: 1.5px solid #23242b;
+      transition: box-shadow 0.2s;
+    }
     .nav-content {
       max-width: var(--max-width);
       margin: 0 auto; display: flex;
@@ -62,34 +62,34 @@
       .navbar ul { gap: 1.1rem; }
     }
     .hero-section {
-  width: 100vw;
-  min-height: 540px;
-  background: #000;         /* Pure black (or use #000 for even darker) */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding-top: 6.7rem;
-  padding-bottom: 4.5rem;
-  color: #fff;
-}
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+      width: 100vw;
+      min-height: 540px;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding-top: 6.7rem;
+      padding-bottom: 4.5rem;
+      color: #fff;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     .hero-section .logo {
-  width: 155px;              /* Try 145px or 150px for a subtle increase */
-  margin: 2.2rem auto 2.2rem; /* Optionally increase margin for balance */
-  display: block;
-  border-radius: 18px;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
+      width: 155px;
+      margin: 2.2rem auto 2.2rem;
+      display: block;
+      border-radius: 18px;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
     .hero-section h1 {
       font-size:3.2rem; font-weight: 800; margin-bottom:.55rem;
       background: linear-gradient(90deg,#4faaff 20%,#fff 100%);
@@ -106,39 +106,33 @@
       to { opacity: 1; transform: translateY(0);}
     }
     .hero-btn {
-  display: inline-block;
-  margin: 1.9rem auto 1.5rem auto;
-  padding: 1.12rem 2.85rem;
-  border-radius: 40px;
-  font-size: 1.18rem;
-  font-weight: 700;
-  background: linear-gradient(90deg,#4faaff 40%,#3052e6 100%);
-  color: #fff;
-  text-decoration: none;
-  transition: background .3s, color .2s, transform .2s;
-  box-shadow: 0 3px 18px 0 #277bfa19;
-  border: none;
-  letter-spacing: .08em;
-  outline: none;
-}
-.hero-btn:hover, .contact-btn:hover {
-  background: linear-gradient(90deg,#3052e6 10%,#4faaff 90%);
-  box-shadow: 0 10px 26px 0 #4faaff33;
-  transform: scale(1.05);
-  color: #fff;
-  text-decoration: none;
-}
+      display: inline-block;
+      margin: 1.9rem auto 1.5rem auto;
+      padding: 1.12rem 2.85rem;
+      border-radius: 40px;
+      font-size: 1.18rem;
+      font-weight: 700;
+      background: linear-gradient(90deg,#4faaff 40%,#3052e6 100%);
+      color: #fff;
+      text-decoration: none;
+      transition: background .3s, color .2s, transform .2s;
+      box-shadow: 0 3px 18px 0 #277bfa19;
+      border: none;
+      letter-spacing: .08em;
+      outline: none;
+    }
+    .hero-btn:hover, .contact-btn:hover {
+      background: linear-gradient(90deg,#3052e6 10%,#4faaff 90%);
+      box-shadow: 0 10px 26px 0 #4faaff33;
+      transform: scale(1.05);
+      color: #fff;
+      text-decoration: none;
+    }
     .accent-bar, footer {
-  background: linear-gradient(120deg, #11131a 0%, #1a2234 55%, #223259 80%, #245cf4 100%);
-  background-size: 200% 200%;
-  animation: gradientMove 8s ease-in-out infinite;
-}
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
+      background: linear-gradient(120deg, #11131a 0%, #1a2234 55%, #223259 80%, #245cf4 100%);
+      background-size: 200% 200%;
+      animation: gradientMove 8s ease-in-out infinite;
+    }
     .kpi-row {
       display: flex; justify-content: center; gap: 2.5rem; margin: 2.3rem 0 0.8rem;
       flex-wrap: wrap;
@@ -320,19 +314,19 @@
     }
     .chart-section { margin-bottom: 0; }
     footer {
-  width: 100vw;
-  background: linear-gradient(120deg, #11131a 0%, #1a2234 50%, #223259 70%, #245cf4 100%);
-  background-size: 200% 200%;
-  animation: gradientMove 8s ease-in-out infinite;
-  text-align: center;
-  padding: 2.2rem 1rem 1.4rem 1rem;
-  font-size: 1.07rem;
-  color: var(--footer-text);
-  border-radius: 0;
-  margin: 0;
-  box-shadow: none;
-  letter-spacing: 0.01em;
-}
+      width: 100vw;
+      background: linear-gradient(120deg, #11131a 0%, #1a2234 50%, #223259 70%, #245cf4 100%);
+      background-size: 200% 200%;
+      animation: gradientMove 8s ease-in-out infinite;
+      text-align: center;
+      padding: 2.2rem 1rem 1.4rem 1rem;
+      font-size: 1.07rem;
+      color: var(--footer-text);
+      border-radius: 0;
+      margin: 0;
+      box-shadow: none;
+      letter-spacing: 0.01em;
+    }
     .footer-row { 
       display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.4rem; margin: 0 auto; max-width: 900px;
     }
@@ -354,6 +348,16 @@
       background:#4faaff;box-shadow:0 2px 11px #3052e644;
       color:#fff;font-size:1.35rem;cursor:pointer;display:none;transition:opacity 0.18s;
     }
+    /* FADE IN EFFECT */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s cubic-bezier(.7,.2,.2,1), transform 1.2s cubic-bezier(.7,.2,.2,1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -371,13 +375,12 @@
     </div>
   </nav>
   <section class="hero-section" id="home">
-    <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo">
-    <h1>Recompound Strategy</h1>
-    <h2>Where Capital Becomes Ownership<br>And Ownership Becomes Freedom</h2>
-    <a class="hero-btn" href="#contact-bottom">Contact Us</a>
-    <div class="kpi-row">
+    <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo fade-in">
+    <h1 class="fade-in">Recompound Strategy</h1>
+    <h2 class="fade-in">Where Capital Becomes Ownership<br>And Ownership Becomes Freedom</h2>
+    <a class="hero-btn fade-in" href="#contact-bottom">Contact Us</a>
+    <div class="kpi-row fade-in">
       <div class="kpi-card">
-        <!-- You can use an SVG icon here if you want -->
         <span class="kpi-number" data-to="34"></span>
         <span class="kpi-label">Years of Data</span>
       </div>
@@ -390,7 +393,7 @@
         <span class="kpi-label">CPI Inflation</span>
       </div>
     </div>
-    <p style="color:#aeeaff; font-weight:600; margin-top:1rem;">
+    <p class="fade-in" style="color:#aeeaff; font-weight:600; margin-top:1rem;">
       Start compounding today — even with limited capital.
     </p>
   </section>
@@ -528,7 +531,16 @@
     });
     document.getElementById('backToTop').onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
 
-    // CHART CODE
+    // FADE IN HERO ELEMENTS ON LOAD
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelectorAll('.fade-in').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), 150 + i * 110);
+        });
+      }, 100);
+    });
+
+    // CHART CODE (keep as is)
     const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
     async function fetchFRED(seriesId) {
       const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
