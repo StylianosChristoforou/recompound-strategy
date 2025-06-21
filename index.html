@@ -42,10 +42,24 @@
       transition: box-shadow 0.2s;
     }
     .nav-content {
-      max-width: var(--max-width);
-      margin: 0 auto; display: flex;
-      align-items: center; justify-content: space-between; padding: 0 2rem;
-    }
+  max-width: var(--max-width);
+  margin: 0 auto; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  gap: 1.6rem;
+  padding: 0 2rem;
+}
+    .nav-logo-hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.nav-logo-show {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.25s;
+}
     .nav-logo { height: 44px; border-radius: 8px; }
     .navbar ul { list-style: none; display: flex; gap: 2.3rem; margin: 0; }
     .navbar a {
@@ -363,7 +377,7 @@
 <body>
   <nav class="navbar">
     <div class="nav-content">
-      <img src="logo.jpg" class="nav-logo" alt="Logo" />
+      <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
       <ul>
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#mission">Mission</a></li>
@@ -626,6 +640,20 @@
       });
     }
     window.addEventListener('DOMContentLoaded', renderChart);
+    // LOGO SHOW/HIDE ON SCROLL
+window.addEventListener('scroll', function() {
+  var navLogo = document.querySelector('.nav-logo');
+  var heroSection = document.getElementById('home');
+  var heroBottom = heroSection.getBoundingClientRect().bottom;
+  if (heroBottom <= 80) {
+    navLogo.classList.remove('nav-logo-hide');
+    navLogo.classList.add('nav-logo-show');
+  } else {
+    navLogo.classList.remove('nav-logo-show');
+    navLogo.classList.add('nav-logo-hide');
+  }
+});
+
   </script>
 </body>
 </html>
