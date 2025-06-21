@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -64,11 +64,13 @@
       padding:2rem;
       border-radius:8px;
       margin-bottom:3rem;
-      opacity:0; transform: translateY(20px);
+      opacity:0;
+      transform: translateY(20px);
       transition: opacity .6s ease, transform .6s ease;
     }
     section.visible {
-      opacity:1; transform: translateY(0);
+      opacity:1;
+      transform: translateY(0);
     }
     section h3 { font-size:1.5rem; margin-bottom:1rem; }
     section p, section ul li { color: var(--text-light); line-height:1.5; }
@@ -135,10 +137,7 @@
 
   <!-- Background Video -->
   <video id="bg-video" autoplay muted loop playsinline>
-    <source 
-      src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4" 
-      type="video/mp4"
-    >
+    <source src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4" type="video/mp4">
   </video>
 
   <!-- Starfield Overlay -->
@@ -153,15 +152,14 @@
   <main>
     <section class="reveal">
       <h3>Core Belief</h3>
-      <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth you need momentum!</p>
+      <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth—you need momentum!</p>
       <p>Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets.</p>
     </section>
 
     <section class="reveal">
       <h3>Vision</h3>
       <ul>
-        <p>I’m applying the timeless principles of Warren Buffett but in real estate.</p>
-        <li>Long term ownership</li>
+        <li>Long-term ownership</li>
         <li>Monthly income</li>
         <li>Relentless reinvestment</li>
       </ul>
@@ -170,7 +168,7 @@
 
     <section class="reveal">
       <h3>About</h3>
-      <p>I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.</p>
+      <p>I’m not a Real Estate “Guru.” I’m a strategist who started from zero and built a compounding engine powered by real estate.</p>
     </section>
   </main>
 
@@ -184,7 +182,7 @@
 
   <script>
     // tsParticles starfield
-    window.addEventListener('load', ()=>{  
+    window.addEventListener('load', ()=> {
       tsParticles.load("tsparticles", {
         fpsLimit:60,
         particles:{
@@ -198,23 +196,27 @@
       });
     });
 
-    // reveal-on-scroll
-    document.querySelectorAll('.reveal').forEach(el=>{
-      new IntersectionObserver((entries, obs)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
+    // reveal-in-and-out on scroll
+    document.querySelectorAll('.reveal').forEach(el => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
           }
         });
-      },{threshold:0.15}).observe(el);
+      }, {
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
+      });
+      observer.observe(el);
     });
 
     // show contact bar at 75% scroll
     const bar = document.getElementById('contact-bar');
-    window.addEventListener('scroll', ()=>{
+    window.addEventListener('scroll', ()=> {
       const triggerPoint = document.body.scrollHeight * 0.75;
-      if(window.scrollY + window.innerHeight > triggerPoint) {
+      if (window.scrollY + window.innerHeight > triggerPoint) {
         bar.classList.add('show');
       } else {
         bar.classList.remove('show');
