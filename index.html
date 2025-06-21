@@ -62,15 +62,24 @@
 }
     .nav-logo { height: 44px; border-radius: 8px; }
     .navbar ul { list-style: none; display: flex; gap: 2.3rem; margin: 0; }
-    .navbar a {
-      color: #fff; text-decoration: none; font-weight: 700;
-      font-size: 1rem; transition: color .18s;
-      letter-spacing: .02em; padding-bottom: 2px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.18s, border-bottom 0.18s;
-    }
-    .navbar a.active { color: var(--accent); border-bottom: 2px solid var(--accent);}
-    .navbar a:hover { color: var(--accent2);}
+    .nav-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: color .18s;
+  letter-spacing: .02em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.18s, border-bottom 0.18s;
+}
+.nav-menu a.active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+.nav-menu a:hover {
+  color: var(--accent2);
+}
     @media (max-width: 700px) {
       .nav-content { flex-direction: column; gap: 0.7rem; padding: 0 1rem;}
       .navbar ul { gap: 1.1rem; }
@@ -378,8 +387,8 @@
   <nav class="navbar">
     <div class="nav-content">
       <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
-      <ul>
-        <li><a href="#home" class="active">Home</a></li>
+      <ul class="nav-menu">
+  <li><a href="#home" class="active">Home</a></li>
         <li><a href="#mission">Mission</a></li>
         <li><a href="#vision">Vision</a></li>
         <li><a href="#comparisonChartSection">Chart</a></li>
