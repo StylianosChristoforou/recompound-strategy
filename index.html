@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Recompound Strategy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js" defer></script>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
@@ -13,7 +16,8 @@
       --accent: #4faaff;
       --accent2: #ff5c5c;
       --text-light: #fff;
-      --card-bg: rgba(0,0,0,0.6);
+      --card-bg: rgba(0,0,0,0.15);  /* ultra transparent */
+      --chart-bg: rgba(0,0,0,0.13); /* chart block even more transparent */
       --transition: .3s ease;
       --video-brightness: 0.6;
       --video-contrast: 1.1;
@@ -27,7 +31,6 @@
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
-      background-color: #000;
     }
     #bg-video {
       position: fixed;
@@ -56,10 +59,6 @@
       margin-bottom:3rem;
       opacity:0; transform: translateY(20px);
       transition: opacity .6s ease, transform .6s ease;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
     }
     section.visible {
       opacity:1; transform: translateY(0);
@@ -88,7 +87,7 @@
     }
     .btn:hover { background:var(--accent2); }
     .chart-section {
-      background: var(--card-bg);
+      background: var(--chart-bg);
       padding: 2rem;
       border-radius: 8px;
       margin-bottom: 3rem;
@@ -105,12 +104,13 @@
     }
     canvas {
       max-width: 100%;
-      background: #1a1a1a;
-      border: 2px solid #333;
-      border-radius: 12px;
-      padding: 1rem;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
       margin: 2rem auto 1rem;
       display: block;
+      background: transparent !important;
+      box-shadow: none !important;
     }
     footer {
       text-align:center;
@@ -147,7 +147,16 @@
   </style>
 </head>
 <body>
-  <video id="bg-video" autoplay muted loop playsinline src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4"></video>
+  <!-- Background Video -->
+  <video
+    id="bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    src="https://videos.pexels.com/video-files/13382270/13382270-uhd_2560_1440_24fps.mp4"
+  ></video>
+  <!-- Starfield Overlay -->
   <div id="tsparticles"></div>
 
   <header>
@@ -158,32 +167,28 @@
 
   <main>
     <section class="reveal">
-      <h3>Let’s Talk Strategy</h3>
-      <p>What if you stopped saving money and started owning assets that outpace inflation?<br>
-      This chart shows the compounding power of real estate versus holding cash.<br>
-      Every year you delay, inflation silently erodes your future.</p>
-      <p style="color: var(--accent); font-weight: 600;">Recompound is the strategy. Ownership is the defense. Growth is the outcome.</p>
-    </section>
-    <section class="reveal">
       <h3>Core Belief</h3>
       <p><strong>Recompound Strategy</strong> is built on one core belief: You don’t need millions to build wealth you need momentum!</p>
       <p>Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets.</p>
     </section>
+
     <section class="reveal">
       <h3>Vision</h3>
       <ul>
+      <p>I’m applying the timeless principles of Warren Buffett but in real estate.<p>
         <li>Long term ownership</li>
         <li>Monthly income</li>
         <li>Relentless reinvestment</li>
       </ul>
       <p>While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.</p>
     </section>
+
     <section id="about-section" class="reveal">
       <h3>About</h3>
       <p>I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.</p>
     </section>
 
-    <!-- CHART IS NOW AT THE BOTTOM -->
+    <!-- CHART AT THE VERY BOTTOM -->
     <section class="chart-section">
       <h3>Inflation vs Real Estate (Live, 1990–Now)</h3>
       <p style="color: #ccc; font-size: 1rem; margin-bottom: 0.5rem;">Live data: CPI Inflation vs Real Estate HPI (1990–Today)</p>
@@ -198,6 +203,7 @@
   </div>
 
   <script>
+    // tsParticles starfield
     tsParticles.load("tsparticles", {
       fpsLimit:60,
       particles:{
@@ -210,6 +216,7 @@
       detectRetina:true
     });
 
+    // reveal-on-scroll for sections
     document.querySelectorAll('.reveal').forEach(el => {
       new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
@@ -221,6 +228,7 @@
       }, { threshold: 0.15 }).observe(el);
     });
 
+    // show/hide contact bar when "About" enters/exits viewport
     const contactBar = document.getElementById('contact-bar');
     const aboutSection = document.getElementById('about-section');
     new IntersectionObserver((entries) => {
@@ -233,20 +241,21 @@
       });
     }, { threshold: 0.5 }).observe(aboutSection);
 
+    // reinforce video looping
     const bgVideo = document.getElementById('bg-video');
     bgVideo.addEventListener('ended', () => {
       bgVideo.currentTime = 0;
       bgVideo.play();
     });
 
-    // LIVE CHART LOGIC
+    // CHART CODE with CORS proxy + grid lines, NO border/outline
     const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
-
     async function fetchFRED(seriesId) {
-      const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
+      const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
+      const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
       const res = await fetch(url);
       if (!res.ok) {
-        alert('Failed to fetch data from FRED. Try running from http(s) or a web server, not file://');
+        alert('Failed to fetch data from FRED via CORS proxy.');
         return [];
       }
       const raw = await res.text();
@@ -261,7 +270,6 @@
         return [];
       }
     }
-
     function normalize(data, base = 100) {
       const baseVal = data[0]?.value || 1;
       return data.map(d => ({
@@ -269,7 +277,6 @@
         value: +(base * (d.value / baseVal)).toFixed(2)
       }));
     }
-
     async function renderChart() {
       const [cpiRaw, hpiRaw] = await Promise.all([
         fetchFRED('CPIAUCSL'),
@@ -312,21 +319,37 @@
             legend: { labels: { color: '#fff' } },
             tooltip: { mode: 'index', intersect: false }
           },
+          layout: { padding: 0 },
+          elements: {
+            line: { borderWidth: 3 },
+            point: { radius: 2 }
+          },
           scales: {
-            x: { ticks: { color: '#fff' } },
+            x: {
+              ticks: { color: '#fff' },
+              grid: {
+                color: 'rgba(180,180,180,0.12)',
+                display: true,
+                drawBorder: false   // REMOVE axis line
+              }
+            },
             y: {
               title: {
                 display: true,
                 text: 'Index (Normalized to 1990)',
                 color: '#fff'
               },
-              ticks: { color: '#fff' }
+              ticks: { color: '#fff' },
+              grid: {
+                color: 'rgba(180,180,180,0.12)',
+                display: true,
+                drawBorder: false   // REMOVE axis line
+              }
             }
           }
         }
       });
     }
-
     window.addEventListener('DOMContentLoaded', renderChart);
   </script>
 </body>
