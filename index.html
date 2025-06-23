@@ -882,6 +882,57 @@ body, html {
     padding-top: 3.5rem !important;
   }
 }
+/* Always hide nav-menu by default */
+.nav-menu {
+  display: none;
+}
+
+/* Desktop: show menu, hide burger */
+@media (min-width: 701px) {
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row;
+    position: static;
+    background: none;
+    box-shadow: none;
+    width: auto;
+    padding: 0;
+    gap: 2.3rem;
+  }
+  .burger {
+    display: none !important;
+  }
+}
+
+/* Mobile: burger shows, menu overlays */
+@media (max-width: 700px) {
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 58px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
+    box-shadow: 0 8px 20px #0008;
+    z-index: 1002;
+    padding: 1rem 0;
+  }
+  .nav-menu.open {
+    display: flex !important;
+  }
+  .burger {
+    display: block !important;
+    position: absolute;
+    top: 8px;
+    right: 18px;
+    font-size: 2.1rem;
+    background: none;
+    border: none;
+    color: #fff;
+    z-index: 2001;
+  }
+}
 
   </style>
 </head>
@@ -1410,7 +1461,6 @@ function adjustNewsPadding() {
   const burger = document.getElementById('burgerBtn');
   const navMenu = document.getElementById('mainNavMenu');
 
-  // Open/close on burger click
   burger.addEventListener('click', function(e) {
     navMenu.classList.toggle('open');
     burger.classList.toggle('active');
@@ -1427,7 +1477,7 @@ function adjustNewsPadding() {
 
   // Click outside closes menu (mobile only)
   document.addEventListener('click', function(e){
-    if(window.innerWidth > 700) return; // only mobile
+    if(window.innerWidth > 700) return;
     if(navMenu.classList.contains('open')) {
       if(!navMenu.contains(e.target) && e.target !== burger) {
         navMenu.classList.remove('open');
@@ -1436,13 +1486,20 @@ function adjustNewsPadding() {
     }
   });
 
-  // On window resize, hide burger menu if desktop
+  // On resize, hide menu if desktop
   window.addEventListener('resize', () => {
     if(window.innerWidth > 700) {
       navMenu.classList.remove('open');
       burger.classList.remove('active');
     }
   });
+
+  // On page load, always close menu
+  window.addEventListener('DOMContentLoaded', () => {
+    navMenu.classList.remove('open');
+    burger.classList.remove('active');
+  });
 </script>
+
 </body>
 </html>
