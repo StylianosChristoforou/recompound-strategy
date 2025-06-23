@@ -1409,17 +1409,40 @@ function adjustNewsPadding() {
   // Burger menu toggle for mobile
   const burger = document.getElementById('burgerBtn');
   const navMenu = document.getElementById('mainNavMenu');
-  burger.addEventListener('click', function() {
+
+  // Open/close on burger click
+  burger.addEventListener('click', function(e) {
     navMenu.classList.toggle('open');
+    burger.classList.toggle('active');
+    e.stopPropagation();
   });
 
   // Close menu on link click (mobile only)
   document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', () => {
       if(window.innerWidth <= 700) navMenu.classList.remove('open');
+      burger.classList.remove('active');
     });
   });
-</script>
 
+  // Click outside closes menu (mobile only)
+  document.addEventListener('click', function(e){
+    if(window.innerWidth > 700) return; // only mobile
+    if(navMenu.classList.contains('open')) {
+      if(!navMenu.contains(e.target) && e.target !== burger) {
+        navMenu.classList.remove('open');
+        burger.classList.remove('active');
+      }
+    }
+  });
+
+  // On window resize, hide burger menu if desktop
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 700) {
+      navMenu.classList.remove('open');
+      burger.classList.remove('active');
+    }
+  });
+</script>
 </body>
 </html>
