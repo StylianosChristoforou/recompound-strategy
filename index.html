@@ -792,7 +792,7 @@ body, html {
   .nav-menu {
     display: none; /* Hide menu by default */
     position: absolute;
-    top: 58px;
+    top: 56px;    /* Lower a bit if needed, or adjust as you like */
     right: 0;
     left: 0;
     background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
@@ -809,20 +809,32 @@ body, html {
     width: 100%;
     text-align: center;
     margin: 0;
-    padding: 0.75rem 0;
+    padding: 0.17rem 0; /* Tighter vertical gap */
+  }
+  .nav-menu a, .nav-cta {
+    font-size: 1.08rem;
+    padding: 0.28rem 0;
   }
   .burger {
-    display: block;
-    cursor: pointer;
-    z-index: 2001;
-    padding: 0.5rem 1rem;
+    display: block !important;
+    position: absolute;
+    top: 0.17rem;   /* Move burger up */
+    right: 16px;    /* Move closer to edge */
+    font-size: 2.25rem;
     background: none;
     border: none;
     color: #fff;
-    font-size: 2.1rem;
-    margin-right: 0.5rem;
+    z-index: 2001;
+    margin: 0;
+    padding: 0.10rem 1rem 0.1rem 1rem; /* Good tap area */
+  }
+  .nav-logo {
+    flex: 0 0 auto;
   }
 }
+
+
+
 @media (max-width: 600px) {
   .hero-section {
     padding-top: 5.3rem !important;
@@ -889,13 +901,71 @@ body, html {
   .burger {
     display: block !important;
     position: absolute;
-    top: 8px;
+    top: 0;
     right: 18px;
     font-size: 2.1rem;
     background: none;
     border: none;
     color: #fff;
     z-index: 2001;
+  }
+}
+@media (max-width: 700px) {
+  .nav-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
+  .nav-center {
+    position: static;
+    transform: none;
+    gap: 0.7rem;
+    width: auto;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 52px; /* Ensures menu sits right below the navbar */
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
+    box-shadow: 0 8px 20px #0008;
+    z-index: 1002;
+    padding: 1rem 0;
+    gap: 0;
+  }
+  .nav-menu.open {
+    display: flex !important;
+  }
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0.17rem 0;
+  }
+  .nav-menu a, .nav-cta {
+    font-size: 1.07rem;
+    padding: 0.3rem 0;
+  }
+  .burger {
+    display: block !important;
+    position: absolute;
+    top: 0.12rem;
+    right: 16px;
+    font-size: 2.18rem;
+    background: none;
+    border: none;
+    color: #fff;
+    z-index: 2001;
+    margin: 0;
+    padding: 0.07rem 1rem 0.07rem 1rem;
+  }
+  .nav-logo {
+    flex: 0 0 auto;
   }
 }
 
