@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- UPDATED VIEWPORT META FOR iPHONE SAFE AREA SUPPORT -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Recompound Strategy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
@@ -13,6 +12,10 @@
   <meta name="description" content="Recompound Strategy is a mission-driven platform proving you can build wealth from zero through ownership and reinvestment.">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    html {
+  scroll-behavior: smooth;
+}
+
     :root {
       --accent: #4faaff;
       --accent2: #3052e6;
@@ -24,8 +27,68 @@
       --footer-text: #fff;
       --max-width: 1100px;
     }
+    /* --- PREMIUM GLASSMORPHISM --- */
+    .glass {
+      background: rgba(34, 44, 68, 0.45);
+      border-radius: 18px;
+      box-shadow: 0 6px 32px 0 #4faaff2c, 0 1.5px 12px #fff2;
+      backdrop-filter: blur(14px) brightness(1.13);
+      border: 1.8px solid #277bfa26;
+      transition: box-shadow 0.3s, border-color 0.18s, transform 0.13s;
+    }
+    .glass:hover {
+      box-shadow: 0 10px 36px 0 #4faaff4a, 0 2px 18px #fff2;
+      border-color: #4faaff57;
+      transform: scale(1.04);
+      z-index: 3;
+    }
+    /* --- ANIMATED FADE UP ON SCROLL --- */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.9s cubic-bezier(.7,.2,.2,1), transform 0.9s cubic-bezier(.7,.2,.2,1);
+    }
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* --- KPI COUNTER BLINK --- */
+    .kpi-number.animated {
+      animation: kpi-pop 0.6s cubic-bezier(.7,.2,.2,1);
+    }
+    @keyframes kpi-pop {
+      0% { color: #fff; transform: scale(1.09);}
+      40% { color: var(--accent2); transform: scale(1.17);}
+      100% { color: var(--accent); transform: scale(1);}
+    }
+    /* --- PREMIUM BUTTON --- */
+    .premium-btn {
+      background: linear-gradient(93deg, #4faaff 20%, #3052e6 100%);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 50px;
+      padding: 1.13rem 2.8rem;
+      font-size: 1.18rem;
+      border: none;
+      outline: none;
+      box-shadow: 0 4px 18px #4faaff22;
+      transition: background 0.3s, box-shadow 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .premium-btn:hover {
+      background: linear-gradient(93deg, #3052e6 10%, #4faaff 90%);
+      box-shadow: 0 12px 32px #4faaff55;
+      transform: scale(1.05);
+    }
+    .floating-cta {
+      position: fixed;
+      bottom: 30px;
+      right: 24px;
+      z-index: 9999;
+      box-shadow: 0 2px 16px #4faaff1e;
+    }
     html, body {
-      background: #000;
+      background: #101522 !important;
       color: var(--text-dark);
       font-family: 'Inter', sans-serif;
       margin: 0; padding: 0;
@@ -37,23 +100,36 @@
     }
     .navbar {
       position: fixed; top: 0; left: 0; width: 100vw;
-      background: linear-gradient(120deg, #11131a 0%, #1a2234 55%, #223259 80%, #245cf4 100%);
+      background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
       background-size: 200% 200%;
-      animation: gradientMove 8s ease-in-out infinite;
+      animation: gradientMove 8s linear infinite;
       z-index: 100; padding: 0.5rem 0;
       box-shadow: 0 3px 24px 0 rgba(0,0,0,0.20);
       border-bottom: 1.5px solid #23242b;
       transition: box-shadow 0.2s;
     }
     .nav-content {
-      max-width: var(--max-width);
-      margin: 0 auto; 
-      display: flex;
-      align-items: center;
-      justify-content: center; 
-      gap: 1.6rem;
-      padding: 0 2rem;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* This fixes the spread! */
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  position: relative;
+}
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* NEW: vertically align nav-cta */
+  gap: 2.2rem;         /* NEW: space between nav-menu and Let's Talk */
+}
+
     .nav-logo-hide {
       opacity: 0;
       pointer-events: none;
@@ -64,26 +140,93 @@
       pointer-events: auto;
       transition: opacity 0.25s;
     }
+    .nav-menu {
+  display: flex;
+  gap: 2.3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-cta {
+  background: none !important;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-left: 2.2rem;
+  letter-spacing: .02em;
+  text-decoration: none;
+  border-bottom: 2px solid transparent !important;
+  transition: color 0.18s, border-bottom 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  box-shadow: none;
+  padding: 0 0 2px 0;
+}
+
+.nav-cta:hover,
+.nav-cta:focus {
+  color: var(--accent) !important;
+  border-bottom: 2px solid var(--accent) !important;
+  background: none !important;
+  box-shadow: none !important;
+  transform: scale(1.05);
+}
+.nav-menu a,
+.nav-cta {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  background: none !important;
+  transition:
+    color 0.18s,
+    border-bottom 0.18s,
+    transform 0.18s cubic-bezier(.7,.2,.2,1),
+    box-shadow 0.18s cubic-bezier(.7,.2,.2,1);
+  box-shadow: none !important;
+  display: inline-block;
+  padding: 0 0 2px 0;
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus,
+.nav-menu a.active,
+.nav-cta:hover,
+.nav-cta:focus {
+  color: var(--accent) !important;
+  border-bottom: 2px solid var(--accent) !important;
+  background: none !important;
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: none !important;
+}
+
+
     .nav-logo { height: 44px; border-radius: 8px; }
     .navbar ul { list-style: none; display: flex; gap: 2.3rem; margin: 0; padding: 0;}
     .nav-menu a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: color .18s;
-      letter-spacing: .02em;
-      padding-bottom: 2px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.18s, border-bottom 0.18s;
-    }
-    .nav-menu a.active {
-      color: var(--accent);
-      border-bottom: 2px solid var(--accent);
-    }
-    .nav-menu a:hover {
-      color: var(--accent2);
-    }
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .02em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.18s, border-bottom 0.18s;
+}
+.nav-menu a.active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
     .hero-section {
       width: 100vw;
       min-height: 540px;
@@ -105,14 +248,15 @@
       100% { background-position: 0% 50%; }
     }
     .hero-section .logo {
-      width: 155px;
-      margin: 2.2rem auto 2.2rem;
-      display: block;
-      border-radius: 18px;
-      background: transparent;
-      border: none;
-      padding: 0;
-    }
+  width: 155px;
+  margin: 1.2rem auto 0.8rem;
+  display: block;
+  border-radius: 18px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
     .hero-section h1 {
       font-size:3.2rem; font-weight: 800; margin-bottom:.55rem;
       background: linear-gradient(90deg,#4faaff 20%,#fff 100%);
@@ -202,7 +346,7 @@
     }
     .site-section, .site-section.alt {
       width: 100vw;
-      background: var(--section-white);
+      background: #101522;
       margin: 0;
       padding: 0;
       border-radius: 0;
@@ -214,9 +358,10 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 3.2rem 1.5rem 1.5rem 1.5rem;
+      
     }
     .site-section:not(:first-child) {
-      border-top: 1px solid #eaeaea;
+        /* border-top: 1px solid #eaeaea; */
     }
     .site-section h3 {
       font-size:2.09rem;
@@ -225,14 +370,7 @@
       font-weight: 800;
       letter-spacing: 0;
     }
-    .site-section p, .site-section ul li {
-      color: #252b3f; line-height:1.73; font-size:1.09rem;
-    }
     .site-section ul { margin-left:1.3rem; }
-    .site-section ul li {
-      position: relative; padding-left:0; margin-bottom:.4em; font-size:1.11rem; list-style-type: disc;
-      color: #16181e;
-    }
     .testimonial-section {
       margin: 2.6rem 0 2.7rem 0;
       text-align: center;
@@ -240,15 +378,15 @@
       border: none;
     }
     .testimonial-quote {
-      font-size: 1.39rem; color: #222; font-style: italic;
+      font-size: 1.39rem; color: #fff; font-style: italic;
       font-weight: 800; display: block; margin-bottom: 0.8rem;
       letter-spacing: 0;
     }
     .testimonial-author { color: #3052e6; font-weight: 700; font-size: 1.08rem; }
     .chart-section {
       width: 100vw;
-      background: #f8fbff !important;
-      border-top: 1px solid #eaeaea;
+      background: #101522 !important;
+        /* border-top: 1px solid #eaeaea; */
       margin: 0;
       box-shadow: 0 2px 24px 0 #277bfa0d;
       display: block;
@@ -262,7 +400,6 @@
       background: transparent;
       position: relative;
     }
-    .chart-section h3 { color: #222c3a; font-weight:800;}
     .chart-section canvas {
       max-width: 100%;
       width: 100%;
@@ -272,7 +409,7 @@
     }
     .about-bottom {
       width: 100vw;
-      background: var(--section-gray);
+      background: #101522 !important;
       padding: 0;
       margin: 0;
     }
@@ -287,9 +424,6 @@
       color: var(--accent2);
       font-weight: 800;
       margin-bottom: 1.1rem;
-    }
-    .about-bottom-inner p {
-      color: #2a3451; font-size: 1.17rem; margin-bottom: 0.5rem;
     }
     .contact-btn {
       display: inline-block;
@@ -383,8 +517,8 @@
         justify-content: center;
       }
       .nav-logo {
-        margin-bottom: 0.4rem;
-      }
+  flex: 0 0 auto;
+}
     }
     @media (max-width: 600px) {
       html, body {
@@ -409,27 +543,306 @@
       .contact-btn, .whatsapp-btn { padding: 0.75rem 1.2rem; font-size: 1rem; }
       .footer-row { flex-direction: column; gap: 0.7rem;}
     }
+/* NEWS STRIP FIXED: perfect centering, snap, and always full width */
+.news-strip {
+  background: #111826;
+  border-bottom: 1px solid #23242b;
+  margin-bottom: 0 !important;
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+  z-index: 10;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+.news-strip-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  background: #111826;
+  position: relative;
+  z-index: 1;   
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+.news-header {
+  text-align: center;
+  font-weight: 800;
+  color: #4faaff;
+  font-size: 1.27rem;
+  letter-spacing: 0.01em;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  background: #111826;
+  position: relative;   
+  z-index: 2;   
+}
+.news-cards-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100vw;
+  max-width: 1200px;
+  scroll-behavior: smooth;
+  position: relative;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  /* Hide cut cards at the sides */
+  mask-image: linear-gradient(to right, transparent 0px, black 12px, black calc(100% - 12px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0px, black 12px, black calc(100% - 12px), transparent 100%);
+}
+@media (max-width: 1200px) {
+  .news-cards-viewport {
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
+}
+@media (max-width: 700px) {
+  .news-cards-viewport {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+.news-cards-viewport::-webkit-scrollbar {
+  display: none !important;
+}
+.news-cards a {
+  position: relative;
+  min-width: 340px;
+  max-width: 340px;
+  flex: 0 0 340px;
+  background: rgba(34,44,68,0.94);
+  border-radius: 13px;
+  padding: 17px 21px;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 2px 14px #4faaff18;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1.2px solid #27396e2c;
+  font-weight: 600;
+  font-size: 1rem;
+  word-break: break-word;
+  scroll-snap-align: center;
+  cursor: pointer;
+  transition: box-shadow .18s, border-color .18s, transform .14s;
+  scroll-snap-align: start;
+  z-index: 1;
+  transition: box-shadow .18s, border-color .18s, transform .14s, z-index .14s;
+}
+.news-cards a:hover {
+  transform: translateY(-12px) scale(1.06); /* more "pop" */
+  box-shadow: 0 6px 18px #4faaff66, 0 1px 10px #23242baa;
+  z-index: 1000;
+}
+
+.news-title {
+  font-weight: 800;
+  font-size: 1.12rem;
+  color: #fff;
+  margin-bottom: 3px;
+  margin-top: 10px;
+}
+.news-source {
+  font-size: .99rem;
+  opacity: .68;
+  margin-bottom: 6px;
+}
+.news-comment {
+  font-size: 0.98rem;
+  color: #4faaff;
+  margin-top: 7px;
+  font-style: italic;
+  opacity: 0.9;
+}
+.news-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  background: linear-gradient(90deg,#4faaff,#3052e6);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #3052e622;
+  margin-bottom: 24px;
+}
+.news-cards-viewport-outer {
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+@media (max-width: 1200px) {
+  .news-cards a {
+    min-width: 48vw;
+    max-width: 48vw;
+    flex: 0 0 48vw;
+  }
+}
+@media (max-width: 700px) {
+  .news-cards a {
+    min-width: 96vw;
+    max-width: 96vw;
+    flex: 0 0 96vw;
+  }
+}
+.news-cards {
+  display: flex;
+  gap: 26px;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-width: 100vw;
+  box-sizing: border-box;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+
+@media (max-width: 1200px) {
+  .news-cards-viewport { padding-left: 3vw; padding-right: 3vw; }
+}
+@media (max-width: 700px) {
+  .news-cards-viewport { padding-left: 2vw; padding-right: 2vw; }
+}
+.news-fade {
+  position: absolute;
+  top: 0;
+  width: 64px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+.news-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, #111826 92%, rgba(17,24,38,0));
+}
+.news-fade-right {
+  right: 0;
+  background: linear-gradient(-90deg, #111826 92%, rgba(17,24,38,0));
+}
+
+.news-arrow {
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  margin: 0 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.news-arrow:hover {
+  background: #3052e6;
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px #4faaff4a;
+}
+.news-arrow.left  { left: 0px; }
+.news-arrow.right { right: 0px; }
+@media (max-width: 700px) {
+  .news-arrow.left { left: 0px; }
+  .news-arrow.right { right: 0px; }
+}
+.news-arrow:active {
+  transform: scale(0.95);
+}
+body *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.site-section {
+  background: #181e2d !important;   /* Deep blue-gray */
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+.chart-section {
+  background: #151a27 !important;   /* Slightly bluer, premium */
+}
+.about-bottom {
+  background: #1a2235 !important;    /* Navy-black, slightly different */
+}
+
+.site-section p, .site-section ul li,
+.about-bottom-inner p,
+.chart-section h3,
+.site-section ul li {
+  color: #fff !important;
+}
+.about-bottom {
+  background: #101522 !important;
+}
+.site-section h3, .about-bottom-inner h3 {
+  color: var(--accent2) !important;
+}
+body, html {
+  background: #101522 !important;
+}
+.site-section h3,
+.about-bottom-inner h3,
+.testimonial-author {
+  color: #4faaff !important; 
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-content">
-      <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
-      <ul class="nav-menu">
+  <script>
+  // Prevent browser from restoring scroll position on reload
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  // Always scroll to top on load (covers mobile Safari and some edge cases)
+  window.addEventListener('load', function() {
+    window.scrollTo(0, 0);
+  });
+</script>
+
+<nav class="navbar">
+  <div class="nav-content">
+    <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
+    <div class="nav-center">
+      <ul class="nav-menu" id="mainNavMenu">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#mission">Mission</a></li>
         <li><a href="#vision">Vision</a></li>
         <li><a href="#comparisonChartSection">Chart</a></li>
         <li><a href="#about-bottom">About</a></li>
-        <li><a href="#contact-bottom">Contact</a></li>
+        <li><a href="#contact-bottom" class="nav-cta">Let's Talk</a></li>
       </ul>
+      
     </div>
-  </nav>
+  </div>
+</nav>
   <section class="hero-section" id="home">
     <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo fade-in">
     <h1 class="fade-in">Recompound Strategy</h1>
     <h2 class="fade-in">Where Capital Becomes Ownership<br>And Ownership Becomes Freedom</h2>
-    <a class="hero-btn fade-in" href="#contact-bottom">Contact Us</a>
     <div class="kpi-row fade-in">
       <div class="kpi-card">
         <span class="kpi-number" data-to="34"></span>
@@ -448,6 +861,22 @@
       Start compounding today — even with limited capital.
     </p>
   </section>
+  <!-- News Strip Start -->
+<section class="news-strip">
+  <div class="news-header">Strategic Market Intel & Wealth Signals</div>
+<div class="news-strip-flex" style="position:relative;">
+  <div class="news-fade news-fade-left"></div>
+  <button class="news-arrow left" id="newsArrowLeft" aria-label="Previous">&#8592;</button>
+  <div class="news-cards-viewport-outer">
+    <div class="news-cards-viewport">
+      <div class="news-cards" id="news-cards"></div>
+    </div>
+  </div>
+  <button class="news-arrow right" id="newsArrowRight" aria-label="Next">&#8594;</button>
+  <div class="news-fade news-fade-right"></div>
+</div>
+</section>
+<!-- News Strip End -->
   <div class="accent-bar"></div>
   <!-- Main full-width sections -->
   <div class="site-section">
@@ -498,7 +927,7 @@
     <div class="chart-section-inner">
       <div class="chart-content-fade" id="chartContentFade">
         <h3>Inflation vs Real Estate (Live, 1990–Now)</h3>
-        <p style="color: #777; font-size: 1rem; margin-bottom: 0.5rem;">
+        <p style="color: #fff; font-size: 1rem; margin-bottom: 0.5rem;">
           Live data: CPI Inflation vs Real Estate HPI (1990–Today)
         </p>
         <canvas id="comparisonChart" height="400"></canvas>
@@ -507,20 +936,30 @@
   </section>
   <!-- ABOUT/PARTNER FULL WIDTH AT BOTTOM -->
   <div class="about-bottom" id="about-bottom">
-    <div class="about-bottom-inner">
-      <h3>About</h3>
-      <div class="section-divider"></div>
-      <p>
-        I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.
-      </p>
-      <h3>Partner With Me</h3>
-      <div class="section-divider"></div>
-      <p>
-        I’m open to strategic partnerships and joint investments.<br>
-        If you share a long term vision and value transparency, let’s connect.
-      </p>
-      <a href="#contact-bottom" class="contact-btn">Contact Me</a>
-      <a href="https://wa.me/35796318896" target="_blank" class="whatsapp-btn">WhatsApp Me</a>
+    <div class="about-bottom-inner glass-premium">
+      <div class="about-flex">
+        <!-- Left Side: About + Promise -->
+        <div class="about-left">
+          <h3>About</h3>
+          <div class="section-divider"></div>
+          <p>
+            I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.
+          </p>
+        </div>
+        <!-- Right Side: Partner -->
+        <div class="about-right">
+          <h3>Partner With Me</h3>
+          <div class="section-divider"></div>
+          <p>
+            I’m open to strategic partnerships and joint investments.<br>
+            If you share a long term vision and value transparency, let’s connect.
+          </p>
+          <div class="about-btn-row">
+            <a href="#contact-bottom" class="contact-btn">Contact Me</a>
+            <a href="https://wa.me/35796318896" target="_blank" class="whatsapp-btn">WhatsApp Me</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div id="contact-bottom"></div>
@@ -544,154 +983,354 @@
   </footer>
   <button id="backToTop" title="Back to top">↑</button>
   <script>
-    // Animated KPIs
-    document.querySelectorAll('.kpi-number').forEach(el => {
-      const target = +el.dataset.to;
-      let cur = 0;
-      const inc = Math.ceil(target/70);
-      const isPercent = el.classList.contains('percent');
-      function update() {
-        cur += inc; if(cur>target) cur=target;
-        el.textContent = isPercent ? `${cur}%` : cur;
-        if(cur < target) requestAnimationFrame(update);
-      }
-      update();
+  // --- Main site JS: everything except news strip ---
+  // scroll-fade reveal
+  window.addEventListener('scroll', function() {
+    document.querySelectorAll('.scroll-fade').forEach(function(el) {
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 80) el.classList.add('visible');
     });
+  });
+  window.dispatchEvent(new Event('scroll'));
 
-    // Nav link active highlight on scroll
-    const navLinks = Array.from(document.querySelectorAll('.navbar a'));
-    const sectionEls = [
-      document.getElementById('home'),
-      document.getElementById('mission'),
-      document.getElementById('vision'),
-      document.getElementById('comparisonChartSection'),
-      document.getElementById('about-bottom'),
-      document.getElementById('contact-bottom')
-    ];
-    window.addEventListener('scroll', () => {
-      let curIdx = 0;
-      for (let i = 0; i < sectionEls.length; i++) {
-        if (sectionEls[i]) {
-          const top = sectionEls[i].getBoundingClientRect().top;
-          if (top < window.innerHeight * 0.22) curIdx = i;
-        }
-      }
-      navLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
-      // Back to Top
-      document.getElementById('backToTop').style.display = window.scrollY > 350 ? 'block' : 'none';
-    });
-    document.getElementById('backToTop').onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
-
-    // FADE IN HERO ELEMENTS ON LOAD
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        document.querySelectorAll('.fade-in').forEach((el, i) => {
-          setTimeout(() => el.classList.add('visible'), 150 + i * 110);
-        });
-      }, 100);
-    });
-
-    // CHART CODE (keep as is)
-    const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
-    async function fetchFRED(seriesId) {
-      const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
-      const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
-      const res = await fetch(url);
-      if (!res.ok) {
-        alert('Failed to fetch data from FRED via CORS proxy.');
-        return [];
-      }
-      const raw = await res.text();
-      try {
-        const data = JSON.parse(raw);
-        return data.observations.map(obs => ({
-          year: new Date(obs.date).getFullYear(),
-          value: parseFloat(obs.value)
-        })).filter(x => !isNaN(x.value));
-      } catch (e) {
-        alert('Failed to parse FRED data! ' + e);
-        return [];
-      }
+  // Animated KPIs
+  document.querySelectorAll('.kpi-number').forEach(el => {
+    const target = +el.dataset.to;
+    let cur = 0;
+    const inc = Math.ceil(target/70);
+    const isPercent = el.classList.contains('percent');
+    function update() {
+      cur += inc; if(cur>target) cur=target;
+      el.textContent = isPercent ? `${cur}%` : cur;
+      el.classList.add('animated');
+      setTimeout(() => el.classList.remove('animated'), 600);
+      if(cur < target) requestAnimationFrame(update);
     }
-    function normalize(data, base = 100) {
-      const baseVal = data[0]?.value || 1;
-      return data.map(d => ({
-        year: d.year,
-        value: +(base * (d.value / baseVal)).toFixed(2)
-      }));
+    update();
+  });
+
+// --- Nav link proximity highlight (robust, one underline, distance limit) ---
+const navbar = document.querySelector('.navbar');
+const allNavLinks = Array.from(document.querySelectorAll('.nav-menu a'));
+
+const sectionEls = [
+  document.getElementById('home'),
+  document.getElementById('mission'),
+  document.getElementById('vision'),
+  document.getElementById('comparisonChartSection'),
+  document.getElementById('about-bottom')
+];
+
+let proximityActive = false;
+
+navbar.addEventListener('mousemove', function(e) {
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+  let closestIdx = -1;
+  let minDist = Infinity;
+  const maxDistance = 120;
+
+  allNavLinks.forEach((a, i) => {
+    const rect = a.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const dist = Math.sqrt((mouseX - centerX) ** 2 + (mouseY - centerY) ** 2);
+    if (dist < minDist) {
+      minDist = dist;
+      closestIdx = i;
     }
-    async function renderChart() {
-      const [cpiRaw, hpiRaw] = await Promise.all([
-        fetchFRED('CPIAUCSL'),
-        fetchFRED('USSTHPI')
-      ]);
-      if (!cpiRaw.length || !hpiRaw.length) return;
-      const cpi = normalize(cpiRaw);
-      const hpi = normalize(hpiRaw);
-      const years = cpi.map(d => d.year);
-      const cpiValues = cpi.map(d => d.value);
-      const hpiValues = hpi.map(d => d.value);
-      new Chart(document.getElementById('comparisonChart').getContext('2d'), {
-        type: 'line',
-        data: {
-          labels: years,
-          datasets: [
-            {
-              label: 'Inflation (CPI Index)',
-              data: cpiValues,
-              borderColor: '#ff5c5c',
-              backgroundColor: '#ff5c5c33',
-              fill: false,
-              tension: 0.3
-            },
-            {
-              label: 'Real Estate Value (HPI Index)',
-              data: hpiValues,
-              borderColor: '#4faaff',
-              backgroundColor: '#4faaff33',
-              fill: false,
-              tension: 0.3
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { labels: { color: '#222' } },
-            tooltip: { mode: 'index', intersect: false }
-          },
-          layout: { padding: 0 },
-          elements: { line: { borderWidth: 3 }, point: { radius: 2 }},
-          scales: {
-            x: {
-              ticks: { color: '#444' },
-              grid: { color: 'rgba(120,120,120,0.11)', display: true, drawBorder: false }
-            },
-            y: {
-              title: { display: true, text: 'Index (Normalized to 1990)', color: '#444' },
-              ticks: { color: '#444' },
-              grid: { color: 'rgba(120,120,120,0.09)', display: true, drawBorder: false }
-            }
-          }
-        }
+  });
+
+  if (minDist > maxDistance) {
+    allNavLinks.forEach(a => a.classList.remove('active'));
+    proximityActive = false;
+    return;
+  }
+
+  allNavLinks.forEach((a, i) => a.classList.toggle('active', i === closestIdx));
+  proximityActive = true;
+});
+
+navbar.addEventListener('mouseleave', function() {
+  proximityActive = false;
+  updateActiveNav();
+});
+
+allNavLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    allNavLinks.forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+    proximityActive = true;
+  });
+  link.addEventListener('mouseleave', () => {
+    proximityActive = false;
+    updateActiveNav();
+  });
+});
+
+function updateActiveNav() {
+  if (proximityActive) return;
+  let curIdx = 0;
+  for (let i = 0; i < sectionEls.length; i++) {
+    if (sectionEls[i]) {
+      const top = sectionEls[i].getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.22) curIdx = i;
+    }
+  }
+  allNavLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
+  document.getElementById('backToTop').style.display = window.scrollY > 350 ? 'block' : 'none';
+}
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('DOMContentLoaded', updateActiveNav);
+
+
+
+  document.getElementById('backToTop').onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
+
+  // FADE IN HERO ELEMENTS ON LOAD
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.querySelectorAll('.fade-in').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 150 + i * 110);
       });
-    }
-    window.addEventListener('DOMContentLoaded', renderChart);
+    }, 100);
+  });
 
-    // LOGO SHOW/HIDE ON SCROLL
-    window.addEventListener('scroll', function() {
-      var navLogo = document.querySelector('.nav-logo');
-      var heroSection = document.getElementById('home');
-      var heroBottom = heroSection.getBoundingClientRect().bottom;
-      if (heroBottom <= 80) {
-        navLogo.classList.remove('nav-logo-hide');
-        navLogo.classList.add('nav-logo-show');
-      } else {
-        navLogo.classList.remove('nav-logo-show');
-        navLogo.classList.add('nav-logo-hide');
+  // CHART CODE (keep as is)
+  const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
+  async function fetchFRED(seriesId) {
+    const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
+    const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
+    const res = await fetch(url);
+    if (!res.ok) {
+      alert('Failed to fetch data from FRED via CORS proxy.');
+      return [];
+    }
+    const raw = await res.text();
+    try {
+      const data = JSON.parse(raw);
+      return data.observations.map(obs => ({
+        year: new Date(obs.date).getFullYear(),
+        value: parseFloat(obs.value)
+      })).filter(x => !isNaN(x.value));
+    } catch (e) {
+      alert('Failed to parse FRED data! ' + e);
+      return [];
+    }
+  }
+  function normalize(data, base = 100) {
+    const baseVal = data[0]?.value || 1;
+    return data.map(d => ({
+      year: d.year,
+      value: +(base * (d.value / baseVal)).toFixed(2)
+    }));
+  }
+  async function renderChart() {
+    const [cpiRaw, hpiRaw] = await Promise.all([
+      fetchFRED('CPIAUCSL'),
+      fetchFRED('USSTHPI')
+    ]);
+    if (!cpiRaw.length || !hpiRaw.length) return;
+    const cpi = normalize(cpiRaw);
+    const hpi = normalize(hpiRaw);
+    const years = cpi.map(d => d.year);
+    const cpiValues = cpi.map(d => d.value);
+    const hpiValues = hpi.map(d => d.value);
+    new Chart(document.getElementById('comparisonChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: 'Inflation (CPI Index)',
+            data: cpiValues,
+            borderColor: '#ff5c5c',
+            backgroundColor: '#ff5c5c33',
+            fill: false,
+            tension: 0.3
+          },
+          {
+            label: 'Real Estate Value (HPI Index)',
+            data: hpiValues,
+            borderColor: '#4faaff',
+            backgroundColor: '#4faaff33',
+            fill: false,
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#fff' } },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        layout: { padding: 0 },
+        elements: { line: { borderWidth: 3 }, point: { radius: 2 }},
+        scales: {
+          x: {
+  ticks: { color: '#fff' },
+  grid: { color: 'rgba(255,255,255,0.07)', display: true, drawBorder: false }
+},
+y: {
+  title: { display: true, text: 'Index (Normalized to 1990)', color: '#fff' },
+  ticks: { color: '#fff' },
+  grid: { color: 'rgba(255,255,255,0.07)', display: true, drawBorder: false }
+}
+        }
       }
     });
+  }
+  window.addEventListener('DOMContentLoaded', renderChart);
 
-  </script>
+  // LOGO SHOW/HIDE ON SCROLL
+  window.addEventListener('scroll', function() {
+    var navLogo = document.querySelector('.nav-logo');
+    var heroSection = document.getElementById('home');
+    var heroBottom = heroSection.getBoundingClientRect().bottom;
+    if (heroBottom <= 80) {
+      navLogo.classList.remove('nav-logo-hide');
+      navLogo.classList.add('nav-logo-show');
+    } else {
+      navLogo.classList.remove('nav-logo-show');
+      navLogo.classList.add('nav-logo-hide');
+    }
+  });
+const NEWSAPI_KEY = '2224618c504a4eeba57cbc81d2b37e13';
+const newsWrap = document.getElementById('news-cards');
+
+document.addEventListener("DOMContentLoaded", () => {
+  const leftBtn = document.getElementById('newsArrowLeft');
+  const rightBtn = document.getElementById('newsArrowRight');
+  const viewport = document.querySelector('.news-cards-viewport');
+  const cards = document.getElementById('news-cards');
+  let curIndex = 0;
+
+  function getCardWidth() {
+    const card = cards.querySelector('a');
+    if (!card) return 0;
+    const style = getComputedStyle(card);
+    return card.offsetWidth + parseInt(style.marginLeft || 0) + parseInt(style.marginRight || 0);
+  }
+
+  function getCardsPerView() {
+    const cardW = getCardWidth();
+    if (!cardW) return 1;
+    return Math.floor(viewport.offsetWidth / cardW) || 1;
+  }
+
+  function centerFirstCards() {
+    setTimeout(() => {
+      if (cards.scrollWidth <= viewport.offsetWidth) {
+        viewport.scrollLeft = 0;
+        cards.style.justifyContent = 'center';
+      } else {
+        cards.style.justifyContent = '';
+      }
+    }, 200);
+  }
+
+  function scrollToCard(idx, behavior = 'smooth') {
+    const card = cards.querySelectorAll('a')[idx];
+    if (!card) return;
+    const scrollLeft = card.offsetLeft - viewport.offsetLeft;
+    viewport.scrollTo({ left: scrollLeft, behavior });
+    curIndex = idx;
+    updateArrowVisibility();
+  }
+
+  function updateArrowVisibility() {
+    leftBtn.style.visibility = curIndex > 0 ? 'visible' : 'hidden';
+    rightBtn.style.visibility = (curIndex < cards.querySelectorAll('a').length - getCardsPerView()) ? 'visible' : 'hidden';
+  }
+
+  function adjustNewsPadding() {
+    const card = cards.querySelector('a');
+    if (!card) return;
+    const gap = parseInt(getComputedStyle(cards).gap) || 0;
+    const cardWidth = card.offsetWidth;
+    const viewportWidth = viewport.offsetWidth;
+    const visibleCards = Math.floor((viewportWidth + gap) / (cardWidth + gap));
+    const usedWidth = visibleCards * cardWidth + (visibleCards - 1) * gap;
+    let sidePadding = (viewportWidth - usedWidth) / 2;
+    sidePadding = Math.max(0, Math.floor(sidePadding));
+    cards.style.paddingLeft = sidePadding + "px";
+    cards.style.paddingRight = sidePadding + "px";
+  }
+
+  leftBtn.onclick = () => {
+    curIndex = Math.max(0, curIndex - getCardsPerView());
+    scrollToCard(curIndex);
+  };
+  rightBtn.onclick = () => {
+    curIndex = Math.min(cards.querySelectorAll('a').length - getCardsPerView(), curIndex + getCardsPerView());
+    scrollToCard(curIndex);
+  };
+
+  window.addEventListener('resize', () => {
+    centerFirstCards();
+    updateArrowVisibility();
+    adjustNewsPadding();
+  });
+
+  viewport.addEventListener('wheel', function(e){
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      e.preventDefault();
+      viewport.scrollLeft += e.deltaX;
+    }
+  }, { passive: false });
+
+  setTimeout(() => {
+    centerFirstCards();
+    updateArrowVisibility();
+    adjustNewsPadding();
+  }, 600);
+
+  // FETCH AND RENDER CARDS (***keep inside this block***)
+  fetch(`https://newsapi.org/v2/everything?q=real+estate+OR+property+market+OR+housing+OR+real+estate+investment+OR+rental+property+OR+commercial+property&language=en&sortBy=publishedAt&pageSize=12&apiKey=${NEWSAPI_KEY}`)
+    .then(r => r.json())
+    .then(d => {
+      d.articles.forEach(article => {
+        const card = document.createElement('a');
+        card.href = article.url;
+        card.target = "_blank";
+        let showHighlight = /highlight/i.test(article.title); // You can use your own logic!
+card.innerHTML = `
+  ${showHighlight ? '<div class="news-card-badge">Strategy Highlight</div>' : ''}
+  <div class="news-title">${article.title}</div>
+  <div class="news-source">${article.source.name} • ${article.publishedAt.slice(0,10)}</div>
+`;
+        newsWrap.appendChild(card);
+      });
+      centerFirstCards();
+      updateArrowVisibility();
+      adjustNewsPadding();
+    });
+
+  window.addEventListener('resize', adjustNewsPadding);
+  setTimeout(adjustNewsPadding, 300);
+});
+function adjustNewsPadding() {
+  const viewport = document.querySelector('.news-cards-viewport');
+  const cards = document.getElementById('news-cards');
+  const card = cards.querySelector('a');
+  if (!card) return;
+
+  const gap = parseInt(getComputedStyle(cards).gap) || 0;
+  const cardWidth = card.offsetWidth;
+  const viewportWidth = viewport.offsetWidth;
+
+  // Calculate how many cards fully fit
+  const visibleCards = Math.floor((viewportWidth + gap) / (cardWidth + gap));
+  const usedWidth = visibleCards * cardWidth + (visibleCards - 1) * gap;
+
+  let sidePadding = (viewportWidth - usedWidth) / 2;
+  sidePadding = Math.max(0, Math.floor(sidePadding));
+
+  cards.style.paddingLeft = sidePadding + "px";
+  cards.style.paddingRight = sidePadding + "px";
+}
+
+</script>
 </body>
 </html>
