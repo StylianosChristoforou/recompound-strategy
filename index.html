@@ -809,6 +809,66 @@ body, html {
   font-weight: 800;
   letter-spacing: 0.01em;
 }
+@media (max-width: 700px) {
+  .nav-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
+  .nav-center {
+    position: static;
+    transform: none;
+    gap: 0.7rem;
+    width: auto;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .nav-menu {
+    display: none; /* Hide menu by default */
+    position: absolute;
+    top: 58px;
+    right: 0;
+    left: 0;
+    background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0;
+    z-index: 1002;
+    box-shadow: 0 8px 20px #0008;
+  }
+  .nav-menu.open {
+    display: flex;
+  }
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0.75rem 0;
+  }
+  .burger {
+    display: block;
+    cursor: pointer;
+    z-index: 2001;
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.1rem;
+    margin-right: 0.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .hero-section {
+    padding-top: 5.3rem !important;
+    padding-bottom: 1.8rem !important;
+  }
+  .hero-section .logo {
+    margin: 1rem auto 0.2rem;
+    width: 110px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -826,6 +886,7 @@ body, html {
 <nav class="navbar">
   <div class="nav-content">
     <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
+    <button class="burger" id="burgerBtn" aria-label="Menu">&#9776;</button>
     <div class="nav-center">
       <ul class="nav-menu" id="mainNavMenu">
         <li><a href="#home" class="active">Home</a></li>
@@ -835,7 +896,6 @@ body, html {
         <li><a href="#about-bottom">About</a></li>
         <li><a href="#contact-bottom" class="nav-cta">Let's Talk</a></li>
       </ul>
-      
     </div>
   </div>
 </nav>
@@ -1330,7 +1390,22 @@ function adjustNewsPadding() {
   cards.style.paddingLeft = sidePadding + "px";
   cards.style.paddingRight = sidePadding + "px";
 }
-
 </script>
+<script>
+  // Burger menu toggle for mobile
+  const burger = document.getElementById('burgerBtn');
+  const navMenu = document.getElementById('mainNavMenu');
+  burger.addEventListener('click', function() {
+    navMenu.classList.toggle('open');
+  });
+
+  // Close menu on link click (mobile only)
+  document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(window.innerWidth <= 700) navMenu.classList.remove('open');
+    });
+  });
+</script>
+
 </body>
 </html>
