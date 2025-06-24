@@ -633,8 +633,9 @@
   min-width: 340px;
   max-width: 340px;
   flex: 0 0 340px;
-  background: rgba(34,44,68,0.82);
-  backdrop-filter: blur(3px) brightness(1.09);  
+  background: rgba(34,44,68,0.94);
+  /* ↓↓↓↓↓↓ Blur much less, but still a hint for glass effect ↓↓↓↓↓↓ */
+  backdrop-filter: blur(1.2px) brightness(1.08);  
   border-radius: 13px;
   padding: 17px 21px;
   color: #fff;
@@ -654,6 +655,7 @@
   z-index: 1;
   transition: box-shadow .18s, border-color .18s, transform .14s, z-index .14s;
 }
+
 .news-cards a:hover {
   transform: translateY(-12px) scale(1.06); /* more "pop" */
   box-shadow: 0 6px 18px #4faaff66, 0 1px 10px #23242baa;
