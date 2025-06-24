@@ -812,6 +812,64 @@ body, html {
     display: none !important;
   }
 }
+/* Always hide nav-menu by default */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  background: #11131a;
+  position: absolute;
+  top: 56px;
+  left: 0;
+  width: 100vw;
+  box-shadow: 0 6px 16px #0002;
+  z-index: 200;
+  padding: 1.2rem 0 1rem 0;
+}
+.nav-menu.open {
+  display: flex !important;
+}
+
+/* Show burger and stack nav-content for mobile */
+@media (max-width: 700px) {
+  .nav-content {
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0 0.6rem;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .nav-logo {
+    flex: 0 0 auto;
+  }
+  .burger {
+    display: block !important;
+    background: #fff;
+    border-radius: 7px;
+    border: none;
+    font-size: 2.1rem;
+    padding: 3px 10px;
+    margin: 0 auto;
+    z-index: 9999;
+  }
+}
+
+/* Desktop: show nav-menu always, hide burger */
+@media (min-width: 701px) {
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row;
+    position: static;
+    background: none;
+    box-shadow: none;
+    width: auto;
+    padding: 0;
+    gap: 2.3rem;
+  }
+  .burger {
+    display: none !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1378,5 +1436,50 @@ function adjustNewsPadding() {
     burger.classList.remove('active');
   });
 </script>
+<script>
+  // Burger menu toggle for mobile
+  const burger = document.getElementById('burgerBtn');
+  const navMenu = document.getElementById('mainNavMenu');
+
+  burger.addEventListener('click', function(e) {
+    navMenu.classList.toggle('open');
+    burger.classList.toggle('active');
+    e.stopPropagation();
+  });
+
+  // Close menu on link click (mobile only)
+  document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(window.innerWidth <= 700) navMenu.classList.remove('open');
+      burger.classList.remove('active');
+    });
+  });
+
+  // Click outside closes menu (mobile only)
+  document.addEventListener('click', function(e){
+    if(window.innerWidth > 700) return;
+    if(navMenu.classList.contains('open')) {
+      if(!navMenu.contains(e.target) && e.target !== burger) {
+        navMenu.classList.remove('open');
+        burger.classList.remove('active');
+      }
+    }
+  });
+
+  // On resize, hide menu if desktop
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 700) {
+      navMenu.classList.remove('open');
+      burger.classList.remove('active');
+    }
+  });
+
+  // On page load, always close menu
+  window.addEventListener('DOMContentLoaded', () => {
+    navMenu.classList.remove('open');
+    burger.classList.remove('active');
+  });
+</script>
+
 </body>
 </html>
