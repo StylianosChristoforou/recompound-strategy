@@ -825,33 +825,43 @@ body, html {
   align-items: center;
 }
 @media (max-width: 700px) {
-  .nav-menu {
-    flex-direction: column;
-    align-items: center;
+  .nav-center {
+    position: static !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 100vw !important;
     justify-content: flex-start;
-    background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
-    width: 100vw;
-    left: 0;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0;
+  }
+  .nav-menu {
+    position: fixed !important;
     top: 60px;
-    position: absolute;
-    padding: 0.7rem 0 0.7rem 0;
-    gap: 1rem;
+    left: 0;
+    width: 100vw !important;
+    height: calc(100vh - 60px);
+    background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 9999;
     display: none;
-    z-index: 999;
+    padding: 2.2rem 0 0 0;
+    margin: 0;
+    box-shadow: 0 6px 32px #25325a33;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    box-shadow: 0 6px 32px #25325a33;
   }
   .nav-menu.open {
-    display: flex;
+    display: flex !important;
   }
   .nav-menu a {
     font-size: 1.3rem;
     font-weight: 700;
-    padding: 0.9rem 0;
+    padding: 1.1rem 2.5rem;
     color: #fff;
     width: 100vw;
-    text-align: center;
+    text-align: left;
     border-bottom: 1px solid #2c3855;
     border-radius: 0;
     background: none;
@@ -859,7 +869,7 @@ body, html {
   .nav-menu a:last-child {
     border-bottom: none;
   }
-   .news-cards-viewport {
+  .news-cards-viewport {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     width: 100vw !important;
@@ -881,7 +891,6 @@ body, html {
     flex: 0 0 96vw !important;
   }
 }
-
 
 .nav-menu li {
   list-style: none;
