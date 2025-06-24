@@ -791,82 +791,58 @@ body, html {
     padding-top: 3.5rem !important;
   }
 }
-/* Always hide nav-menu by default */
+/* REMOVE BULLET POINTS & RESET LIST STYLES FOR NAV MENU */
 .nav-menu {
-  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2.2rem;
+  align-items: center;
+  background: none !important;
+  box-shadow: none !important;
 }
-
-/* Desktop: show menu, hide burger */
-@media (min-width: 701px) {
-  .nav-menu {
-    display: flex !important;
-    flex-direction: row;
-    position: static;
-    background: none;
-    box-shadow: none;
-    width: auto;
-    padding: 0;
-    gap: 2.3rem;
-  }
-  .burger {
-    display: none !important;
-  }
+.nav-menu li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: none !important;
+  box-shadow: none !important;
 }
-/* Always hide nav-menu by default */
-.nav-menu {
-  display: none;
-  flex-direction: column;
-  background: #11131a;
-  position: absolute;
-  top: 56px;
-  left: 0;
-  width: 100vw;
-  box-shadow: 0 6px 16px #0002;
-  z-index: 200;
-  padding: 1.2rem 0 1rem 0;
+.nav-menu a {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  background: none !important;
+  transition:
+    color 0.18s,
+    border-bottom 0.18s,
+    transform 0.18s cubic-bezier(.7,.2,.2,1),
+    box-shadow 0.18s cubic-bezier(.7,.2,.2,1);
+  box-shadow: none !important;
+  display: inline-block;
+  padding: 0 0 2px 0;
 }
 .nav-menu.open {
   display: flex !important;
+  flex-direction: column;
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 100vw;
+  background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
+  z-index: 999;
+  gap: 1.2rem;
+  padding: 1.2rem 0;
 }
-
-/* Show burger and stack nav-content for mobile */
 @media (max-width: 700px) {
-  .nav-content {
-    flex-direction: column;
-    gap: 0.7rem;
-    padding: 0 0.6rem;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  .nav-logo {
-    flex: 0 0 auto;
-  }
-  .burger {
-    display: block !important;
-    background: #fff;
-    border-radius: 7px;
-    border: none;
-    font-size: 2.1rem;
-    padding: 3px 10px;
-    margin: 0 auto;
-    z-index: 9999;
-  }
-}
-
-/* Desktop: show nav-menu always, hide burger */
-@media (min-width: 701px) {
   .nav-menu {
-    display: flex !important;
-    flex-direction: row;
-    position: static;
-    background: none;
-    box-shadow: none;
-    width: auto;
-    padding: 0;
-    gap: 2.3rem;
+    display: none;
   }
-  .burger {
-    display: none !important;
+  .nav-menu.open {
+    display: flex !important;
   }
 }
 
@@ -900,6 +876,7 @@ body, html {
     </div>
   </div>
 </nav>
+
   <section class="hero-section" id="home">
     <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo fade-in">
     <h1 class="fade-in">Recompound Strategy</h1>
@@ -1391,50 +1368,6 @@ function adjustNewsPadding() {
   cards.style.paddingLeft = sidePadding + "px";
   cards.style.paddingRight = sidePadding + "px";
 }
-</script>
-<script>
-  // Burger menu toggle for mobile
-  const burger = document.getElementById('burgerBtn');
-  const navMenu = document.getElementById('mainNavMenu');
-
-  burger.addEventListener('click', function(e) {
-    navMenu.classList.toggle('open');
-    burger.classList.toggle('active');
-    e.stopPropagation();
-  });
-
-  // Close menu on link click (mobile only)
-  document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      if(window.innerWidth <= 700) navMenu.classList.remove('open');
-      burger.classList.remove('active');
-    });
-  });
-
-  // Click outside closes menu (mobile only)
-  document.addEventListener('click', function(e){
-    if(window.innerWidth > 700) return;
-    if(navMenu.classList.contains('open')) {
-      if(!navMenu.contains(e.target) && e.target !== burger) {
-        navMenu.classList.remove('open');
-        burger.classList.remove('active');
-      }
-    }
-  });
-
-  // On resize, hide menu if desktop
-  window.addEventListener('resize', () => {
-    if(window.innerWidth > 700) {
-      navMenu.classList.remove('open');
-      burger.classList.remove('active');
-    }
-  });
-
-  // On page load, always close menu
-  window.addEventListener('DOMContentLoaded', () => {
-    navMenu.classList.remove('open');
-    burger.classList.remove('active');
-  });
 </script>
 <script>
   // Burger menu toggle for mobile
