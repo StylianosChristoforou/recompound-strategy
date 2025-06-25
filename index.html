@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+[media pointer="file-service://file-YYHyudk8JsoNnLqY6eSTcL"]
+for example it should like the before and after math you invested in real estate you gained x you kept it in cash in savings you lost x plus lets remove the other graph and keep 1 graph to its place and make it larger without a box glowglass box whatver is called its the grapth but interactive! look it small you can even see the graph :d<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -558,261 +559,7 @@
       .contact-btn, .whatsapp-btn { padding: 0.75rem 1.2rem; font-size: 1rem; }
       .footer-row { flex-direction: column; gap: 0.7rem;}
     }
-/* NEWS STRIP FIXED: perfect centering, snap, and always full width */
-.news-strip {
-  background: #111826;
-  border-bottom: 1px solid #23242b;
-  margin-bottom: 0 !important;
-  position: relative;
-  width: 100vw;
-  overflow: hidden;
-  z-index: 10;
-  padding: 0 !important;
-  overflow: visible !important;
-}
-.news-strip-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  background: #111826;
-  position: relative;
-  z-index: 1;   
-  padding-top: 0;
-  padding-bottom: 0;
-  overflow: visible !important;
-}
-.news-header {
-  text-align: center;
-  font-weight: 800;
-  color: #4faaff;
-  font-size: 1.27rem;
-  letter-spacing: 0.01em;
-  padding-top: 28px;
-  padding-bottom: 28px;
-  background: #111826;
-  position: relative;   
-  z-index: 2;   
-}
-.news-cards-viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: 100vw;
-  max-width: 1200px;
-  scroll-behavior: smooth;
-  position: relative;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  scrollbar-width: none;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  /* Hide cut cards at the sides */
-  mask-image: linear-gradient(to right, transparent 0px, black 12px, black calc(100% - 12px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0px, black 12px, black calc(100% - 12px), transparent 100%);
-}
-@media (max-width: 1200px) {
-  .news-cards-viewport {
-    padding-left: 3vw;
-    padding-right: 3vw;
-  }
-}
-@media (max-width: 700px) {
-  .news-cards-viewport {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
-}
-.news-cards-viewport::-webkit-scrollbar {
-  display: none !important;
-}
-.news-cards a {
-  position: relative;
-  min-width: 340px;
-  max-width: 340px;
-  flex: 0 0 340px;
-  background: rgba(34,44,68,0.94);
-  /* ↓↓↓↓↓↓ Blur much less, but still a hint for glass effect ↓↓↓↓↓↓ */
-  backdrop-filter: blur(1.2px) brightness(1.08);  
-  border-radius: 13px;
-  padding: 17px 21px;
-  color: #fff;
-  text-decoration: none;
-  box-shadow: 0 2px 14px #4faaff18;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border: 1.2px solid #27396e2c;
-  font-weight: 600;
-  font-size: 1rem;
-  word-break: break-word;
-  scroll-snap-align: center;
-  cursor: pointer;
-  transition: box-shadow .18s, border-color .18s, transform .14s;
-  scroll-snap-align: start;
-  z-index: 1;
-  transition: box-shadow .18s, border-color .18s, transform .14s, z-index .14s;
-}
 
-.news-cards a:hover {
-  transform: translateY(-12px) scale(1.06); /* more "pop" */
-  box-shadow: 0 6px 18px #4faaff66, 0 1px 10px #23242baa;
-  z-index: 1000;
-}
-
-.news-title {
-  font-weight: 800;
-  font-size: 1.12rem;
-  color: #fff;
-  margin-bottom: 3px;
-  margin-top: 10px;
-}
-.news-source {
-  font-size: .99rem;
-  opacity: .68;
-  margin-bottom: 6px;
-}
-.news-comment {
-  font-size: 0.98rem;
-  color: #4faaff;
-  margin-top: 7px;
-  font-style: italic;
-  opacity: 0.9;
-}
-.news-card-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 10;
-  background: linear-gradient(90deg,#4faaff,#3052e6);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #3052e622;
-  margin-bottom: 24px;
-}
-.news-cards-viewport-outer {
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-@media (max-width: 1200px) {
-  .news-cards a {
-    min-width: 48vw;
-    max-width: 48vw;
-    flex: 0 0 48vw;
-  }
-}
-@media (max-width: 700px) {
-  .news-cards a {
-    min-width: 92vw !important;
-    max-width: 92vw !important;
-    flex: 0 0 92vw !important;
-    box-sizing: border-box;
-  }
-  .news-arrow {
-    display: none !important;
-  }
-  .news-cards-viewport {
-    padding-left: 2vw !important;
-    padding-right: 2vw !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    width: 100vw !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-  .news-cards {
-    gap: 8px !important;
-    margin-top: 12px !important;
-    margin-bottom: 12px !important;
-    min-width: 100vw !important;
-    width: 100vw !important;
-    box-sizing: border-box;
-    overflow-x: auto !important;
-  }
-}
-.news-cards {
-  min-height: 170px;
-}
-
-
-.news-cards {
-  display: flex;
-  gap: 26px;
-  align-items: stretch;
-  justify-content: flex-start;
-  min-width: 100vw;
-  box-sizing: border-box;
-  padding-left: 0;
-  padding-right: 0;
-  margin-top: 28px;
-  margin-bottom: 28px;
-}
-
-
-@media (max-width: 1200px) {
-  .news-cards-viewport { padding-left: 3vw; padding-right: 3vw; }
-}
-@media (max-width: 700px) {
-  .news-cards-viewport { padding-left: 2vw; padding-right: 2vw; }
-}
-.news-fade {
-  position: absolute;
-  top: 0;
-  width: 64px;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-}
-.news-fade-left {
-  left: 0;
-  background: linear-gradient(90deg, #111826 92%, rgba(17,24,38,0));
-}
-.news-fade-right {
-  right: 0;
-  background: linear-gradient(-90deg, #111826 92%, rgba(17,24,38,0));
-}
-
-.news-arrow {
-  flex: 0 0 54px;
-  width: 54px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #fff;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-  margin: 0 6px;
-  transition: color 0.2s, background 0.2s;
-}
-.news-arrow:hover {
-  background: #3052e6;
-  color: #fff;
-  transform: scale(1.08);
-  box-shadow: 0 6px 18px #4faaff4a;
-}
-.news-arrow.left  { left: 0px; }
-.news-arrow.right { right: 0px; }
-@media (max-width: 700px) {
-  .news-arrow.left { left: 0px; }
-  .news-arrow.right { right: 0px; }
-}
-.news-arrow:active {
-  transform: scale(0.95);
-}
 body *::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
@@ -828,9 +575,6 @@ body *::-webkit-scrollbar {
 .chart-section {
   background: #151a27 !important;   /* Slightly bluer, premium */
 }
-.about-bottom {
-  background: #1a2235 !important;    /* Navy-black, slightly different */
-}
 
 .site-section p, .site-section ul li,
 .about-bottom-inner p,
@@ -838,9 +582,7 @@ body *::-webkit-scrollbar {
 .site-section ul li {
   color: #fff !important;
 }
-.about-bottom {
-  background: #101522 !important;
-}
+
 .site-section h3, .about-bottom-inner h3 {
   color: var(--accent2) !important;
 }
@@ -920,43 +662,6 @@ body, html {
   .nav-menu a:last-child {
     border-bottom: none;
   }
-  .news-cards-viewport {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    width: 100vw !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  @media (max-width: 700px) {
-  .news-arrow {
-    display: none !important;
-  }
-}
-
-  .news-cards {
-    display: flex;
-    gap: 8px !important;
-    min-width: 100vw !important;
-    width: 100vw !important;
-    padding: 0 !important;
-    overflow-x: auto !important;
-    overflow-y: visible !important;
-    box-sizing: border-box;
-  }
-  .news-cards-viewport {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    width: 100vw !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    box-sizing: border-box;
-    display: flex;
-    align-items: stretch;
-  }
 }
 
 .nav-menu li {
@@ -992,6 +697,10 @@ body, html {
     color: #fff;
     transform: scale(1.08);
   }
+}
+#backToTop {
+  bottom: 10px !important;
+  position: fixed !important;
 }
 
   </style>
@@ -1047,22 +756,6 @@ body, html {
       Start compounding today — even with limited capital.
     </p>
   </section>
-  <!-- News Strip Start -->
-<section class="news-strip">
-  <div class="news-header">Strategic Market Intel & Wealth Signals</div>
-<div class="news-strip-flex" style="position:relative;">
-  <div class="news-fade news-fade-left"></div>
-  <button class="news-arrow left" id="newsArrowLeft" aria-label="Previous">&#8592;</button>
-  <div class="news-cards-viewport-outer">
-    <div class="news-cards-viewport">
-      <div class="news-cards" id="news-cards"></div>
-    </div>
-  </div>
-  <button class="news-arrow right" id="newsArrowRight" aria-label="Next">&#8594;</button>
-  <div class="news-fade news-fade-right"></div>
-</div>
-</section>
-<!-- News Strip End -->
   <div class="accent-bar"></div>
   <!-- Main full-width sections -->
   <div class="site-section">
@@ -1071,7 +764,7 @@ body, html {
         <h3>My Mission</h3>
         <div class="section-divider"></div>
         <p>
-          <b>Recompound Strategy</b> was founded to reclaim everything my family lost from being refugees twice, to nearly losing our business, our savings, and being burdened with debt caused by a corrupt government during the 2013 financial collapse. I come from survival, not privilege. My mission is to fight corruption, break out of this rigged system, and prove that wealth can be built from zero. Through strategy, ownership, and relentless reinvestment, I’m building real freedom outside the Matrix.
+          <b>Recompound Strategy</b> was founded to reclaim everything my family lost from being refugees twice, losing our business savings, and falling into debt caused by a corrupt government during the financial collapse. I come from survival, not privilege. My mission is to fight corruption, break out of this rigged system, and prove that wealth can be built from zero. Through strategy, ownership, and relentless reinvestment, I’m building real freedom outside the Matrix.
         </p>
       </section>
       <section id="vision">
@@ -1080,7 +773,7 @@ body, html {
         <p>
           <b>Recompound Strategy is built on one core belief:</b>
         </p>
-        <p>You don’t need millions to build wealth you need momentum!</p>
+        <p>You don’t need millions to build wealth you need assets that compound faster than inflation!</p>
         <p>
           Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets. And by holding hard assets, I stay in full control, even if the banks collapse.
         </p>
@@ -1108,46 +801,92 @@ body, html {
       </section>
     </div>
   </div>
-  <!-- CHART SECTION: FIXED -->
-  <section class="chart-section" id="comparisonChartSection">
-    <div class="chart-section-inner">
-      <div class="chart-content-fade" id="chartContentFade">
-        <h3>Inflation vs Real Estate (Live, 1990–Now)</h3>
-        <p style="color: #fff; font-size: 1rem; margin-bottom: 0.5rem;">
-          Live data: CPI Inflation vs Real Estate HPI (1990–Today)
-        </p>
-        <canvas id="comparisonChart" height="400"></canvas>
-      </div>
-    </div>
-  </section>
-  <!-- ABOUT/PARTNER FULL WIDTH AT BOTTOM -->
-  <div class="about-bottom" id="about-bottom">
-    <div class="about-bottom-inner glass-premium">
-      <div class="about-flex">
-        <!-- Left Side: About + Promise -->
-        <div class="about-left">
-          <h3>About</h3>
-          <div class="section-divider"></div>
-          <p>
-            I’m not a Real Estate “Guru”. I’m a strategist who started from zero and built a compounding engine powered by real estate.
-          </p>
-        </div>
-        <!-- Right Side: Partner -->
-        <div class="about-right">
-          <h3>Partner With Me</h3>
-          <div class="section-divider"></div>
-          <p>
-            I’m open to strategic partnerships and joint investments.<br>
-            If you share a long term vision and value transparency, let’s connect.
-          </p>
-          <div class="about-btn-row">
-            <a href="#contact-bottom" class="contact-btn">Contact Me</a>
-            <a href="https://wa.me/35796318896" target="_blank" class="whatsapp-btn">WhatsApp Me</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Real Estate DCA Calculator (Live Data) -->
+<section class="chart-section" id="comparisonChartSection" style="margin-top:0;">
+  <div class="chart-section-inner" style="max-width:1100px;padding:2.5rem 1rem 2.5rem 1rem;">
+    <h3 style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">Real Estate vs Cash (Live DCA Backtest)</h3>
+    <p style="color:#aeeaff;font-size:1.14rem;font-weight:700;margin-bottom:1.1rem;">
+      See what happens when you invest monthly in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
+    </p>
+    <div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem;">
+  <label for="cityYield" style="color:#FFD700;font-weight:700;font-size:1.15rem;">City:</label>
+  <select id="cityYield" style="font-size:1.15rem;border-radius:8px;padding:7px 18px;color:#FFD700;background:#1a2234;border:1.5px solid #FFD700a8;">
+    <option value="5.1">New York, NY (5.1%)</option>
+    <option value="5.2">Honolulu, HI (5.2%)</option>
+    <option value="6.3">San Jose, CA (6.3%)</option>
+    <option value="6.3">San Francisco, CA (6.3%)</option>
+    <option value="6.7">Oakland, CA (6.7%)</option>
+    <option value="6.7">San Diego, CA (6.7%)</option>
+    <option value="6.9">Long Beach, CA (6.9%)</option>
+    <option value="6.9">Irvine, CA (6.9%)</option>
+    <option value="7.2">Los Angeles, CA (7.2%)</option>
+    <option value="7.5">Seattle, WA (7.5%)</option>
+    <option value="8.1">Boston, MA (8.1%)</option>
+    <option value="8.4">Santa Rosa, CA (8.4%)</option>
+    <option value="8.5">Washington, DC (8.5%)</option>
+    <option value="8.9">Phoenix, AZ (8.9%)</option>
+    <option value="9.5">Denver, CO (9.5%)</option>
+    <option value="9.8">Jersey City, NJ (9.8%)</option>
+    <option value="9.9">Las Vegas, NV (9.9%)</option>
+    <option value="10.2">Miami, FL (10.2%)</option>
+    <option value="10.3">Sacramento, CA (10.3%)</option>
+    <option value="10.6">Dallas, TX (10.6%)</option>
+    <option value="11.3">Fort Lauderdale, FL (11.3%)</option>
+    <option value="13.9">Houston, TX (13.9%)</option>
+    <option value="15.4">Chicago, IL (15.4%)</option>
+    <option value="22.5">Detroit, MI (22.5%)</option>
+    <option value="custom">Custom</option>
+  </select>
+  <label for="dcaYield" style="color:#FFD700;font-weight:700;font-size:1.15rem;margin:0 5px;">Annual Rental Yield (%)</label>
+  <input type="number" id="dcaYield" value="5.1" min="0" max="25" step="0.1"
+    style="font-size:1.15rem;border-radius:8px;padding:7px 18px;width:90px;color:#FFD700;background:#1a2234;border:1.5px solid #FFD700a8;" />
+</div>
+<p style="color:#aeeaff;font-size:0.98rem;text-align:center;">
+  Rental yields from Numbeo (2025). May vary by neighborhood and property.
+</p>
+
+    <form id="dcaForm" style="display:flex;flex-wrap:wrap;gap:1.2rem 1.5rem;justify-content:center;align-items:center;margin:2.2rem 0 1.2rem 0;">
+      <label style="color:#fff;font-weight:700;font-size:1.19rem;">From 
+        <select id="dcaStartYear" style="font-size:1.15rem;border-radius:7px;padding:4px 13px;color:#fff;background:#223259;border:1px solid #4faaffa8;margin:0 7px;"></select>
+        to now, invest
+      </label>
+      <span style="display:flex;align-items:center;color:#fff;font-weight:700;font-size:1.19rem;">
+        <span>€</span>
+        <input type="number" id="dcaMonthly" value="500" min="10" max="100000" step="10" style="font-size:1.13rem;border-radius:7px;padding:4px 13px;width:100px;color:#fff;background:#223259;border:1px solid #4faaffa8;margin:0 7px;">
+      </span>
+      <span style="color:#fff;font-weight:700;font-size:1.19rem;">per month.</span>
+    </form>
+    <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;"></div>
+    <canvas id="dcaChart" style="max-width:100%; width:100%; height: 380px; margin:1.3rem auto 0 auto; display:block;"></canvas>
+</section>
+
+
+<section id="about-bottom" class="site-section" style="padding:0;margin:0;background:none;">
+  <div class="section-inner" style="max-width:520px;margin:0 auto;text-align:center;">
+    <h3 style="color:var(--accent2);font-weight:800;letter-spacing:.01em;font-size:2.09rem;margin-bottom:1.2rem;">About</h3>
+    <div class="section-divider"></div>
+    <p style="color:#fff;font-size:1.17rem;font-weight:700;margin-bottom:1.45rem;">
+      I’m not a Real Estate “Guru”.<br>
+      I’m a strategist who started from zero and built a compounding real estate engine.
+    </p>
+    <h3 style="color:var(--accent);font-weight:800;letter-spacing:.01em;font-size:2.09rem;margin-bottom:1.2rem;">Co-Invest With Me</h3>
+    <div class="section-divider"></div>
+    <p style="color:#fff;font-size:1.07rem;margin-bottom:1.8rem;">
+      I focus exclusively on long-term, wealth building real estate strategies never hype, never quick flips.<br><br>
+      I’m open to select co-investment opportunities, strategic alliances, and fractional ownership structures with like minded capital partners.
+      If you’re seeking to deploy capital in projects with real staying power and you value transparency, alignment, and compounding over time let’s connect.
+    </p>
+    <a href="https://wa.me/35796318896" target="_blank"
+      style="display:inline-block;background:linear-gradient(90deg,#4faaff 40%,#3052e6 100%);font-weight:700;color:#fff;font-size:1.16rem;padding:1rem 2.5rem;border-radius:40px;text-decoration:none;box-shadow:0 2px 12px 0 #4faaff22;margin-top:0.6rem;">
+      Start a Conversation
+    </a>
+    <p style="font-size:0.98rem;color:#aeeaff;margin-top:1.1rem;">
+      Foundations are built alone. Empires are built together.
+    </p>
   </div>
+</section>
+
+  
   <div id="contact-bottom"></div>
   <footer>
     <div class="footer-row">
@@ -1311,63 +1050,7 @@ window.addEventListener('DOMContentLoaded', updateActiveNav);
       value: +(base * (d.value / baseVal)).toFixed(2)
     }));
   }
-  async function renderChart() {
-    const [cpiRaw, hpiRaw] = await Promise.all([
-      fetchFRED('CPIAUCSL'),
-      fetchFRED('USSTHPI')
-    ]);
-    if (!cpiRaw.length || !hpiRaw.length) return;
-    const cpi = normalize(cpiRaw);
-    const hpi = normalize(hpiRaw);
-    const years = cpi.map(d => d.year);
-    const cpiValues = cpi.map(d => d.value);
-    const hpiValues = hpi.map(d => d.value);
-    new Chart(document.getElementById('comparisonChart').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: 'Inflation (CPI Index)',
-            data: cpiValues,
-            borderColor: '#ff5c5c',
-            backgroundColor: '#ff5c5c33',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Real Estate Value (HPI Index)',
-            data: hpiValues,
-            borderColor: '#4faaff',
-            backgroundColor: '#4faaff33',
-            fill: false,
-            tension: 0.3
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { labels: { color: '#fff' } },
-          tooltip: { mode: 'index', intersect: false }
-        },
-        layout: { padding: 0 },
-        elements: { line: { borderWidth: 3 }, point: { radius: 2 }},
-        scales: {
-          x: {
-  ticks: { color: '#fff' },
-  grid: { color: 'rgba(255,255,255,0.07)', display: true, drawBorder: false }
-},
-y: {
-  title: { display: true, text: 'Index (Normalized to 1990)', color: '#fff' },
-  ticks: { color: '#fff' },
-  grid: { color: 'rgba(255,255,255,0.07)', display: true, drawBorder: false }
-}
-        }
-      }
-    });
-  }
-  window.addEventListener('DOMContentLoaded', renderChart);
+
   // LOGO SHOW/HIDE ON SCROLL (always show logo on mobile)
 window.addEventListener('scroll', function() {
   var navLogo = document.querySelector('.nav-logo');
@@ -1386,163 +1069,28 @@ window.addEventListener('scroll', function() {
     navLogo.classList.add('nav-logo-hide');
   }
 });
+const cityYield = document.getElementById('cityYield');
+const dcaYield = document.getElementById('dcaYield');
 
-const NEWSAPI_KEY = '2224618c504a4eeba57cbc81d2b37e13';
-const newsWrap = document.getElementById('news-cards');
-
-document.addEventListener("DOMContentLoaded", () => {
-  const leftBtn = document.getElementById('newsArrowLeft');
-  const rightBtn = document.getElementById('newsArrowRight');
-  const viewport = document.querySelector('.news-cards-viewport');
-  const cards = document.getElementById('news-cards');
-  let curIndex = 0;
-
-  function getCardWidth() {
-    const card = cards.querySelector('a');
-    if (!card) return 0;
-    const style = getComputedStyle(card);
-    return card.offsetWidth + parseInt(style.marginLeft || 0) + parseInt(style.marginRight || 0);
+cityYield.addEventListener('change', function() {
+  if (cityYield.value === "custom") {
+    dcaYield.removeAttribute('readonly');
+    dcaYield.focus();
+  } else {
+    dcaYield.value = cityYield.value;
+    dcaYield.setAttribute('readonly', true);
   }
-
-  function getCardsPerView() {
-    const cardW = getCardWidth();
-    if (!cardW) return 1;
-    return Math.floor(viewport.offsetWidth / cardW) || 1;
-  }
-
-  function centerFirstCards() {
-    setTimeout(() => {
-      if (cards.scrollWidth <= viewport.offsetWidth) {
-        viewport.scrollLeft = 0;
-        cards.style.justifyContent = 'center';
-      } else {
-        cards.style.justifyContent = '';
-      }
-    }, 200);
-  }
-
-  function scrollToCard(idx, behavior = 'smooth') {
-    const card = cards.querySelectorAll('a')[idx];
-    if (!card) return;
-    const scrollLeft = card.offsetLeft - viewport.offsetLeft;
-    viewport.scrollTo({ left: scrollLeft, behavior });
-    curIndex = idx;
-    updateArrowVisibility();
-  }
-
-  function updateArrowVisibility() {
-    leftBtn.style.visibility = curIndex > 0 ? 'visible' : 'hidden';
-    rightBtn.style.visibility = (curIndex < cards.querySelectorAll('a').length - getCardsPerView()) ? 'visible' : 'hidden';
-  }
-
-  function adjustNewsPadding() {
-    const card = cards.querySelector('a');
-    if (!card) return;
-    const gap = parseInt(getComputedStyle(cards).gap) || 0;
-    const cardWidth = card.offsetWidth;
-    const viewportWidth = viewport.offsetWidth;
-    const visibleCards = Math.floor((viewportWidth + gap) / (cardWidth + gap));
-    const usedWidth = visibleCards * cardWidth + (visibleCards - 1) * gap;
-    let sidePadding = (viewportWidth - usedWidth) / 2;
-    sidePadding = Math.max(0, Math.floor(sidePadding));
-    cards.style.paddingLeft = sidePadding + "px";
-    cards.style.paddingRight = sidePadding + "px";
-  }
-
-  leftBtn.onclick = () => {
-    curIndex = Math.max(0, curIndex - getCardsPerView());
-    scrollToCard(curIndex);
-  };
-  rightBtn.onclick = () => {
-    curIndex = Math.min(cards.querySelectorAll('a').length - getCardsPerView(), curIndex + getCardsPerView());
-    scrollToCard(curIndex);
-  };
-
-  window.addEventListener('resize', () => {
-    centerFirstCards();
-    updateArrowVisibility();
-    adjustNewsPadding();
-  });
-
-  viewport.addEventListener('wheel', function(e){
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-      e.preventDefault();
-      viewport.scrollLeft += e.deltaX;
-    }
-  }, { passive: false });
-
-  setTimeout(() => {
-    centerFirstCards();
-    updateArrowVisibility();
-    adjustNewsPadding();
-  }, 600);
-
-  // FETCH AND RENDER CARDS (***keep inside this block***)
-  fetch(`https://newsapi.org/v2/everything?q=real+estate+OR+property+market+OR+housing+OR+real+estate+investment+OR+rental+property+OR+commercial+property&language=en&sortBy=publishedAt&pageSize=12&apiKey=${NEWSAPI_KEY}`)
-    .then(r => r.json())
-    .then(d => {
-  if (!d.articles || !Array.isArray(d.articles)) {
-    // API error: show static fallback
-    newsWrap.innerHTML = `
-      <a href="https://www.wsj.com/real-estate" target="_blank">
-        <div class="news-title">Why Real Estate Is Still King in 2024</div>
-        <div class="news-source">Wall Street Journal • 2024-06-20</div>
-      </a>
-      <a href="https://www.cnbc.com/real-estate/" target="_blank">
-        <div class="news-title">Global Property Markets Defy Recession</div>
-        <div class="news-source">CNBC • 2024-06-22</div>
-      </a>
-      <a href="https://www.ft.com/stream/sectionsId/OTMwYmZjZjEtYjQwOC00ZDA3LTg2NzItMzgwMjYwYTUyZTlk-QXV0b1Jlc3VsdHM=" target="_blank">
-        <div class="news-title">Rental Yields Hit Record Highs</div>
-        <div class="news-source">Financial Times • 2024-06-19</div>
-      </a>
-    `;
-    centerFirstCards();
-    updateArrowVisibility();
-    adjustNewsPadding();
-    return;
-  }
-  d.articles.forEach(article => {
-    const card = document.createElement('a');
-    card.href = article.url;
-    card.target = "_blank";
-    let showHighlight = /highlight/i.test(article.title);
-    card.innerHTML = `
-      ${showHighlight ? '<div class="news-card-badge">Strategy Highlight</div>' : ''}
-      <div class="news-title">${article.title}</div>
-      <div class="news-source">${article.source.name} • ${article.publishedAt.slice(0,10)}</div>
-    `;
-    newsWrap.appendChild(card);
-  });
-  centerFirstCards();
-  updateArrowVisibility();
-  adjustNewsPadding();
+  updateDca();
 });
 
-
-  window.addEventListener('resize', adjustNewsPadding);
-  setTimeout(adjustNewsPadding, 300);
+dcaYield.addEventListener('input', function() {
+  if (cityYield.value === "custom") updateDca();
+  else {
+    cityYield.value = "custom";
+    dcaYield.removeAttribute('readonly');
+    updateDca();
+  }
 });
-function adjustNewsPadding() {
-  const viewport = document.querySelector('.news-cards-viewport');
-  const cards = document.getElementById('news-cards');
-  const card = cards.querySelector('a');
-  if (!card) return;
-
-  const gap = parseInt(getComputedStyle(cards).gap) || 0;
-  const cardWidth = card.offsetWidth;
-  const viewportWidth = viewport.offsetWidth;
-
-  // Calculate how many cards fully fit
-  const visibleCards = Math.floor((viewportWidth + gap) / (cardWidth + gap));
-  const usedWidth = visibleCards * cardWidth + (visibleCards - 1) * gap;
-
-  let sidePadding = (viewportWidth - usedWidth) / 2;
-  sidePadding = Math.max(0, Math.floor(sidePadding));
-
-  cards.style.paddingLeft = sidePadding + "px";
-  cards.style.paddingRight = sidePadding + "px";
-}
 </script>
 <script>
   // Burger menu toggle for mobile
@@ -1588,6 +1136,309 @@ function adjustNewsPadding() {
     burger.classList.remove('active');
   });
 </script>
+<script>
+  // === BEGIN: News API Fetch & Carousel Logic ===
+const NEWSAPI_KEY = '2224618c504a4eeba57cbc81d2b37e13';
+const newsCards = document.getElementById('news-cards');
+const newsArrowLeft = document.getElementById('newsArrowLeft');
+const newsArrowRight = document.getElementById('newsArrowRight');
+const carouselDots = document.getElementById('carouselDots');
+let articles = [];
+let currentIdx = 0;
+let autoScrollTimer;
 
+// fetch news
+const corsProxy = 'https://corsproxy.io/?';
+const newsApiUrl = `https://newsapi.org/v2/everything?q=real estate&language=en&pageSize=6&sortBy=publishedAt&apiKey=${NEWSAPI_KEY}`;
+newsCards.innerHTML = '<div style="color:#4faaff;font-size:1.13rem;padding:2rem 0;text-align:center;">Loading latest news...</div>';
+
+fetch(corsProxy + encodeURIComponent(newsApiUrl))
+  .then(res => res.json())
+  .then(data => {
+    if (!data.articles || !data.articles.length) {
+      newsCards.innerHTML = '<div style="color:#f44;font-weight:600;">No news found. Try again later.</div>';
+      return;
+    }
+    articles = data.articles;
+    renderNews();
+    renderDots();
+    scrollToCard(0, false);
+    startAutoScroll();
+  })
+  .catch(() => {
+    newsCards.innerHTML = '<div style="color:#f44;font-weight:600;">Could not load news (API or CORS issue)</div>';
+  });
+function renderNews() {
+  newsCards.innerHTML = articles.map((article, i) => `
+    <a href="${article.url}" target="_blank" draggable="false">
+      ${article.urlToImage ? `<img src="${article.urlToImage}" alt="" style="width:100%; border-radius:10px; margin-bottom:10px;">` : ''}
+      <div class="news-title">${article.title}</div>
+      <div class="news-source">${article.source.name}${article.publishedAt ? ' • ' + article.publishedAt.substr(0,10) : ''}</div>
+    </a>
+  `).join('');
+}
+function renderDots() {
+  carouselDots.innerHTML = '';
+  for (let i = 0; i < articles.length; i++) {
+    const dot = document.createElement('span');
+    dot.className = 'carousel-dot' + (i === currentIdx ? ' active' : '');
+    dot.onclick = () => { scrollToCard(i); };
+    carouselDots.appendChild(dot);
+  }
+}
+function scrollToCard(idx, smooth=true) {
+  currentIdx = idx;
+  const card = newsCards.children[idx];
+  if (!card) return;
+  card.scrollIntoView({behavior: smooth ? "smooth" : "auto", inline: "center", block: "nearest"});
+  updateDots();
+  resetAutoScroll();
+}
+function updateDots() {
+  document.querySelectorAll('.carousel-dot').forEach((d, i) =>
+    d.classList.toggle('active', i === currentIdx)
+  );
+}
+// Arrow Buttons
+newsArrowLeft.onclick = () => {
+  if (--currentIdx < 0) currentIdx = articles.length - 1;
+  scrollToCard(currentIdx);
+};
+newsArrowRight.onclick = () => {
+  if (++currentIdx >= articles.length) currentIdx = 0;
+  scrollToCard(currentIdx);
+};
+// Drag-to-scroll (mouse & touch)
+let isDown = false, startX = 0, scrollLeft = 0;
+const viewport = document.querySelector('.news-cards-viewport');
+viewport.addEventListener('mousedown', e => {
+  isDown = true;
+  startX = e.pageX - viewport.offsetLeft;
+  scrollLeft = viewport.scrollLeft;
+  viewport.style.cursor = 'grabbing';
+});
+viewport.addEventListener('mouseleave', () => { isDown = false; viewport.style.cursor = ''; });
+viewport.addEventListener('mouseup', () => { isDown = false; viewport.style.cursor = ''; });
+viewport.addEventListener('mousemove', e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - viewport.offsetLeft;
+  viewport.scrollLeft = scrollLeft - (x - startX);
+});
+viewport.addEventListener('touchstart', e => {
+  isDown = true;
+  startX = e.touches[0].pageX - viewport.offsetLeft;
+  scrollLeft = viewport.scrollLeft;
+});
+viewport.addEventListener('touchend', () => { isDown = false; });
+viewport.addEventListener('touchmove', e => {
+  if (!isDown) return;
+  const x = e.touches[0].pageX - viewport.offsetLeft;
+  viewport.scrollLeft = scrollLeft - (x - startX);
+});
+// Dot sync on scroll (snap to nearest)
+viewport.addEventListener('scroll', () => {
+  let best = 0, minDist = Infinity;
+  for (let i = 0; i < newsCards.children.length; i++) {
+    const box = newsCards.children[i].getBoundingClientRect();
+    const dist = Math.abs(box.left + box.width/2 - viewport.getBoundingClientRect().left - viewport.offsetWidth/2);
+    if (dist < minDist) { minDist = dist; best = i; }
+  }
+  if (currentIdx !== best) {
+    currentIdx = best;
+    updateDots();
+    resetAutoScroll();
+  }
+});
+// Auto-scroll
+function startAutoScroll() {
+  autoScrollTimer = setInterval(() => {
+    let next = (currentIdx + 1) % articles.length;
+    scrollToCard(next);
+  }, 7000);
+}
+function resetAutoScroll() {
+  clearInterval(autoScrollTimer);
+  startAutoScroll();
+}
+</script>
+<!-- Real Estate DCA Logic (put AFTER your Chart.js script and after your current scripts) -->
+<script>
+// Reuse fetchFRED from above (already present!)
+// DCA Real Data Simulation
+const dcaForm = document.getElementById('dcaForm');
+const dcaStartYear = document.getElementById('dcaStartYear');
+const dcaMonthly = document.getElementById('dcaMonthly');
+const dcaResult = document.getElementById('dcaResult');
+const dcaChartCtx = document.getElementById('dcaChart').getContext('2d');
+let hpiYearly = [], cpiYearly = [], dcaYears = [];
+
+async function getHpiCpiData() {
+  const [cpiRaw, hpiRaw] = await Promise.all([
+    fetchFRED('CPIAUCSL'),
+    fetchFRED('USSTHPI')
+  ]);
+  const years = hpiRaw.map(x => x.year).filter(y => y >= 1990);
+  hpiYearly = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
+  cpiYearly = years.map(y => cpiRaw.find(x => x.year == y)?.value || null);
+  dcaYears = years;
+  dcaStartYear.innerHTML = '';
+  years.forEach(y => {
+    dcaStartYear.innerHTML += `<option value="${y}">${y}</option>`;
+  });
+  dcaStartYear.value = years[0];
+}
+
+let dcaChart;
+function calcDcaCurve(startYear, monthly, yieldPct) {
+  let invest = 0, reVals = [], rentalVals = [], cashVals = [];
+  const idx0 = dcaYears.indexOf(+startYear);
+
+  let propertyValue = 0;
+  let cash = 0;
+  let nYears = dcaYears.length - idx0 -1;
+  let months = nYears * 12;
+  let curYear = idx0;
+  let lastHPI = hpiYearly[idx0];
+  let lastCPI = cpiYearly[idx0];
+
+  let reValsYear = [], rentalValsYear = [], cashValsYear = [];
+
+  for (let m = 0; m < months; m++) {
+    if (m % 12 === 0 && m !== 0) {
+      curYear++;
+      if (hpiYearly[curYear] != null) lastHPI = hpiYearly[curYear];
+      if (cpiYearly[curYear] != null) lastCPI = cpiYearly[curYear];
+    }
+
+    propertyValue += monthly;
+    cash += monthly;
+
+    let growthHPI = (curYear > idx0) ? Math.pow(hpiYearly[curYear] / hpiYearly[curYear - 1], 1 / 12) : 1;
+    propertyValue *= growthHPI;
+
+    let cpiLoss = (curYear > idx0) ? Math.pow(cpiYearly[curYear - 1] / cpiYearly[curYear], 1 / 12) : 1;
+    cash *= cpiLoss;
+
+    invest += monthly;  // increment investment every single month, not yearly
+
+    if ((m + 1) % 12 === 0) {
+  // Keep your yearly tracking here, but do NOT add to invest here
+     reValsYear.push(propertyValue);
+     rentalValsYear.push(propertyValue * yieldPct / 100 / 12);
+      cashValsYear.push(cash);
+}
+
+  }
+
+  return {
+    years: dcaYears.slice(idx0),
+    invest,
+    reVals: reValsYear,
+    rentalVals: rentalValsYear,
+    cashVals: cashValsYear
+  };
+}
+function updateDca() {
+  const start = +dcaStartYear.value;
+  const monthly = Math.min(100000, +dcaMonthly.value);
+if (+dcaMonthly.value > 100000) dcaMonthly.value = 100000;
+  const yieldPct = +document.getElementById('dcaYield').value;
+  if (!hpiYearly.length) return;
+  const {years, invest, reVals, rentalVals, cashVals} = calcDcaCurve(start, monthly, yieldPct);
+  
+  const lastRE = reVals[reVals.length-1] || 0;
+  const lastCash = cashVals[cashVals.length-1] || 0;
+  const lastRental = lastRE * yieldPct / 100 / 12; // correct: shows current monthly rent for final value
+
+dcaResult.innerHTML = `
+  <div style="font-size:1.25rem;color:#aeeaff;font-weight:800;text-align:center;margin-bottom:0.8em;">
+    <span>After ${dcaYears[dcaYears.length-1] - start} years investing <b>€${monthly.toLocaleString()}</b> per month:</span>
+  </div>
+  <div style="font-size:1.20rem;font-weight:700;text-align:center;line-height:1.85;">
+    <span style="color:#aeeaff;">Total Invested: <b>€${invest.toLocaleString()}</b></span><br>
+    <span style="color:#00ff47;">If you invested in real estate: <b>€${Math.round(lastRE).toLocaleString()}</b> <span style="font-size:1.12rem;font-weight:600;">(${((lastRE/invest-1)*100).toFixed(1)}% gain)</span></span><br>
+    <span style="color:#ff1744;">If you only saved in cash: <b>€${Math.round(lastCash).toLocaleString()}</b> <span style="font-size:1.12rem;font-weight:600;">(${((lastCash/invest-1)*100).toFixed(1)}% loss)</span></span>
+  </div>
+  <div style="font-size:1.09rem;color:#FFD700;text-align:center;margin-top:0.55em;">
+    Your rental income today: <b>€${Math.round(lastRental).toLocaleString()}</b> per month
+  </div>
+`;
+
+
+
+  if (!dcaChart) {
+    dcaChart = new Chart(dcaChartCtx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: 'Property Value (HPI Only)',
+            data: reVals,
+            borderColor: '#4faaff',
+            backgroundColor: '#4faaff33',
+            fill: false,
+            pointRadius: 0,
+            tension: 0.33,
+            borderWidth: 4,
+          },
+          {
+            label: 'Compounded Rental Income',
+            data: rentalVals,
+            borderColor: '#FFD700',
+            backgroundColor: '#FFD70033',
+            fill: false,
+            pointRadius: 0,
+            tension: 0.33,
+            borderWidth: 4,
+          },
+          {
+            label: 'Cash (Inflation-Adjusted)',
+            data: cashVals,
+            borderColor: '#ff5c5c',
+            backgroundColor: '#ff5c5c22',
+            fill: false,
+            pointRadius: 0,
+            tension: 0.33,
+            borderWidth: 4,
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: '#fff', font: { size: 18 } } },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        scales: {
+          x: { ticks: { color:'#aeeaff', font:{weight:700, size:18}}, grid: {display:false} },
+          y: { ticks: { color:'#fff', font:{size:18}}, grid: {color:'rgba(255,255,255,0.07)'}, beginAtZero:true }
+        },
+        responsive: true,
+        animation: { duration: 800 },
+      }
+    });
+  } else {
+    dcaChart.data.labels = years;
+    dcaChart.data.datasets[0].data = reVals;
+    dcaChart.data.datasets[1].data = rentalVals;
+    dcaChart.data.datasets[2].data = cashVals;
+    dcaChart.update();
+  }
+}
+
+// INIT DCA LOGIC
+window.addEventListener('DOMContentLoaded', async ()=>{
+  await getHpiCpiData();
+  updateDca();
+  dcaForm.addEventListener('input', updateDca);
+  dcaForm.addEventListener('change', updateDca);
+
+  // ADD THIS LINE SO THE ROI SELECT DROPDOWN UPDATES INSTANTLY!
+  document.getElementById('dcaYield').addEventListener('change', updateDca);
+});
+
+
+</script>
 </body>
 </html>
