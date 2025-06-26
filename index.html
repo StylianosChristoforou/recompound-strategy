@@ -1686,11 +1686,11 @@ const chartSubtitle = document.getElementById('chartSubtitle');
 
 function setChartTitle(mode) {
   if (mode === 'realestate') {
-    chartTitle.textContent = 'Real Estate vs Cash (Live DCA Backtest)';
+    chartTitle.textContent = 'Real Estate vs Cash (Live One Time Investment)';
     chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.';
   } else if (mode === 'btc') {
-    chartTitle.textContent = 'Bitcoin vs Cash (Historical Lump Sum Backtest)';
-    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in Bitcoin vs. hold cash, using real <b>BTC & Eurozone CPI</b> data since 2010.';
+    chartTitle.textContent = 'Bitcoin vs Cash (Live One Time Investment)';
+    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in Bitcoin vs. hold cash, using real <b>BTC & US CPI</b> data since 1990.';
   }
 }
 
