@@ -417,29 +417,38 @@
     }
     .testimonial-author { color: #3052e6; font-weight: 700; font-size: 1.08rem; }
     .chart-section {
-      width: 100vw;
-      background: #101522 !important;
-        /* border-top: 1px solid #eaeaea; */
-      margin: 0;
-      box-shadow: 0 2px 24px 0 #277bfa0d;
-      display: block;
-      min-height: 440px;
-      position: relative;
-    }
-    .chart-section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2.2rem 1.5rem 2rem 1.5rem;
-      background: transparent;
-      position: relative;
-    }
-    .chart-section canvas {
-      max-width: 100%;
-      width: 100%;
-      margin: 2rem auto 0.5rem auto;
-      display: block;
-      background: transparent;
-    }
+  width: 100vw;
+  background: #101522 !important;
+  margin: 0;
+  box-shadow: 0 2px 24px 0 #277bfa0d;
+  display: block;
+  min-height: 440px;
+  position: relative;
+}
+.chart-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 2.5rem 1rem;
+  background: transparent;
+  position: relative;
+}
+
+.chart-section canvas {
+  max-width: 100%;
+  width: 100%;
+  margin: 1.3rem auto 0 auto;
+  display: block;
+  background: transparent;
+}
+
+@media (max-width: 850px) {
+  .chart-section canvas {
+    min-height: 260px !important;
+    height: 320px !important;
+    max-height: 320px !important;
+  }
+}
+
     .about-bottom {
       width: 100vw;
       background: #101522 !important;
@@ -701,6 +710,57 @@ body, html {
   bottom: 10px !important;
   position: fixed !important;
 }
+#dcaChart {
+  width: 100% !important;
+  height: 380px !important;
+  max-height: 400px !important;
+  min-height: 220px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+@media (max-width: 850px) {
+  #dcaChart {
+    min-height: 200px !important;
+    height: 260px !important;
+    max-height: 320px !important;
+  }
+}
+
+@media (max-width: 850px) {
+  #dcaChart, #dcaChart canvas {
+    min-height: 260px !important;
+    height: 320px !important;
+    max-height: 320px !important;
+  }
+  #dcaResult {
+    font-size: 1rem !important;
+    padding: 13px 10px !important;
+    left: 10px !important;
+    top: 12px !important;
+  }
+}
+#cityYield,
+#dcaStartYear,
+#dcaLumpSum {
+  font-size: 1.14rem;
+  border-radius: 8px;
+  padding: 6px 16px;
+  background: #1a2234;           /* dark blue/gray background */
+  border: 1.5px solid #277bfa99; /* blue semi-transparent border */
+  color: #fff;                   /* white text */
+}
+
+#dcaStartYear {
+  margin-left: 0.3em;            /* spacing */
+}
+
+#dcaLumpSum {
+  width: 120px;                  /* fixed width */
+  text-align: right;             /* match input alignment */
+}
 
   </style>
 </head>
@@ -801,63 +861,63 @@ body, html {
     </div>
   </div>
   <!-- Real Estate DCA Calculator (Live Data) -->
+<!-- Real Estate DCA Calculator (Live Data, Clean Centered Layout) -->
+<!-- Real Estate Lump Sum Backtest (Styled Like Old Block) -->
 <section class="chart-section" id="comparisonChartSection" style="margin-top:0;">
   <div class="chart-section-inner" style="max-width:1100px;padding:2.5rem 1rem 2.5rem 1rem;">
-    <h3 style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">Real Estate vs Cash (Live DCA Backtest)</h3>
+    <h3 style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">
+      Real Estate vs Cash (Live DCA Backtest)
+    </h3>
     <p style="color:#aeeaff;font-size:1.14rem;font-weight:700;margin-bottom:1.1rem;">
-      See what happens when you invest monthly in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
+      See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
     </p>
-    <div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem;">
-  <label for="cityYield" style="color:#FFD700;font-weight:700;font-size:1.15rem;">City:</label>
-  <select id="cityYield" style="font-size:1.15rem;border-radius:8px;padding:7px 18px;color:#FFD700;background:#1a2234;border:1.5px solid #FFD700a8;">
-    <option value="5.1">New York, NY (5.1%)</option>
-    <option value="5.2">Honolulu, HI (5.2%)</option>
-    <option value="6.3">San Jose, CA (6.3%)</option>
-    <option value="6.3">San Francisco, CA (6.3%)</option>
-    <option value="6.7">Oakland, CA (6.7%)</option>
-    <option value="6.7">San Diego, CA (6.7%)</option>
-    <option value="6.9">Long Beach, CA (6.9%)</option>
-    <option value="6.9">Irvine, CA (6.9%)</option>
-    <option value="7.2">Los Angeles, CA (7.2%)</option>
-    <option value="7.5">Seattle, WA (7.5%)</option>
-    <option value="8.1">Boston, MA (8.1%)</option>
-    <option value="8.4">Santa Rosa, CA (8.4%)</option>
-    <option value="8.5">Washington, DC (8.5%)</option>
-    <option value="8.9">Phoenix, AZ (8.9%)</option>
-    <option value="9.5">Denver, CO (9.5%)</option>
-    <option value="9.8">Jersey City, NJ (9.8%)</option>
-    <option value="9.9">Las Vegas, NV (9.9%)</option>
-    <option value="10.2">Miami, FL (10.2%)</option>
-    <option value="10.3">Sacramento, CA (10.3%)</option>
-    <option value="10.6">Dallas, TX (10.6%)</option>
-    <option value="11.3">Fort Lauderdale, FL (11.3%)</option>
-    <option value="13.9">Houston, TX (13.9%)</option>
-    <option value="15.4">Chicago, IL (15.4%)</option>
-    <option value="22.5">Detroit, MI (22.5%)</option>
-    <option value="custom">Custom</option>
-  </select>
-  <label for="dcaYield" style="color:#FFD700;font-weight:700;font-size:1.15rem;margin:0 5px;">Annual Rental Yield (%)</label>
-  <input type="number" id="dcaYield" value="5.1" min="0" max="25" step="0.1"
-    style="font-size:1.15rem;border-radius:8px;padding:7px 18px;width:90px;color:#FFD700;background:#1a2234;border:1.5px solid #FFD700a8;" />
+    <div style="text-align:center; margin-bottom: 1rem;">
+  <button id="btnRealEstate" style="padding: 0.5rem 1rem; font-weight: bold; margin-right: 1rem; cursor: pointer;">Real Estate</button>
+  <button id="btnBTC" style="padding: 0.5rem 1rem; cursor: pointer;">BTC</button>
 </div>
-<p style="color:#aeeaff;font-size:0.98rem;text-align:center;">
-  Rental yields from Numbeo (2025). May vary by neighborhood and property.
-</p>
 
-    <form id="dcaForm" style="display:flex;flex-wrap:wrap;gap:1.2rem 1.5rem;justify-content:center;align-items:center;margin:2.2rem 0 1.2rem 0;">
-      <label style="color:#fff;font-weight:700;font-size:1.19rem;">From 
-        <select id="dcaStartYear" style="font-size:1.15rem;border-radius:7px;padding:4px 13px;color:#fff;background:#223259;border:1px solid #4faaffa8;margin:0 7px;"></select>
-        to now, invest
-      </label>
-      <span style="display:flex;align-items:center;color:#fff;font-weight:700;font-size:1.19rem;">
-        <span>€</span>
-        <input type="number" id="dcaMonthly" value="500" min="10" max="100000" step="10" style="font-size:1.13rem;border-radius:7px;padding:4px 13px;width:100px;color:#fff;background:#223259;border:1px solid #4faaffa8;margin:0 7px;">
-      </span>
-      <span style="color:#fff;font-weight:700;font-size:1.19rem;">per month.</span>
-    </form>
-    <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;"></div>
-    <canvas id="dcaChart" style="max-width:100%; width:100%; height: 380px; margin:1.3rem auto 0 auto; display:block;"></canvas>
+    <!-- Controls -->
+<!-- Controls -->
+<div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem;">
+  <form id="dcaForm" style="display:flex;align-items:center;gap:1rem;">
+    <label for="cityYield" style="color:#aeeaff;font-weight:700;font-size:1.15rem;">City:</label>
+    <select id="cityYield" style="font-size:1.14rem;border-radius:8px;padding:6px 16px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;"></select>
+
+    <label for="dcaStartYear" style="color:#aeeaff;font-weight:700;">From</label>
+    <select id="dcaStartYear" style="font-size:1.14rem;border-radius:8px;padding:6px 16px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;"></select>
+
+    <label for="dcaLumpSum" style="color:#aeeaff;font-weight:700;">invest €</label>
+    <input id="dcaLumpSum" type="number" value="50000" min="1000" max="10000000"
+      style="font-size:1.14rem;border-radius:8px;padding:6px 16px;width:120px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;">
+    <span style="color:#fff;font-weight:700;">one time.</span>
+  </form>
+</div>
+
+    <!-- Results above the chart -->
+    <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;">
+      <!-- JS fills this -->
+    </div>
+    <!-- Chart (centered, old style) -->
+    <div style="width:100%;max-width:1100px;margin:0 auto;">
+  <canvas id="dcaChart" height="380" style="max-width:100%;width:100%;margin:1.3rem auto 0 auto;display:block;background:transparent;box-shadow:none;border-radius:0;"></canvas>
+</div>
+  </div>
+  <!-- BTC Controls, hidden by default -->
+<div id="btcControls" style="display:none; align-items:center; gap:1rem; justify-content:center; margin-bottom:1.2rem;">
+  <form id="btcForm" style="display:flex; align-items:center; gap:1rem;">
+    <label for="btcStartYear" style="color:#aeeaff; font-weight:700; font-size:1.15rem;">From</label>
+    <select id="btcStartYear" style="font-size:1.14rem; border-radius:8px; padding:6px 16px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;"></select>
+
+    <label for="btcLumpSum" style="color:#aeeaff; font-weight:700;">invest €</label>
+    <input id="btcLumpSum" type="number" value="50000" min="1000" max="10000000"
+      style="font-size:1.14rem; border-radius:8px; padding:6px 16px; width:120px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;">
+    <span style="color:#fff; font-weight:700;">one time.</span>
+  </form>
+</div>
+
 </section>
+
+
 
 
 <section id="about-bottom" class="site-section" style="padding:0;margin:0;background:none;">
@@ -1068,28 +1128,98 @@ window.addEventListener('scroll', function() {
     navLogo.classList.add('nav-logo-hide');
   }
 });
+
+// Place at the TOP of your main script!
+// Place at the TOP of your main script!
+const allCities = [
+  "New York, NY",
+  "Atlanta, GA",
+  "Phoenix, AZ",
+  "Boston, MA",
+  "San Francisco, CA",
+  "Los Angeles, CA",
+  "San Diego, CA",
+  "Charlotte, NC",
+  "Chicago, IL",
+  "Cleveland, OH",
+  "Denver, CO",
+  "Dallas, TX",
+  "Washington, DC",
+  "Detroit, MI",
+  "Miami, FL",
+  "Tampa, FL",
+  "Las Vegas, NV",
+  "Minneapolis, MN",
+  "Portland, OR",
+  "Seattle, WA"
+];
+
+async function getHpiGain(city) {
+  const fredCode = cityToFRED[city];
+  if (!fredCode) return 0;
+  const url = `https://corsproxy.io/?https://api.stlouisfed.org/fred/series/observations?series_id=${fredCode}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const vals = data.observations
+      .filter(x => !isNaN(parseFloat(x.value)))
+      .map(x => parseFloat(x.value));
+    if (vals.length < 2) return 0;
+    return ((vals[vals.length - 1] / vals[0]) - 1) * 100;
+  } catch {
+    return 0;
+  }
+}
+
+async function sortCitiesByHpiAndPopulateDropdown() {
+  const gainPairs = await Promise.all(allCities.map(async city => {
+    const gain = await getHpiGain(city);
+    return { city, gain };
+  }));
+  gainPairs.sort((a, b) => b.gain - a.gain);
+  const citySelect = document.getElementById('cityYield');
+  citySelect.innerHTML = '';
+  for (const {city, gain} of gainPairs) {
+    const opt = document.createElement('option');
+    opt.value = city;
+    opt.textContent = `${city} (${gain.toFixed(1)}% HPI)`;
+    citySelect.appendChild(opt);
+  }
+}
+
+// Populate the dropdown (sorted) on page load!
+window.addEventListener('DOMContentLoaded', async function() {
+  await sortCitiesByHpiAndPopulateDropdown();
+});
+
+
+// (THEN the rest of your code)
 const cityYield = document.getElementById('cityYield');
 const dcaYield = document.getElementById('dcaYield');
 
-cityYield.addEventListener('change', function() {
+
+cityYield.addEventListener('change', async function() {
   if (cityYield.value === "custom") {
+    dcaYield.value = '';
+    dcaYield.placeholder = "Enter yield (%)";
     dcaYield.removeAttribute('readonly');
     dcaYield.focus();
   } else {
-    dcaYield.value = cityYield.value;
-    dcaYield.setAttribute('readonly', true);
+    dcaYield.value = cityTypicalYields[cityYield.value] ?? '';
+    dcaYield.placeholder = "Annual yield (%)";
+    dcaYield.removeAttribute('readonly');
   }
+  // NEW: re-fetch HPI/CPI for this city
+  await getHpiCpiData();
   updateDca();
 });
 
+
+// Allow manual yield at all times
 dcaYield.addEventListener('input', function() {
-  if (cityYield.value === "custom") updateDca();
-  else {
-    cityYield.value = "custom";
-    dcaYield.removeAttribute('readonly');
-    updateDca();
-  }
+  updateDca();
 });
+
 </script>
 <script>
   // Burger menu toggle for mobile
@@ -1267,17 +1397,20 @@ function resetAutoScroll() {
 // DCA Real Data Simulation
 const dcaForm = document.getElementById('dcaForm');
 const dcaStartYear = document.getElementById('dcaStartYear');
-const dcaMonthly = document.getElementById('dcaMonthly');
 const dcaResult = document.getElementById('dcaResult');
 const dcaChartCtx = document.getElementById('dcaChart').getContext('2d');
 let hpiYearly = [], cpiYearly = [], dcaYears = [];
 
 async function getHpiCpiData() {
+  // Get the selected city, fallback to NY
+  let city = cityYield.value || "New York, NY";
+  let hpiCode = cityToFRED[city] || "USSTHPI";
   const [cpiRaw, hpiRaw] = await Promise.all([
     fetchFRED('CPIAUCSL'),
-    fetchFRED('USSTHPI')
+    fetchFRED(hpiCode)
   ]);
-  const years = hpiRaw.map(x => x.year).filter(y => y >= 1990);
+  // Only use years that are present in both HPI and CPI
+  const years = hpiRaw.map(x => x.year).filter(y => y >= 1990 && cpiRaw.some(c=>c.year==y));
   hpiYearly = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
   cpiYearly = years.map(y => cpiRaw.find(x => x.year == y)?.value || null);
   dcaYears = years;
@@ -1288,154 +1421,488 @@ async function getHpiCpiData() {
   dcaStartYear.value = years[0];
 }
 
+const cityToFRED = {
+  "New York, NY": "NYXRSA",
+  "Atlanta, GA": "ATXRSA",
+  "Phoenix, AZ": "PHXRSA",
+  "Boston, MA": "BOXRSA",
+  "San Francisco, CA": "SFXRSA",
+  "Los Angeles, CA": "LXXRSA",
+  "San Diego, CA": "SDXRSA",
+  "Charlotte, NC": "CRXRSA",
+  "Chicago, IL": "CHXRSA",
+  "Cleveland, OH": "CEXRSA",
+  "Denver, CO": "DNXRSA",
+  "Dallas, TX": "DAXRSA",
+  "Washington, DC": "WDXRSA",
+  "Detroit, MI": "DEXRSA",
+  "Miami, FL": "MIXRSA",
+  "Tampa, FL": "TPXRSA",
+  "Las Vegas, NV": "LVXRSA",
+  "Minneapolis, MN": "MNXRSA",
+  "Portland, OR": "POXRSA",
+  "Seattle, WA": "SEXRSA"
+};
+
 let dcaChart;
-function calcDcaCurve(startYear, monthly, yieldPct) {
-  let invest = 0, reVals = [], rentalVals = [], cashVals = [];
-  const idx0 = dcaYears.indexOf(+startYear);
+// --- BEGIN COINGECKO BTC HISTORICAL PRICES ---
+let btcYears = [];
+let btcPrices = [];
+let btcLoaded = false;
+let btcError = null;
 
-  let propertyValue = 0;
-  let cash = 0;
-  let nYears = dcaYears.length - idx0 -1;
-  let months = nYears * 12;
-  let curYear = idx0;
-  let lastHPI = hpiYearly[idx0];
-  let lastCPI = cpiYearly[idx0];
-
-  let reValsYear = [], rentalValsYear = [], cashValsYear = [];
-
-  for (let m = 0; m < months; m++) {
-    if (m % 12 === 0 && m !== 0) {
-      curYear++;
-      if (hpiYearly[curYear] != null) lastHPI = hpiYearly[curYear];
-      if (cpiYearly[curYear] != null) lastCPI = cpiYearly[curYear];
+// Fetch BTC price history from CoinGecko (since 2011, yearly)
+async function fetchBTCPrices() {
+  btcLoaded = false;
+  btcError = null;
+  const url = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=max';
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP error " + res.status);
+    const data = await res.json();
+    // Reduce to one price per year (first seen in each year)
+    const pricesByYear = {};
+    for (const [ts, price] of data.prices) {
+      const year = new Date(ts).getFullYear();
+      if (!(year in pricesByYear)) pricesByYear[year] = price;
     }
-
-    propertyValue += monthly;
-    cash += monthly;
-
-    let growthHPI = (curYear > idx0) ? Math.pow(hpiYearly[curYear] / hpiYearly[curYear - 1], 1 / 12) : 1;
-    propertyValue *= growthHPI;
-
-    let cpiLoss = (curYear > idx0) ? Math.pow(cpiYearly[curYear - 1] / cpiYearly[curYear], 1 / 12) : 1;
-    cash *= cpiLoss;
-
-    invest += monthly;  // increment investment every single month, not yearly
-
-    if ((m + 1) % 12 === 0) {
-  // Keep your yearly tracking here, but do NOT add to invest here
-     reValsYear.push(propertyValue);
-     rentalValsYear.push(propertyValue * yieldPct / 100 / 12);
-      cashValsYear.push(cash);
+    btcYears = Object.keys(pricesByYear).map(y => +y).filter(y => y >= 2011).sort();
+    btcPrices = btcYears.map(y => pricesByYear[y]);
+    btcLoaded = true;
+    btcError = null;
+  } catch (e) {
+    btcLoaded = false;
+    btcError = e.message || "Unknown error";
+  }
 }
 
+function populateBtcYears() {
+  const btcStartYear = document.getElementById('btcStartYear');
+  btcStartYear.innerHTML = '';
+  btcYears.forEach(year => {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    btcStartYear.appendChild(opt);
+  });
+  if (btcYears.length) btcStartYear.value = btcYears[0];
+}
+
+function updateBtcDca() {
+  if (!btcLoaded || btcError) {
+    dcaResult.innerHTML = btcError ? `<span style="color:#ff2323;">BTC data error: ${btcError}</span>` : '<span style="color:#ffaa00;">Loading BTC prices...</span>';
+    return;
+  }
+  const btcStartYear = document.getElementById('btcStartYear');
+  const btcLumpSumInput = document.getElementById('btcLumpSum');
+  const start = +btcStartYear.value;
+  const lumpSum = Math.min(10000000, +btcLumpSumInput.value || 0);
+  if (btcYears.length === 0 || btcPrices.length === 0) return;
+
+  const startIdx = btcYears.indexOf(start);
+  if (startIdx === -1) return;
+
+  // Find matching CPI years for inflation line (CPI is already loaded for real estate)
+  let cpiCashVals = [];
+  let lastCPI = cpiYearly[dcaYears.indexOf(start)] ?? cpiYearly[0];
+  let cashYears = btcYears.slice(startIdx);
+  for (let i = 0; i < cashYears.length; ++i) {
+    let idx = dcaYears.indexOf(cashYears[i]);
+    if (idx !== -1) {
+      cpiCashVals.push(lumpSum * (cpiYearly[idx] / lastCPI));
+    } else {
+      cpiCashVals.push(cpiCashVals.length ? cpiCashVals[cpiCashVals.length - 1] : lumpSum);
+    }
   }
 
+  const years = btcYears.slice(startIdx);
+  const prices = btcPrices.slice(startIdx);
+  const basePrice = prices[0];
+  const btcVals = prices.map(p => lumpSum * (p / basePrice));
+  const lastBTC = btcVals[btcVals.length - 1] || 0;
+  const lastCash = cpiCashVals[cpiCashVals.length - 1] || lumpSum;
+  const gainPct = ((lastBTC / lumpSum - 1) * 100).toFixed(1);
+  const cashPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
+
+  dcaResult.innerHTML = `
+    <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
+      After ${years.length} years, your €${lumpSum.toLocaleString()} will be worth:
+    </div>
+    <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
+      <span>Invested in <span style="color:#ffaa00;">BTC</span>: </span>
+      <span>€${Math.round(lastBTC).toLocaleString()}</span>
+      <span style="color:#ffaa00;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
+    </div>
+    <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
+      <span>Only saved in cash: </span>
+      <span>€${Math.round(lastCash).toLocaleString()}</span>
+      <span style="color:#ff2323;"> (${cashPct > 0 ? "+" : ""}${cashPct}% ${cashPct >= 0 ? "gain" : "loss"})</span>
+    </div>
+  `;
+
+  // Always CREATE a new chart for BTC mode!
+  if (dcaChart) dcaChart.destroy();
+  dcaChart = new Chart(dcaChartCtx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'BTC Value (CoinGecko)',
+          data: btcVals,
+          borderColor: '#ffaa00',
+          backgroundColor: 'rgba(255,170,0,0.11)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.21,
+          borderWidth: 6,
+        },
+        {
+          label: 'Cash (Inflation-Adjusted)',
+          data: cpiCashVals,
+          borderColor: '#ff2323',
+          backgroundColor: 'rgba(255,35,35,0.13)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.19,
+          borderWidth: 6,
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+      },
+      responsive: true,
+      animation: { duration: 900 },
+    }
+  });
+}
+
+
+function calcLumpSumCurve(startYear, lumpSum) {
+  const idx0 = dcaYears.indexOf(+startYear);
+  let nYears = dcaYears.length - idx0;
+  let reVals = [];
+  let cashVals = [];
+
+  let propertyValue = lumpSum;
+  let cashValue = lumpSum;
+
+  for (let i = 0; i < nYears; i++) {
+    // Grow property and cash each year
+    if (i > 0) {
+      propertyValue *= hpiYearly[idx0 + i] / hpiYearly[idx0 + i - 1];
+      cashValue *= cpiYearly[idx0 + i - 1] / cpiYearly[idx0 + i];
+    }
+    reVals.push(propertyValue);
+    cashVals.push(cashValue);
+  }
   return {
     years: dcaYears.slice(idx0),
-    invest,
-    reVals: reValsYear,
-    rentalVals: rentalValsYear,
-    cashVals: cashValsYear
+    invest: lumpSum,
+    reVals,
+    cashVals
   };
 }
+
+
 function updateDca() {
   const start = +dcaStartYear.value;
-  const monthly = Math.min(100000, +dcaMonthly.value);
-if (+dcaMonthly.value > 100000) dcaMonthly.value = 100000;
-  const yieldPct = +document.getElementById('dcaYield').value;
+  const lumpSum = Math.min(10000000, +document.getElementById('dcaLumpSum').value);
+  if (+document.getElementById('dcaLumpSum').value > 10000000) document.getElementById('dcaLumpSum').value = 10000000;
   if (!hpiYearly.length) return;
-  const {years, invest, reVals, rentalVals, cashVals} = calcDcaCurve(start, monthly, yieldPct);
-  
+
+  const {years, invest, reVals, cashVals} = calcLumpSumCurve(start, lumpSum);
+
   const lastRE = reVals[reVals.length-1] || 0;
   const lastCash = cashVals[cashVals.length-1] || 0;
-  const lastRental = lastRE * yieldPct / 100 / 12; // correct: shows current monthly rent for final value
+
+  const gainPct = ((lastRE / invest - 1) * 100).toFixed(1);
+  const lossPct = ((lastCash / invest - 1) * 100).toFixed(1);
 
 dcaResult.innerHTML = `
-  <div style="font-size:1.25rem;color:#aeeaff;font-weight:800;text-align:center;margin-bottom:0.8em;">
-    <span>After ${dcaYears[dcaYears.length-1] - start} years investing <b>€${monthly.toLocaleString()}</b> per month:</span>
+  <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
+     After ${dcaYears[dcaYears.length-1] - start} years, your €${invest.toLocaleString()} will be worth:
   </div>
-  <div style="font-size:1.20rem;font-weight:700;text-align:center;line-height:1.85;">
-    <span style="color:#aeeaff;">Total Invested: <b>€${invest.toLocaleString()}</b></span><br>
-    <span style="color:#00ff47;">If you invested in real estate: <b>€${Math.round(lastRE).toLocaleString()}</b> <span style="font-size:1.12rem;font-weight:600;">(${((lastRE/invest-1)*100).toFixed(1)}% gain)</span></span><br>
-    <span style="color:#ff1744;">If you only saved in cash: <b>€${Math.round(lastCash).toLocaleString()}</b> <span style="font-size:1.12rem;font-weight:600;">(${((lastCash/invest-1)*100).toFixed(1)}% loss)</span></span>
+  <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
+    <span>Invested in real estate: </span>
+    <span>€${Math.round(lastRE).toLocaleString()}</span>
+    <span style="color:#2cff62;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
   </div>
-  <div style="font-size:1.09rem;color:#FFD700;text-align:center;margin-top:0.55em;">
-    Your rental income today: <b>€${Math.round(lastRental).toLocaleString()}</b> per month
+  <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
+    <span>Only saved in cash: </span>
+    <span>€${Math.round(lastCash).toLocaleString()}</span>
+    <span style="color:#ff2323;"> (${lossPct > 0 ? "+" : ""}${lossPct}% ${lossPct >= 0 ? "gain" : "loss"})</span>
   </div>
 `;
 
 
 
-  if (!dcaChart) {
+  if (dcaChart) {
+    dcaChart.data.labels = years;
+    dcaChart.data.datasets[0].data = reVals;
+    dcaChart.data.datasets[1].data = cashVals;
+    dcaChart.update();
+  } else {
+    try { if (window.dcaChart) window.dcaChart.destroy(); } catch(e){}
     dcaChart = new Chart(dcaChartCtx, {
       type: 'line',
       data: {
         labels: years,
         datasets: [
           {
-            label: 'Property Value (HPI Only)',
+            label: 'Property Value (Real Estate, HPI)',
             data: reVals,
-            borderColor: '#4faaff',
-            backgroundColor: '#4faaff33',
-            fill: false,
+            borderColor: '#2cff62',       // bright green matches text
+            backgroundColor: 'rgba(44,255,98,0.11)', // transparent green fill
+            fill: true,
             pointRadius: 0,
-            tension: 0.33,
-            borderWidth: 4,
-          },
-          {
-            label: 'Compounded Rental Income',
-            data: rentalVals,
-            borderColor: '#FFD700',
-            backgroundColor: '#FFD70033',
-            fill: false,
-            pointRadius: 0,
-            tension: 0.33,
-            borderWidth: 4,
+            tension: 0.21,
+            borderWidth: 6,
           },
           {
             label: 'Cash (Inflation-Adjusted)',
             data: cashVals,
-            borderColor: '#ff5c5c',
-            backgroundColor: '#ff5c5c22',
-            fill: false,
+            borderColor: '#ff2323',       // bright red matches text
+            backgroundColor: 'rgba(255,35,35,0.13)',  // transparent red fill
+            fill: true,
             pointRadius: 0,
-            tension: 0.33,
-            borderWidth: 4,
+            tension: 0.19,
+            borderWidth: 6,
           }
         ]
       },
       options: {
         plugins: {
-          legend: { labels: { color: '#fff', font: { size: 18 } } },
+          legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
           tooltip: { mode: 'index', intersect: false }
         },
         scales: {
-          x: { ticks: { color:'#aeeaff', font:{weight:700, size:18}}, grid: {display:false} },
-          y: { ticks: { color:'#fff', font:{size:18}}, grid: {color:'rgba(255,255,255,0.07)'}, beginAtZero:true }
+          x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+          y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
         },
         responsive: true,
-        animation: { duration: 800 },
+        animation: { duration: 900 },
       }
     });
-  } else {
-    dcaChart.data.labels = years;
-    dcaChart.data.datasets[0].data = reVals;
-    dcaChart.data.datasets[1].data = rentalVals;
-    dcaChart.data.datasets[2].data = cashVals;
-    dcaChart.update();
   }
 }
+
+let showingRealEstate = true; // keep this to track toggle state
+
+// Show Real Estate (existing, unchanged)
+// Show Real Estate (existing, unchanged)
+function showRealEstate() {
+  showingRealEstate = true;
+  document.getElementById('btcControls').style.display = 'none';
+  document.getElementById('dcaForm').style.display = 'flex';
+  if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
+  updateDca(); // This re-creates the chart with the real estate datasets ONLY
+}
+
+// Show BTC controls and update
+async function showBTC() {
+  showingRealEstate = false;
+  document.getElementById('dcaForm').style.display = 'none';
+  document.getElementById('btcControls').style.display = 'flex';
+  if (!btcLoaded && !btcError) {
+    dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading BTC prices...</span>';
+    await fetchBTCPrices();
+  }
+  populateBtcYears();
+  if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
+  updateBtcDca(); // This re-creates the chart with the BTC datasets ONLY
+}
+
+
+
+
+// Populate BTC years dropdown based on years available in dcaYears (same as real estate years)
+function populateBtcYears() {
+  const btcStartYear = document.getElementById('btcStartYear');
+  btcStartYear.innerHTML = '';
+  btcYears.forEach(year => {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    btcStartYear.appendChild(opt);
+  });
+  btcStartYear.value = btcYears[0];
+}
+
+// Update BTC chart and result
+function updateBtcDca() {
+  if (!btcLoaded || btcError) {
+    dcaResult.innerHTML = btcError ? `<span style="color:#ff2323;">BTC data error: ${btcError}</span>` : '<span style="color:#ffaa00;">Loading BTC prices...</span>';
+    return;
+  }
+  const btcStartYear = document.getElementById('btcStartYear');
+  const btcLumpSumInput = document.getElementById('btcLumpSum');
+  const start = +btcStartYear.value;
+  const lumpSum = Math.min(10000000, +btcLumpSumInput.value || 0);
+  if (btcYears.length === 0 || btcPrices.length === 0) return;
+
+  const startIdx = btcYears.indexOf(start);
+  if (startIdx === -1) return;
+
+  // Find matching CPI years for inflation line (CPI is already loaded for real estate)
+  let cpiCashVals = [];
+  let lastCPI = cpiYearly[dcaYears.indexOf(start)] ?? cpiYearly[0];
+  let cashYears = btcYears.slice(startIdx);
+  for (let i = 0; i < cashYears.length; ++i) {
+    let idx = dcaYears.indexOf(cashYears[i]);
+    if (idx !== -1) {
+      cpiCashVals.push(lumpSum * (cpiYearly[idx] / lastCPI));
+    } else {
+      cpiCashVals.push(cpiCashVals.length ? cpiCashVals[cpiCashVals.length - 1] : lumpSum);
+    }
+  }
+
+  const years = btcYears.slice(startIdx);
+  const prices = btcPrices.slice(startIdx);
+  const basePrice = prices[0];
+  const btcVals = prices.map(p => lumpSum * (p / basePrice));
+  const lastBTC = btcVals[btcVals.length - 1] || 0;
+  const lastCash = cpiCashVals[cpiCashVals.length - 1] || lumpSum;
+  const gainPct = ((lastBTC / lumpSum - 1) * 100).toFixed(1);
+  const cashPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
+
+  dcaResult.innerHTML = `
+    <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
+      After ${years.length} years, your €${lumpSum.toLocaleString()} will be worth:
+    </div>
+    <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
+      <span>Invested in <span style="color:#ffaa00;">BTC</span>: </span>
+      <span>€${Math.round(lastBTC).toLocaleString()}</span>
+      <span style="color:#ffaa00;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
+    </div>
+    <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
+      <span>Only saved in cash: </span>
+      <span>€${Math.round(lastCash).toLocaleString()}</span>
+      <span style="color:#ff2323;"> (${cashPct > 0 ? "+" : ""}${cashPct}% ${cashPct >= 0 ? "gain" : "loss"})</span>
+    </div>
+  `;
+
+  // Always CREATE a new chart for BTC mode!
+  if (dcaChart) dcaChart.destroy();
+  dcaChart = new Chart(dcaChartCtx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'BTC Value (CoinGecko)',
+          data: btcVals,
+          borderColor: '#ffaa00',
+          backgroundColor: 'rgba(255,170,0,0.11)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.21,
+          borderWidth: 6,
+        },
+        {
+          label: 'Cash (Inflation-Adjusted)',
+          data: cpiCashVals,
+          borderColor: '#ff2323',
+          backgroundColor: 'rgba(255,35,35,0.13)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.19,
+          borderWidth: 6,
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+      },
+      responsive: true,
+      animation: { duration: 900 },
+    }
+  });
+}
+
+
+
+document.getElementById('btnRealEstate').addEventListener('click', showRealEstate);
+document.getElementById('btnBTC').addEventListener('click', showBTC);
+
+
+
+// Event listeners for BTC inputs (update only if showing BTC)
+document.getElementById('btcStartYear').addEventListener('change', () => {
+  if (!showingRealEstate) updateBtcDca();
+});
+document.getElementById('btcLumpSum').addEventListener('input', () => {
+  if (!showingRealEstate) updateBtcDca();
+});
+
+// Update chart and text based on toggle (ASYNC, BTC is live, real estate is untouched)
+async function updateChartForToggle() {
+  if (dcaChart) {
+    dcaChart.destroy();
+    dcaChart = null;
+  }
+  if (showingRealEstate) {
+    updateDca();
+  } else {
+    if (!btcLoaded && !btcError) {
+      dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading BTC prices...</span>';
+      await fetchBTCPrices();
+    }
+    populateBtcYears();
+    updateBtcDca();
+  }
+}
+
+
+
+// Update chart normally on controls change, then update toggle to reflect state
+function updateDcaWithToggle() {
+  updateDca();  // your existing calc and update
+  updateChartForToggle();  // reapply toggle effect
+}
+
+// Replace event listeners for inputs with updated version
+document.getElementById('dcaLumpSum').removeEventListener('input', updateDca);
+document.getElementById('dcaStartYear').removeEventListener('change', updateDca);
+
+document.getElementById('dcaLumpSum').addEventListener('input', updateDcaWithToggle);
+document.getElementById('dcaStartYear').addEventListener('change', updateDcaWithToggle);
+document.getElementById('cityYield').addEventListener('change', async function() {
+  await getHpiCpiData();
+  updateDcaWithToggle();
+});
+
+
 
 // INIT DCA LOGIC
 window.addEventListener('DOMContentLoaded', async ()=>{
   await getHpiCpiData();
   updateDca();
-  dcaForm.addEventListener('input', updateDca);
-  dcaForm.addEventListener('change', updateDca);
 
-  // ADD THIS LINE SO THE ROI SELECT DROPDOWN UPDATES INSTANTLY!
-  document.getElementById('dcaYield').addEventListener('change', updateDca);
+  // When user changes amount or year, just update chart
+  document.getElementById('dcaLumpSum').addEventListener('input', updateDca);
+  document.getElementById('dcaStartYear').addEventListener('change', updateDca);
+
+  // When user changes city, fetch new HPI and update chart!
+  document.getElementById('cityYield').addEventListener('change', async function() {
+    await getHpiCpiData();
+    updateDca();
+  });
 });
+
 
 
 </script>
