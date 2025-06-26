@@ -364,13 +364,6 @@
       color: #c0d9f9; font-size: 1.07rem; margin-top: .08rem; font-weight: 700; letter-spacing: .01em;
       display: block;
     }
-    .section-divider {
-      width: 55px;
-      height: 4px;
-      background: linear-gradient(90deg,#4faaff,#3052e6);
-      border-radius: 7px;
-      margin: 0.5rem auto 1.5rem auto;
-    }
     section, .testimonial-section, .about-bottom-inner, .chart-content-fade {
       opacity: 1 !important;
       transform: none !important;
@@ -761,7 +754,6 @@ body, html {
   width: 120px;                  /* fixed width */
   text-align: right;             /* match input alignment */
 }
-
   </style>
 </head>
 <body>
@@ -865,19 +857,27 @@ body, html {
 <!-- Real Estate Lump Sum Backtest (Styled Like Old Block) -->
 <section class="chart-section" id="comparisonChartSection" style="margin-top:0;">
   <div class="chart-section-inner" style="max-width:1100px;padding:2.5rem 1rem 2.5rem 1rem;">
-    <h3 style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">
-      Real Estate vs Cash (Live DCA Backtest)
-    </h3>
-    <p style="color:#aeeaff;font-size:1.14rem;font-weight:700;margin-bottom:1.1rem;">
-      See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
-    </p>
+    <h3 id="chartTitle" style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">
+  Real Estate vs Cash (Live DCA Backtest)
+</h3>
+<p id="chartSubtitle" style="color:#aeeaff;font-size:1.14rem;font-weight:700;margin-bottom:1.1rem;">
+  See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
+</p>
+
     <div style="text-align:center; margin-bottom: 1rem;">
   <button id="btnRealEstate" style="padding: 0.5rem 1rem; font-weight: bold; margin-right: 1rem; cursor: pointer;">Real Estate</button>
   <button id="btnBTC" style="padding: 0.5rem 1rem; cursor: pointer;">BTC</button>
 </div>
-
-    <!-- Controls -->
-<!-- Controls -->
+    <!-- Results above the chart -->
+    <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;">
+      <!-- JS fills this -->
+    </div>
+    <!-- Chart (centered, old style) -->
+    <div style="width:100%;max-width:1100px;margin:0 auto;">
+  <canvas id="dcaChart" height="380" style="max-width:100%;width:100%;margin:1.3rem auto 0 auto;display:block;background:transparent;box-shadow:none;border-radius:0;"></canvas>
+</div>
+  </div>
+  <!-- Controls -->
 <div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem;">
   <form id="dcaForm" style="display:flex;align-items:center;gap:1rem;">
     <label for="cityYield" style="color:#aeeaff;font-weight:700;font-size:1.15rem;">City:</label>
@@ -892,16 +892,6 @@ body, html {
     <span style="color:#fff;font-weight:700;">one time.</span>
   </form>
 </div>
-
-    <!-- Results above the chart -->
-    <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;">
-      <!-- JS fills this -->
-    </div>
-    <!-- Chart (centered, old style) -->
-    <div style="width:100%;max-width:1100px;margin:0 auto;">
-  <canvas id="dcaChart" height="380" style="max-width:100%;width:100%;margin:1.3rem auto 0 auto;display:block;background:transparent;box-shadow:none;border-radius:0;"></canvas>
-</div>
-  </div>
   <!-- BTC Controls, hidden by default -->
 <div id="btcControls" style="display:none; align-items:center; gap:1rem; justify-content:center; margin-bottom:1.2rem;">
   <form id="btcForm" style="display:flex; align-items:center; gap:1rem;">
@@ -920,23 +910,24 @@ body, html {
 
 
 
-<section id="about-bottom" class="site-section" style="padding:0;margin:0;background:none;">
-  <div class="section-inner" style="max-width:520px;margin:0 auto;text-align:center;">
-    <h3 style="color:var(--accent2);font-weight:800;letter-spacing:.01em;font-size:2.09rem;margin-bottom:1.2rem;">About</h3>
+<section id="about-bottom" class="site-section">
+  <div class="section-inner">
+    <h3>About</h3>
     <div class="section-divider"></div>
-    <p style="color:#fff;font-size:1.17rem;font-weight:700;margin-bottom:1.45rem;">
+    <p style="font-size:1.17rem;font-weight:700;margin-bottom:1.45rem;">
       I’m not a Real Estate “Guru”.<br>
       I’m a strategist who started from zero and built a compounding real estate engine.
     </p>
     <h3 style="color:var(--accent);font-weight:800;letter-spacing:.01em;font-size:2.09rem;margin-bottom:1.2rem;">Co-Invest With Me</h3>
     <div class="section-divider"></div>
-    <p style="color:#fff;font-size:1.07rem;margin-bottom:1.8rem;">
+    <p style="font-size:1.07rem;margin-bottom:1.8rem;">
       I focus exclusively on long-term, wealth building real estate strategies never hype, never quick flips.<br><br>
       I’m open to select co-investment opportunities, strategic alliances, and fractional ownership structures with like minded capital partners.
       If you’re seeking to deploy capital in projects with real staying power and you value transparency, alignment, and compounding over time let’s connect.
     </p>
     <a href="https://wa.me/35796318896" target="_blank"
-      style="display:inline-block;background:linear-gradient(90deg,#4faaff 40%,#3052e6 100%);font-weight:700;color:#fff;font-size:1.16rem;padding:1rem 2.5rem;border-radius:40px;text-decoration:none;box-shadow:0 2px 12px 0 #4faaff22;margin-top:0.6rem;">
+      class="contact-btn"
+      style="margin-top:0.6rem;">
       Start a Conversation
     </a>
     <p style="font-size:0.98rem;color:#aeeaff;margin-top:1.1rem;">
@@ -944,6 +935,8 @@ body, html {
     </p>
   </div>
 </section>
+
+
 
   
   <div id="contact-bottom"></div>
@@ -1172,24 +1165,42 @@ async function getHpiGain(city) {
 }
 
 async function sortCitiesByHpiAndPopulateDropdown() {
-  const gainPairs = await Promise.all(allCities.map(async city => {
-    const gain = await getHpiGain(city);
-    return { city, gain };
-  }));
-  gainPairs.sort((a, b) => b.gain - a.gain);
   const citySelect = document.getElementById('cityYield');
   citySelect.innerHTML = '';
-  for (const {city, gain} of gainPairs) {
+  const cityGainPairs = [];
+  for (const city of allCities) {
+    const fredCode = cityToFRED[city];
+    const hpiRaw = await fetchFRED(fredCode);
+    const years = hpiRaw.map(x => x.year).filter(y => y >= 1990);
+    let hpiVals = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
+    if (hpiVals.length < 2) continue; // skip if not enough data
+    const base = hpiVals[0];
+    hpiVals = hpiVals.map(v => v / base * 100);
+    const hpiGain = ((hpiVals[hpiVals.length - 1] / hpiVals[0]) - 1) * 100;
+    cityGainPairs.push({ city, hpiGain });
+  }
+
+  // Sort cities by HPI gain (descending: highest first)
+  cityGainPairs.sort((a, b) => b.hpiGain - a.hpiGain);
+
+  for (const { city, hpiGain } of cityGainPairs) {
     const opt = document.createElement('option');
     opt.value = city;
-    opt.textContent = `${city} (${gain.toFixed(1)}% HPI)`;
+    opt.textContent = `${city} (1990–2024: ${hpiGain.toFixed(1)}% HPI)`;
     citySelect.appendChild(opt);
   }
+
+  // Select the highest-gain city by default
+  citySelect.selectedIndex = 0;
 }
+
 
 // Populate the dropdown (sorted) on page load!
 window.addEventListener('DOMContentLoaded', async function() {
   await sortCitiesByHpiAndPopulateDropdown();
+  // Force the correct HPI data + chart for the default (top) city after dropdown populated
+  await getHpiCpiData();
+  updateDca();
 });
 
 
@@ -1265,132 +1276,6 @@ dcaYield.addEventListener('input', function() {
     burger.classList.remove('active');
   });
 </script>
-<script>
-  // === BEGIN: News API Fetch & Carousel Logic ===
-const NEWSAPI_KEY = '2224618c504a4eeba57cbc81d2b37e13';
-const newsCards = document.getElementById('news-cards');
-const newsArrowLeft = document.getElementById('newsArrowLeft');
-const newsArrowRight = document.getElementById('newsArrowRight');
-const carouselDots = document.getElementById('carouselDots');
-let articles = [];
-let currentIdx = 0;
-let autoScrollTimer;
-
-// fetch news
-const corsProxy = 'https://corsproxy.io/?';
-const newsApiUrl = `https://newsapi.org/v2/everything?q=real estate&language=en&pageSize=6&sortBy=publishedAt&apiKey=${NEWSAPI_KEY}`;
-newsCards.innerHTML = '<div style="color:#4faaff;font-size:1.13rem;padding:2rem 0;text-align:center;">Loading latest news...</div>';
-
-fetch(corsProxy + encodeURIComponent(newsApiUrl))
-  .then(res => res.json())
-  .then(data => {
-    if (!data.articles || !data.articles.length) {
-      newsCards.innerHTML = '<div style="color:#f44;font-weight:600;">No news found. Try again later.</div>';
-      return;
-    }
-    articles = data.articles;
-    renderNews();
-    renderDots();
-    scrollToCard(0, false);
-    startAutoScroll();
-  })
-  .catch(() => {
-    newsCards.innerHTML = '<div style="color:#f44;font-weight:600;">Could not load news (API or CORS issue)</div>';
-  });
-function renderNews() {
-  newsCards.innerHTML = articles.map((article, i) => `
-    <a href="${article.url}" target="_blank" draggable="false">
-      ${article.urlToImage ? `<img src="${article.urlToImage}" alt="" style="width:100%; border-radius:10px; margin-bottom:10px;">` : ''}
-      <div class="news-title">${article.title}</div>
-      <div class="news-source">${article.source.name}${article.publishedAt ? ' • ' + article.publishedAt.substr(0,10) : ''}</div>
-    </a>
-  `).join('');
-}
-function renderDots() {
-  carouselDots.innerHTML = '';
-  for (let i = 0; i < articles.length; i++) {
-    const dot = document.createElement('span');
-    dot.className = 'carousel-dot' + (i === currentIdx ? ' active' : '');
-    dot.onclick = () => { scrollToCard(i); };
-    carouselDots.appendChild(dot);
-  }
-}
-function scrollToCard(idx, smooth=true) {
-  currentIdx = idx;
-  const card = newsCards.children[idx];
-  if (!card) return;
-  card.scrollIntoView({behavior: smooth ? "smooth" : "auto", inline: "center", block: "nearest"});
-  updateDots();
-  resetAutoScroll();
-}
-function updateDots() {
-  document.querySelectorAll('.carousel-dot').forEach((d, i) =>
-    d.classList.toggle('active', i === currentIdx)
-  );
-}
-// Arrow Buttons
-newsArrowLeft.onclick = () => {
-  if (--currentIdx < 0) currentIdx = articles.length - 1;
-  scrollToCard(currentIdx);
-};
-newsArrowRight.onclick = () => {
-  if (++currentIdx >= articles.length) currentIdx = 0;
-  scrollToCard(currentIdx);
-};
-// Drag-to-scroll (mouse & touch)
-let isDown = false, startX = 0, scrollLeft = 0;
-const viewport = document.querySelector('.news-cards-viewport');
-viewport.addEventListener('mousedown', e => {
-  isDown = true;
-  startX = e.pageX - viewport.offsetLeft;
-  scrollLeft = viewport.scrollLeft;
-  viewport.style.cursor = 'grabbing';
-});
-viewport.addEventListener('mouseleave', () => { isDown = false; viewport.style.cursor = ''; });
-viewport.addEventListener('mouseup', () => { isDown = false; viewport.style.cursor = ''; });
-viewport.addEventListener('mousemove', e => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - viewport.offsetLeft;
-  viewport.scrollLeft = scrollLeft - (x - startX);
-});
-viewport.addEventListener('touchstart', e => {
-  isDown = true;
-  startX = e.touches[0].pageX - viewport.offsetLeft;
-  scrollLeft = viewport.scrollLeft;
-});
-viewport.addEventListener('touchend', () => { isDown = false; });
-viewport.addEventListener('touchmove', e => {
-  if (!isDown) return;
-  const x = e.touches[0].pageX - viewport.offsetLeft;
-  viewport.scrollLeft = scrollLeft - (x - startX);
-});
-// Dot sync on scroll (snap to nearest)
-viewport.addEventListener('scroll', () => {
-  let best = 0, minDist = Infinity;
-  for (let i = 0; i < newsCards.children.length; i++) {
-    const box = newsCards.children[i].getBoundingClientRect();
-    const dist = Math.abs(box.left + box.width/2 - viewport.getBoundingClientRect().left - viewport.offsetWidth/2);
-    if (dist < minDist) { minDist = dist; best = i; }
-  }
-  if (currentIdx !== best) {
-    currentIdx = best;
-    updateDots();
-    resetAutoScroll();
-  }
-});
-// Auto-scroll
-function startAutoScroll() {
-  autoScrollTimer = setInterval(() => {
-    let next = (currentIdx + 1) % articles.length;
-    scrollToCard(next);
-  }, 7000);
-}
-function resetAutoScroll() {
-  clearInterval(autoScrollTimer);
-  startAutoScroll();
-}
-</script>
 <!-- Real Estate DCA Logic (put AFTER your Chart.js script and after your current scripts) -->
 <script>
 // Reuse fetchFRED from above (already present!)
@@ -1414,6 +1299,9 @@ async function getHpiCpiData() {
   hpiYearly = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
   cpiYearly = years.map(y => cpiRaw.find(x => x.year == y)?.value || null);
   dcaYears = years;
+  // Normalize HPI so the first year is always 100
+const baseHPI = hpiYearly[0];
+hpiYearly = hpiYearly.map(v => v / baseHPI * 100);
   dcaStartYear.innerHTML = '';
   // EXCLUDE last year so user can only select up to next-to-last year as start year
   years.slice(0, -1).forEach(y => {
@@ -1464,8 +1352,15 @@ async function fetchBTCPrices() {
     data.Data.Data.forEach(point => {
       const d = new Date(point.time * 1000);
       const year = d.getFullYear();
-      // Use the first close price of each year (approximate)
-      if (!(year in priceByYear)) priceByYear[year] = point.close;
+      const month = d.getMonth();
+      const day = d.getDate();
+      // Only take price if it's Jan 1st or the closest available to Jan 1st
+      if (month === 0 && day === 1) {
+        priceByYear[year] = point.close;
+      } else if (!(year in priceByYear)) {
+        // Fallback: if Jan 1 not available, take the first day available for that year
+        priceByYear[year] = point.close;
+      }
     });
     btcYears = Object.keys(priceByYear).map(Number).sort((a, b) => a - b);
     btcPrices = btcYears.map(y => priceByYear[y]);
@@ -1483,14 +1378,14 @@ async function fetchBTCPrices() {
 function populateBtcYears() {
   const btcStartYear = document.getElementById('btcStartYear');
   btcStartYear.innerHTML = '';
-  btcYears.forEach(year => {
-    const opt = document.createElement('option');
-    opt.value = year;
-    opt.textContent = year;
-    btcStartYear.appendChild(opt);
+  // Only allow BTC years that are ALSO in dcaYears (so always match inflation logic!)
+  const btcDropdownYears = btcYears.filter(y => dcaYears.includes(y));
+  btcDropdownYears.slice(0, -1).forEach(y => {
+    btcStartYear.innerHTML += `<option value="${y}">${y}</option>`;
   });
-  if (btcYears.length) btcStartYear.value = btcYears[0];
+  btcStartYear.value = btcDropdownYears[0];
 }
+
 
 function updateBtcDca() {
   if (!btcLoaded || btcError) {
@@ -1507,29 +1402,41 @@ function updateBtcDca() {
   if (startIdx === -1) return;
 
   // Only include years within available CPI range and BTC range!
+// Only include years within available CPI range and BTC range!
 let years = [];
 let btcVals = [];
 let cpiCashVals = [];
-let baseBTC = btcPrices[startIdx];
-let baseCPIIdx = dcaYears.indexOf(start);
 
-let btcValue = lumpSum;
-let cashValue = lumpSum;
+// Calculate BTC value as a lump sum held (not compounding year by year)
+let baseBTC = btcPrices[startIdx];
+let endIdx = btcYears.length - 1; // or whichever end year you want (currently last available)
+
+// Optionally, let user select end year (use last year by default)
 for (let i = startIdx; i < btcYears.length; ++i) {
   let yr = btcYears[i];
   let cpiIdx = dcaYears.indexOf(yr);
 
   if (cpiIdx !== -1 && typeof btcPrices[i] !== 'undefined' && typeof cpiYearly[cpiIdx] !== 'undefined') {
-    // BTC grows by BTC price, cash by same inflation logic as real estate
-    if (i > startIdx) {
-      btcValue *= btcPrices[i] / btcPrices[i - 1];
-      cashValue *= cpiYearly[cpiIdx - 1] / cpiYearly[cpiIdx];
+    // BTC: value = lumpSum * (price_now / price_at_start)
+    let btcValue = lumpSum * (btcPrices[i] / baseBTC);
+
+    // Cash: inflation logic as before
+    let cashValue;
+    if (i === startIdx) {
+      cashValue = lumpSum;
+    } else {
+      // Use cumulative product of inflation since startIdx to now
+      cashValue = cpiCashVals[cpiCashVals.length - 1] * (cpiYearly[cpiIdx - 1] / cpiYearly[cpiIdx]);
     }
+
     years.push(yr);
     btcVals.push(btcValue);
     cpiCashVals.push(cashValue);
   }
 }
+
+
+
 
   if (years.length === 0) return;
 
@@ -1545,7 +1452,7 @@ for (let i = startIdx; i < btcYears.length; ++i) {
     <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
       <span>Invested in <span style="color:#ffaa00;">BTC</span>: </span>
       <span>€${Math.round(lastBTC).toLocaleString()}</span>
-      <span style="color:#ffaa00;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
+      <span style="color:#ffaa00;"> (${gainPct > 0 ? "+" : ""}${gainPct}% ${gainPct >= 0 ? "gain" : "loss"})</span>
     </div>
     <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
       <span>Only saved in cash: </span>
@@ -1642,22 +1549,27 @@ function updateDca() {
   if (+document.getElementById('dcaLumpSum').value > 10000000) document.getElementById('dcaLumpSum').value = 10000000;
   if (!hpiYearly.length) return;
 
-  const {years, invest, reVals, cashVals} = calcLumpSumCurve(start, lumpSum);
+const {years, invest, reVals, cashVals} = calcLumpSumCurve(start, lumpSum);
 
-  const lastRE = reVals[reVals.length-1] || 0;
-  const lastCash = cashVals[cashVals.length-1] || 0;
+const startIdx = dcaYears.indexOf(+dcaStartYear.value);
+const endIdx = dcaYears.length - 1;
 
-  const gainPct = ((lastRE / invest - 1) * 100).toFixed(1);
-  const lossPct = ((lastCash / invest - 1) * 100).toFixed(1);
+// For headline: property uses start/end HPI only, cash stays compounded
+const lastRE = lumpSum * (hpiYearly[endIdx] / hpiYearly[startIdx]);
+const lastCash = cashVals[cashVals.length-1] || 0;
+
+const gainPct = ((lastRE / lumpSum - 1) * 100).toFixed(1);
+const lossPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
 
 dcaResult.innerHTML = `
   <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
      After ${dcaYears[dcaYears.length-1] - start} years, your €${invest.toLocaleString()} will be worth:
   </div>
   <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
-    <span>Invested in real estate: </span>
+    <span>Invested in <span style="color:#4faaff;">Real estate</span>: </span>
     <span>€${Math.round(lastRE).toLocaleString()}</span>
-    <span style="color:#2cff62;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
+    <span style="color:#4faaff;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
+
   </div>
   <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
     <span>Only saved in cash: </span>
@@ -1681,8 +1593,8 @@ dcaChart = new Chart(dcaChartCtx, {
       {
         label: 'Property Value (Real Estate, HPI)',
         data: reVals,
-        borderColor: '#2cff62',
-        backgroundColor: 'rgba(44,255,98,0.11)',
+        borderColor: '#4faaff',
+        backgroundColor: 'rgba(79,170,255,0.11)',
         fill: true,
         pointRadius: 0,
         tension: 0.21,
@@ -1768,6 +1680,36 @@ function populateBtcYears() {
 document.getElementById('btnRealEstate').addEventListener('click', showRealEstate);
 document.getElementById('btnBTC').addEventListener('click', showBTC);
 
+// Chart titles for each mode
+const chartTitle = document.getElementById('chartTitle');
+const chartSubtitle = document.getElementById('chartSubtitle');
+
+function setChartTitle(mode) {
+  if (mode === 'realestate') {
+    chartTitle.textContent = 'Real Estate vs Cash (Live DCA Backtest)';
+    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.';
+  } else if (mode === 'btc') {
+    chartTitle.textContent = 'Bitcoin vs Cash (Historical Lump Sum Backtest)';
+    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in Bitcoin vs. hold cash, using real <b>BTC & Eurozone CPI</b> data since 2010.';
+  }
+}
+
+// Modify the button click handlers:
+document.getElementById('btnRealEstate').addEventListener('click', () => {
+  setChartTitle('realestate');
+  showRealEstate();
+});
+document.getElementById('btnBTC').addEventListener('click', () => {
+  setChartTitle('btc');
+  showBTC();
+});
+
+// Optional: set initial state on page load
+window.addEventListener('DOMContentLoaded', () => {
+  setChartTitle('realestate');
+});
+
+
 // Event listeners for BTC inputs (update only if showing BTC)
 document.getElementById('btcStartYear').addEventListener('change', () => {
   if (!showingRealEstate) updateBtcDca();
@@ -1813,6 +1755,23 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     updateDcaWithToggle();
   });
 });
+// Dynamically set divider width to match preceding h3
+function matchDividersToHeadings() {
+  document.querySelectorAll('.section-divider').forEach(div => {
+    const h3 = div.previousElementSibling;
+    if (h3 && h3.tagName.startsWith('H')) {
+      // Measure h3 width (including padding)
+      const style = getComputedStyle(h3);
+      const width = h3.offsetWidth
+        + parseFloat(style.marginLeft)
+        + parseFloat(style.marginRight);
+      div.style.width = width + "px";
+    }
+  });
+}
+// Run on load and on resize
+window.addEventListener('DOMContentLoaded', matchDividersToHeadings);
+window.addEventListener('resize', matchDividersToHeadings);
 
 </script>
 </body>
