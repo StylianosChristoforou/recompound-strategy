@@ -1415,7 +1415,8 @@ async function getHpiCpiData() {
   cpiYearly = years.map(y => cpiRaw.find(x => x.year == y)?.value || null);
   dcaYears = years;
   dcaStartYear.innerHTML = '';
-  years.forEach(y => {
+  // EXCLUDE last year so user can only select up to next-to-last year as start year
+  years.slice(0, -1).forEach(y => {
     dcaStartYear.innerHTML += `<option value="${y}">${y}</option>`;
   });
   dcaStartYear.value = years[0];
@@ -1451,23 +1452,23 @@ let btcPrices = [];
 let btcLoaded = false;
 let btcError = null;
 
-// Fetch BTC price history from CoinGecko (since 2011, yearly)
 async function fetchBTCPrices() {
   btcLoaded = false;
   btcError = null;
-  const url = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=max';
   try {
+    const url = 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=EUR&limit=2000';
     const res = await fetch(url);
     if (!res.ok) throw new Error("HTTP error " + res.status);
     const data = await res.json();
-    // Reduce to one price per year (first seen in each year)
-    const pricesByYear = {};
-    for (const [ts, price] of data.prices) {
-      const year = new Date(ts).getFullYear();
-      if (!(year in pricesByYear)) pricesByYear[year] = price;
-    }
-    btcYears = Object.keys(pricesByYear).map(y => +y).filter(y => y >= 2011).sort();
-    btcPrices = btcYears.map(y => pricesByYear[y]);
+    const priceByYear = {};
+    data.Data.Data.forEach(point => {
+      const d = new Date(point.time * 1000);
+      const year = d.getFullYear();
+      // Use the first close price of each year (approximate)
+      if (!(year in priceByYear)) priceByYear[year] = point.close;
+    });
+    btcYears = Object.keys(priceByYear).map(Number).sort((a, b) => a - b);
+    btcPrices = btcYears.map(y => priceByYear[y]);
     btcLoaded = true;
     btcError = null;
   } catch (e) {
@@ -1475,6 +1476,9 @@ async function fetchBTCPrices() {
     btcError = e.message || "Unknown error";
   }
 }
+
+
+
 
 function populateBtcYears() {
   const btcStartYear = document.getElementById('btcStartYear');
@@ -1502,23 +1506,33 @@ function updateBtcDca() {
   const startIdx = btcYears.indexOf(start);
   if (startIdx === -1) return;
 
-  // Find matching CPI years for inflation line (CPI is already loaded for real estate)
-  let cpiCashVals = [];
-  let lastCPI = cpiYearly[dcaYears.indexOf(start)] ?? cpiYearly[0];
-  let cashYears = btcYears.slice(startIdx);
-  for (let i = 0; i < cashYears.length; ++i) {
-    let idx = dcaYears.indexOf(cashYears[i]);
-    if (idx !== -1) {
-      cpiCashVals.push(lumpSum * (cpiYearly[idx] / lastCPI));
-    } else {
-      cpiCashVals.push(cpiCashVals.length ? cpiCashVals[cpiCashVals.length - 1] : lumpSum);
-    }
-  }
+  // Only include years within available CPI range and BTC range!
+let years = [];
+let btcVals = [];
+let cpiCashVals = [];
+let baseBTC = btcPrices[startIdx];
+let baseCPIIdx = dcaYears.indexOf(start);
 
-  const years = btcYears.slice(startIdx);
-  const prices = btcPrices.slice(startIdx);
-  const basePrice = prices[0];
-  const btcVals = prices.map(p => lumpSum * (p / basePrice));
+let btcValue = lumpSum;
+let cashValue = lumpSum;
+for (let i = startIdx; i < btcYears.length; ++i) {
+  let yr = btcYears[i];
+  let cpiIdx = dcaYears.indexOf(yr);
+
+  if (cpiIdx !== -1 && typeof btcPrices[i] !== 'undefined' && typeof cpiYearly[cpiIdx] !== 'undefined') {
+    // BTC grows by BTC price, cash by same inflation logic as real estate
+    if (i > startIdx) {
+      btcValue *= btcPrices[i] / btcPrices[i - 1];
+      cashValue *= cpiYearly[cpiIdx - 1] / cpiYearly[cpiIdx];
+    }
+    years.push(yr);
+    btcVals.push(btcValue);
+    cpiCashVals.push(cashValue);
+  }
+}
+
+  if (years.length === 0) return;
+
   const lastBTC = btcVals[btcVals.length - 1] || 0;
   const lastCash = cpiCashVals[cpiCashVals.length - 1] || lumpSum;
   const gainPct = ((lastBTC / lumpSum - 1) * 100).toFixed(1);
@@ -1526,7 +1540,7 @@ function updateBtcDca() {
 
   dcaResult.innerHTML = `
     <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
-      After ${years.length} years, your €${lumpSum.toLocaleString()} will be worth:
+      After ${years.length-1} years, your €${lumpSum.toLocaleString()} will be worth:
     </div>
     <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
       <span>Invested in <span style="color:#ffaa00;">BTC</span>: </span>
@@ -1540,49 +1554,59 @@ function updateBtcDca() {
     </div>
   `;
 
-  // Always CREATE a new chart for BTC mode!
-  if (dcaChart) dcaChart.destroy();
-  dcaChart = new Chart(dcaChartCtx, {
-    type: 'line',
-    data: {
-      labels: years,
-      datasets: [
-        {
-          label: 'BTC Value (CoinGecko)',
-          data: btcVals,
-          borderColor: '#ffaa00',
-          backgroundColor: 'rgba(255,170,0,0.11)',
-          fill: true,
-          pointRadius: 0,
-          tension: 0.21,
-          borderWidth: 6,
-        },
-        {
-          label: 'Cash (Inflation-Adjusted)',
-          data: cpiCashVals,
-          borderColor: '#ff2323',
-          backgroundColor: 'rgba(255,35,35,0.13)',
-          fill: true,
-          pointRadius: 0,
-          tension: 0.19,
-          borderWidth: 6,
-        }
-      ]
-    },
-    options: {
-      plugins: {
-        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
-        tooltip: { mode: 'index', intersect: false }
-      },
-      scales: {
-        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
-        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
-      },
-      responsive: true,
-      animation: { duration: 900 },
-    }
-  });
+  if (dcaChart) {
+  dcaChart.destroy();
+  dcaChart = null;
+  dcaChartCtx.clearRect(0, 0, dcaChartCtx.canvas.width, dcaChartCtx.canvas.height);
+  dcaChartCtx.canvas.width = dcaChartCtx.canvas.clientWidth;   // <--- ADD
+  dcaChartCtx.canvas.height = dcaChartCtx.canvas.clientHeight; // <--- ADD
 }
+dcaChart = new Chart(dcaChartCtx, {
+  type: 'line',
+  data: {
+    labels: years,
+    datasets: [
+      {
+        label: 'BTC Value (CryptoCompare)',
+        data: btcVals,
+        borderColor: '#ffaa00',
+        backgroundColor: 'rgba(255,170,0,0.11)',
+        fill: true,
+        pointRadius: 0,
+        tension: 0.21,
+        borderWidth: 6,
+      },
+      {
+        label: 'Cash (Inflation-Adjusted)',
+        data: cpiCashVals,
+        borderColor: '#ff2323',
+        backgroundColor: 'rgba(255,35,35,0.13)',
+        fill: true,
+        pointRadius: 0,
+        tension: 0.19,
+        borderWidth: 6,
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+      tooltip: { mode: 'index', intersect: false }
+    },
+    scales: {
+      x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+      y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+    },
+    responsive: true,
+    animation: { duration: 900 },
+  }
+});
+// Always force resize after a short delay for safety!
+setTimeout(() => {
+  if (dcaChart) dcaChart.resize();
+}, 60);
+}
+
 
 
 function calcLumpSumCurve(startYear, lumpSum) {
@@ -1642,203 +1666,107 @@ dcaResult.innerHTML = `
   </div>
 `;
 
-
-
-  if (dcaChart) {
-    dcaChart.data.labels = years;
-    dcaChart.data.datasets[0].data = reVals;
-    dcaChart.data.datasets[1].data = cashVals;
-    dcaChart.update();
-  } else {
-    try { if (window.dcaChart) window.dcaChart.destroy(); } catch(e){}
-    dcaChart = new Chart(dcaChartCtx, {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: 'Property Value (Real Estate, HPI)',
-            data: reVals,
-            borderColor: '#2cff62',       // bright green matches text
-            backgroundColor: 'rgba(44,255,98,0.11)', // transparent green fill
-            fill: true,
-            pointRadius: 0,
-            tension: 0.21,
-            borderWidth: 6,
-          },
-          {
-            label: 'Cash (Inflation-Adjusted)',
-            data: cashVals,
-            borderColor: '#ff2323',       // bright red matches text
-            backgroundColor: 'rgba(255,35,35,0.13)',  // transparent red fill
-            fill: true,
-            pointRadius: 0,
-            tension: 0.19,
-            borderWidth: 6,
-          }
-        ]
-      },
-      options: {
-        plugins: {
-          legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
-          tooltip: { mode: 'index', intersect: false }
-        },
-        scales: {
-          x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
-          y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
-        },
-        responsive: true,
-        animation: { duration: 900 },
-      }
-    });
-  }
+if (dcaChart) {
+  dcaChart.destroy();
+  dcaChart = null;
+  dcaChartCtx.clearRect(0, 0, dcaChartCtx.canvas.width, dcaChartCtx.canvas.height);
+  dcaChartCtx.canvas.width = dcaChartCtx.canvas.clientWidth;   // <-- ADD THIS
+  dcaChartCtx.canvas.height = dcaChartCtx.canvas.clientHeight; // <-- AND THIS
 }
-
+dcaChart = new Chart(dcaChartCtx, {
+  type: 'line',
+  data: {
+    labels: years,
+    datasets: [
+      {
+        label: 'Property Value (Real Estate, HPI)',
+        data: reVals,
+        borderColor: '#2cff62',
+        backgroundColor: 'rgba(44,255,98,0.11)',
+        fill: true,
+        pointRadius: 0,
+        tension: 0.21,
+        borderWidth: 6,
+      },
+      {
+        label: 'Cash (Inflation-Adjusted)',
+        data: cashVals,
+        borderColor: '#ff2323',
+        backgroundColor: 'rgba(255,35,35,0.13)',
+        fill: true,
+        pointRadius: 0,
+        tension: 0.19,
+        borderWidth: 6,
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+      tooltip: { mode: 'index', intersect: false }
+    },
+    scales: {
+      x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+      y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+    },
+    responsive: true,
+    animation: { duration: 900 },
+  }
+});
+// Always force resize after a short delay for safety!
+setTimeout(() => {
+  if (dcaChart) dcaChart.resize();
+}, 60);
+}
 let showingRealEstate = true; // keep this to track toggle state
 
 // Show Real Estate (existing, unchanged)
 // Show Real Estate (existing, unchanged)
 function showRealEstate() {
   showingRealEstate = true;
+  // Hide BTC controls, show real estate controls
   document.getElementById('btcControls').style.display = 'none';
   document.getElementById('dcaForm').style.display = 'flex';
+
+  // Always destroy existing chart before creating new one
   if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
-  updateDca(); // This re-creates the chart with the real estate datasets ONLY
+
+  // Update chart and result for real estate only
+  updateDca();
 }
 
-// Show BTC controls and update
 async function showBTC() {
   showingRealEstate = false;
+  // Hide real estate controls, show BTC controls
   document.getElementById('dcaForm').style.display = 'none';
   document.getElementById('btcControls').style.display = 'flex';
+
+  // Always destroy existing chart before creating new one
+  if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
+
+  // Fetch BTC data if not already loaded
   if (!btcLoaded && !btcError) {
     dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading BTC prices...</span>';
     await fetchBTCPrices();
   }
   populateBtcYears();
-  if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
-  updateBtcDca(); // This re-creates the chart with the BTC datasets ONLY
+  updateBtcDca();
 }
-
-
-
 
 // Populate BTC years dropdown based on years available in dcaYears (same as real estate years)
 function populateBtcYears() {
   const btcStartYear = document.getElementById('btcStartYear');
   btcStartYear.innerHTML = '';
-  btcYears.forEach(year => {
-    const opt = document.createElement('option');
-    opt.value = year;
-    opt.textContent = year;
-    btcStartYear.appendChild(opt);
+  // Only allow BTC years that are ALSO in dcaYears (so always match inflation logic!)
+  const btcDropdownYears = btcYears.filter(y => dcaYears.includes(y));
+  btcDropdownYears.slice(0, -1).forEach(y => {
+    btcStartYear.innerHTML += `<option value="${y}">${y}</option>`;
   });
-  btcStartYear.value = btcYears[0];
+  btcStartYear.value = btcDropdownYears[0];
 }
-
-// Update BTC chart and result
-function updateBtcDca() {
-  if (!btcLoaded || btcError) {
-    dcaResult.innerHTML = btcError ? `<span style="color:#ff2323;">BTC data error: ${btcError}</span>` : '<span style="color:#ffaa00;">Loading BTC prices...</span>';
-    return;
-  }
-  const btcStartYear = document.getElementById('btcStartYear');
-  const btcLumpSumInput = document.getElementById('btcLumpSum');
-  const start = +btcStartYear.value;
-  const lumpSum = Math.min(10000000, +btcLumpSumInput.value || 0);
-  if (btcYears.length === 0 || btcPrices.length === 0) return;
-
-  const startIdx = btcYears.indexOf(start);
-  if (startIdx === -1) return;
-
-  // Find matching CPI years for inflation line (CPI is already loaded for real estate)
-  let cpiCashVals = [];
-  let lastCPI = cpiYearly[dcaYears.indexOf(start)] ?? cpiYearly[0];
-  let cashYears = btcYears.slice(startIdx);
-  for (let i = 0; i < cashYears.length; ++i) {
-    let idx = dcaYears.indexOf(cashYears[i]);
-    if (idx !== -1) {
-      cpiCashVals.push(lumpSum * (cpiYearly[idx] / lastCPI));
-    } else {
-      cpiCashVals.push(cpiCashVals.length ? cpiCashVals[cpiCashVals.length - 1] : lumpSum);
-    }
-  }
-
-  const years = btcYears.slice(startIdx);
-  const prices = btcPrices.slice(startIdx);
-  const basePrice = prices[0];
-  const btcVals = prices.map(p => lumpSum * (p / basePrice));
-  const lastBTC = btcVals[btcVals.length - 1] || 0;
-  const lastCash = cpiCashVals[cpiCashVals.length - 1] || lumpSum;
-  const gainPct = ((lastBTC / lumpSum - 1) * 100).toFixed(1);
-  const cashPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
-
-  dcaResult.innerHTML = `
-    <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
-      After ${years.length} years, your €${lumpSum.toLocaleString()} will be worth:
-    </div>
-    <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
-      <span>Invested in <span style="color:#ffaa00;">BTC</span>: </span>
-      <span>€${Math.round(lastBTC).toLocaleString()}</span>
-      <span style="color:#ffaa00;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
-    </div>
-    <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
-      <span>Only saved in cash: </span>
-      <span>€${Math.round(lastCash).toLocaleString()}</span>
-      <span style="color:#ff2323;"> (${cashPct > 0 ? "+" : ""}${cashPct}% ${cashPct >= 0 ? "gain" : "loss"})</span>
-    </div>
-  `;
-
-  // Always CREATE a new chart for BTC mode!
-  if (dcaChart) dcaChart.destroy();
-  dcaChart = new Chart(dcaChartCtx, {
-    type: 'line',
-    data: {
-      labels: years,
-      datasets: [
-        {
-          label: 'BTC Value (CoinGecko)',
-          data: btcVals,
-          borderColor: '#ffaa00',
-          backgroundColor: 'rgba(255,170,0,0.11)',
-          fill: true,
-          pointRadius: 0,
-          tension: 0.21,
-          borderWidth: 6,
-        },
-        {
-          label: 'Cash (Inflation-Adjusted)',
-          data: cpiCashVals,
-          borderColor: '#ff2323',
-          backgroundColor: 'rgba(255,35,35,0.13)',
-          fill: true,
-          pointRadius: 0,
-          tension: 0.19,
-          borderWidth: 6,
-        }
-      ]
-    },
-    options: {
-      plugins: {
-        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
-        tooltip: { mode: 'index', intersect: false }
-      },
-      scales: {
-        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
-        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
-      },
-      responsive: true,
-      animation: { duration: 900 },
-    }
-  });
-}
-
-
 
 document.getElementById('btnRealEstate').addEventListener('click', showRealEstate);
 document.getElementById('btnBTC').addEventListener('click', showBTC);
-
-
 
 // Event listeners for BTC inputs (update only if showing BTC)
 document.getElementById('btcStartYear').addEventListener('change', () => {
@@ -1866,44 +1794,25 @@ async function updateChartForToggle() {
   }
 }
 
-
-
 // Update chart normally on controls change, then update toggle to reflect state
 function updateDcaWithToggle() {
   updateDca();  // your existing calc and update
   updateChartForToggle();  // reapply toggle effect
 }
 
-// Replace event listeners for inputs with updated version
-document.getElementById('dcaLumpSum').removeEventListener('input', updateDca);
-document.getElementById('dcaStartYear').removeEventListener('change', updateDca);
-
-document.getElementById('dcaLumpSum').addEventListener('input', updateDcaWithToggle);
-document.getElementById('dcaStartYear').addEventListener('change', updateDcaWithToggle);
-document.getElementById('cityYield').addEventListener('change', async function() {
-  await getHpiCpiData();
-  updateDcaWithToggle();
-});
-
-
-
-// INIT DCA LOGIC
+// INIT DCA LOGIC (final, toggle-safe)
 window.addEventListener('DOMContentLoaded', async ()=>{
   await getHpiCpiData();
   updateDca();
 
-  // When user changes amount or year, just update chart
-  document.getElementById('dcaLumpSum').addEventListener('input', updateDca);
-  document.getElementById('dcaStartYear').addEventListener('change', updateDca);
-
-  // When user changes city, fetch new HPI and update chart!
+  // Only call toggle-safe update listeners!
+  document.getElementById('dcaLumpSum').addEventListener('input', updateDcaWithToggle);
+  document.getElementById('dcaStartYear').addEventListener('change', updateDcaWithToggle);
   document.getElementById('cityYield').addEventListener('change', async function() {
     await getHpiCpiData();
-    updateDca();
+    updateDcaWithToggle();
   });
 });
-
-
 
 </script>
 </body>
