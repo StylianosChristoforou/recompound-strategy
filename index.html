@@ -448,6 +448,7 @@
   padding-bottom: 0 !important; /* Remove bottom padding */
   position: relative;
   overflow: visible !important;
+  min-height: 600px !important;
 }
     .chart-section canvas {
       max-width: 100%;
@@ -525,6 +526,7 @@
       margin: 0;
       box-shadow: none;
       letter-spacing: 0.01em;
+      min-height: 620px !important;
     }
     .footer-row { 
       display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.4rem; margin: 0 auto; max-width: 900px;
@@ -717,7 +719,7 @@
     #dcaChart {
   width: 100vw !important;
   max-width: 100vw !important;
-  height: 800px !important;
+  height: 600px !important;
   display: block !important;
   background: transparent !important;
   margin: 0 !important;        /* No margin */
@@ -1004,9 +1006,6 @@
           </div>
         </div>
         <div style="text-align:left;margin-bottom:1rem;">
-          <span style="font-weight:800; font-size:1.08rem; color:#4faaff;">
-            Customize Your Simulation
-          </span>
         </div>
         <div id="controlsContainer" style="display:flex;flex-direction:column;gap:0.7rem;justify-content:flex-start;align-items:flex-start;margin-bottom:1rem;">
           <!-- Real Estate Controls (default) -->
@@ -1106,6 +1105,14 @@
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    // Always scroll to top on refresh (even if URL has anchor/hash)
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+
     function replaceChartCanvas() {
   const oldCanvas = document.getElementById('dcaChart');
   if (!oldCanvas) return;
@@ -1217,17 +1224,21 @@
     });
 
     function updateActiveNav() {
-      if (proximityActive) return;
-      let curIdx = 0;
-      for (let i = 0; i < sectionEls.length; i++) {
-        if (sectionEls[i]) {
-          const top = sectionEls[i].getBoundingClientRect().top;
-          if (top < window.innerHeight * 0.22) curIdx = i;
-        }
-      }
-      allNavLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
-      document.getElementById('backToTop').style.display = window.scrollY > 350 ? 'block' : 'none';
+  if (proximityActive) return;
+  let curIdx = 0;
+  for (let i = 0; i < sectionEls.length; i++) {
+    if (sectionEls[i]) {
+      const top = sectionEls[i].getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.22) curIdx = i;
     }
+  }
+  allNavLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    backToTop.style.display = window.scrollY > 350 ? 'block' : 'none';
+  }
+}
+
     window.addEventListener('scroll', updateActiveNav);
     window.addEventListener('DOMContentLoaded', updateActiveNav);
 
@@ -1354,26 +1365,33 @@
     const dcaResult = document.getElementById('dcaResult');
 
     // --- Data Fetch ---
-    async function fetchFRED(seriesId) {
-      const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
-      const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
-      const res = await fetch(url);
-      if (!res.ok) {
-        alert('Failed to fetch data from FRED via CORS proxy.');
-        return [];
-      }
-      const raw = await res.text();
-      try {
-        const data = JSON.parse(raw);
-        return data.observations.map(obs => ({
-          year: new Date(obs.date).getFullYear(),
-          value: parseFloat(obs.value)
-        })).filter(x => !isNaN(x.value));
-      } catch (e) {
-        alert('Failed to parse FRED data! ' + e);
-        return [];
-      }
-    }
+async function fetchFRED(seriesId) {
+  const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
+  const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
+  console.log('Starting FRED data fetch:', url);
+
+  const res = await fetch(url);                                                // <-- single proxy
+  console.log('FRED fetch response status:', res.status);
+  if (!res.ok) {
+    alert('Failed to fetch data from FRED via CORS proxy.');
+    return [];
+  }
+
+  const raw = await res.text();
+  console.log('FRED fetch raw response:', raw);
+
+  try {
+    const data = JSON.parse(raw);
+    return data.observations.map(obs => ({
+      year: new Date(obs.date).getFullYear(),
+      value: parseFloat(obs.value)
+    })).filter(x => !isNaN(x.value));
+  } catch (e) {
+    alert('Failed to parse FRED data! ' + e);
+    return [];
+  }
+}
+
 
     // Populate cities in dropdown, sorted by HPI gain
     async function sortCitiesByHpiAndPopulateDropdown() {
@@ -1605,12 +1623,16 @@ function updateDca() {
     }
     // Populate S&P years and update chart
     const years = spData.years;
-    const sp500StartYear = document.getElementById('sp500StartYear');
-    sp500StartYear.innerHTML = '';
-    years.slice(0, -1).forEach(y => {
-      sp500StartYear.innerHTML += `<option value="${y}">${y}</option>`;
-    });
-    sp500StartYear.value = years[0];
+const sp500StartYear = document.getElementById('sp500StartYear');
+sp500StartYear.innerHTML = '';
+
+// only show years that have CPI data (1990+)
+const startYears = years.filter(y => y >= 1990);
+startYears.slice(0, -1).forEach(y => {
+  sp500StartYear.innerHTML += `<option value="${y}">${y}</option>`;
+});
+sp500StartYear.value = startYears[0];
+
     updateSp500Dca(spData, cpiRaw);
   }
 
@@ -1650,9 +1672,13 @@ async function fetchBTCPrices() {
   btcLoaded = false; btcError = null;
   try {
     const url = 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=EUR&limit=2000';
+    console.log('Starting BTC prices fetch:', url);
     const res = await fetch(url);
+    console.log('BTC fetch response status:', res.status);
     if (!res.ok) throw new Error("HTTP error " + res.status);
     const data = await res.json();
+    console.log('BTC fetch data:', data);
+
     const priceByYear = {};
     data.Data.Data.forEach(point => {
       const d = new Date(point.time * 1000);
@@ -1809,34 +1835,42 @@ replaceChartCanvas();
   }, 60);
 }
 
-// ------------- S&P 500 FETCH AND RENDER ---------------
+// ---------- S&P 500 via Yahoo Finance (unlimited) ----------
 async function fetchSP500Yearly() {
-  const symbol = 'SPY';
-  const proxyUrl = 'https://corsproxy.io/?';
-  const apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${encodeURIComponent(symbol)}&apikey=${ALPHA_VANTAGE_API_KEY}`;
-  const url = proxyUrl + encodeURIComponent(apiUrl);
+  const symbol = "%5EGSPC";              // ^GSPC URL-encoded
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=max&interval=1mo&includePrePost=false`;
+  const proxied = 'https://corsproxy.io/?' + encodeURIComponent(url);
 
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Alpha Vantage HTTP error: ${res.status}`);
-    const data = await res.json();
-    if (data['Error Message'] || data['Note']) {
-      throw new Error(data['Error Message'] || data['Note']);
-    }
-    const monthlyData = data['Monthly Adjusted Time Series'];
-    if (!monthlyData) throw new Error('Invalid data format');
-    const yearlyPrices = {};
-    for (const dateStr in monthlyData) {
-      const [year, month] = dateStr.split('-');
-      if (month === '12') {
-        yearlyPrices[year] = parseFloat(monthlyData[dateStr]['5. adjusted close']);
-      }
-    }
-    const years = Object.keys(yearlyPrices).sort();
-    const prices = years.map(y => yearlyPrices[y]);
-    return { years, prices };
-  } catch (error) {
-    console.error('Failed to fetch or parse Alpha Vantage data:', error);
+    console.log("Starting S&P 500 fetch from Yahoo (proxied):", proxied);
+    const res = await fetch(proxied);     // ← single proxy, CORS OK
+    console.log("Yahoo fetch status:", res.status);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const json = await res.json();
+    console.log("Yahoo chart data:", json);
+
+    const result = json.chart?.result?.[0];
+    if (!result) throw new Error("Unexpected Yahoo response shape");
+
+    const { timestamp, indicators } = result;
+    const closes = indicators.adjclose?.[0]?.adjclose;
+    if (!timestamp || !closes) throw new Error("Missing price series");
+
+    // convert to YYYY → last close that year
+    const yearly = {};
+    timestamp.forEach((ts, i) => {
+      const d = new Date(ts * 1000);
+      const y = d.getFullYear();
+      yearly[y] = closes[i]; // later months overwrite earlier = keep Dec price
+    });
+
+    const years = Object.keys(yearly).map(Number).sort((a, b) => a - b);
+    const prices = years.map(y => yearly[y]);
+
+    return { years, prices };            // same shape you already use
+  } catch (err) {
+    console.error("Yahoo Finance S&P 500 fetch error:", err);
     return null;
   }
 }
@@ -1846,18 +1880,22 @@ function updateSp500Dca(spData, cpiRaw) {
   const sp500LumpSumInput = document.getElementById('sp500LumpSum');
   const lumpSum = +sp500LumpSumInput.value || 50000;
   const startYear = +sp500StartYear.value;
-  const idx0 = spData.years.indexOf(String(startYear));
+  const idx0 = spData.years.indexOf(startYear);
   if (idx0 === -1) return;
   const years = spData.years.slice(idx0);
   const prices = spData.prices.slice(idx0);
 
+    // build CPI series — carry the last known CPI forward for any missing years
+  let lastCpi = null;
   const cpiValsRaw = years.map(y => {
-    const cpiEntry = cpiRaw.find(x => x.year == y);
-    return cpiEntry ? cpiEntry.value : null;
-  }).filter(v => v !== null);
+    const found = cpiRaw.find(x => x.year == y);
+    if (found) lastCpi = found.value;    // update when data exists
+    return lastCpi;                      // reuse last value if missing
+  });
 
   const baseCPI = cpiValsRaw[0];
   const cpiVals = cpiValsRaw.map(v => (v / baseCPI) * 100);
+
   const lastSP500 = lumpSum * (prices[prices.length - 1] / prices[0]);
   const inflationFactor = cpiVals[cpiVals.length - 1] / cpiVals[0];
   const lastCash = lumpSum / inflationFactor;
