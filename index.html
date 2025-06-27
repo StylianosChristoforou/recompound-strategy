@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -12,9 +12,7 @@
   <meta name="description" content="Recompound Strategy is a mission-driven platform proving you can build wealth from zero through ownership and reinvestment.">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html {
-  scroll-behavior: smooth;
-}
+    html { scroll-behavior: smooth; }
 
     :root {
       --accent: #4faaff;
@@ -27,6 +25,7 @@
       --footer-text: #fff;
       --max-width: 1100px;
     }
+
     /* --- PREMIUM GLASSMORPHISM --- */
     .glass {
       background: rgba(34, 44, 68, 0.45);
@@ -42,6 +41,7 @@
       transform: scale(1.04);
       z-index: 3;
     }
+
     /* --- ANIMATED FADE UP ON SCROLL --- */
     .scroll-fade {
       opacity: 0;
@@ -52,6 +52,7 @@
       opacity: 1;
       transform: translateY(0);
     }
+
     /* --- KPI COUNTER BLINK --- */
     .kpi-number.animated {
       animation: kpi-pop 0.6s cubic-bezier(.7,.2,.2,1);
@@ -61,6 +62,7 @@
       40% { color: var(--accent2); transform: scale(1.17);}
       100% { color: var(--accent); transform: scale(1);}
     }
+
     /* --- PREMIUM BUTTON --- */
     .premium-btn {
       background: linear-gradient(93deg, #4faaff 20%, #3052e6 100%);
@@ -87,6 +89,7 @@
       z-index: 9999;
       box-shadow: 0 2px 16px #4faaff1e;
     }
+
     html, body {
       background: #101522 !important;
       color: var(--text-dark);
@@ -98,43 +101,45 @@
       max-width: 100vw;
       overflow-x: hidden;
     }
+
+    /* MOBILE NAVBAR STYLES */
     @media (max-width: 700px) {
-  .navbar {
-    padding: 0 !important;
-    height: 44px !important;
-    min-height: 0 !important;
-    max-height: 48px !important;
-    box-shadow: 0 2px 12px 0 #23242b44;
-  }
-  .nav-content {
-    padding: 0 4px !important;
-    height: 44px !important;
-    min-height: 0 !important;
-    max-height: 48px !important;
-    display: flex;
-    align-items: center !important;
-    justify-content: space-between !important;
-  }
-  .nav-logo {
-    height: 28px !important;
-    margin: 0 5px 0 5px !important;
-    display: block !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    position: relative;
-    z-index: 10001;
-  }
-  .burger {
-    margin: 0 5px 0 0 !important;
-    padding: 6px 10px !important;
-    height: 32px !important;
-    width: 38px !important;
-    font-size: 1.2rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-}
+      .navbar {
+        padding: 0 !important;
+        height: 44px !important;
+        min-height: 0 !important;
+        max-height: 48px !important;
+        box-shadow: 0 2px 12px 0 #23242b44;
+      }
+      .nav-content {
+        padding: 0 4px !important;
+        height: 44px !important;
+        min-height: 0 !important;
+        max-height: 48px !important;
+        display: flex;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+      .nav-logo {
+        height: 28px !important;
+        margin: 0 5px 0 5px !important;
+        display: block !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 10001;
+      }
+      .burger {
+        margin: 0 5px 0 0 !important;
+        padding: 6px 10px !important;
+        height: 32px !important;
+        width: 38px !important;
+        font-size: 1.2rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+    }
 
     .navbar {
       position: fixed; top: 0; left: 0; width: 100vw;
@@ -147,27 +152,25 @@
       transition: box-shadow 0.2s;
     }
     .nav-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* This fixes the spread! */
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 2rem;
-  width: 100%;
-  position: relative;
-}
-
-.nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* NEW: vertically align nav-cta */
-  gap: 2.2rem;         /* NEW: space between nav-menu and Let's Talk */
-}
-
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+      position: relative;
+    }
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.2rem;
+    }
     .nav-logo-hide {
       opacity: 0;
       pointer-events: none;
@@ -178,62 +181,60 @@
       pointer-events: auto;
       transition: opacity 0.25s;
     }
-.nav-cta {
-  background: none !important;
-  border: none;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-left: 2.2rem;
-  letter-spacing: .02em;
-  text-decoration: none;
-  border-bottom: 2px solid transparent !important;
-  transition: color 0.18s, border-bottom 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  box-shadow: none;
-  padding: 0 0 2px 0;
-}
-
-.nav-cta:hover,
-.nav-cta:focus {
-  color: var(--accent) !important;
-  border-bottom: 2px solid var(--accent) !important;
-  background: none !important;
-  box-shadow: none !important;
-  transform: scale(1.05);
-}
-.nav-menu a,
-.nav-cta {
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  background: none !important;
-  transition:
-    color 0.18s,
-    border-bottom 0.18s,
-    transform 0.18s cubic-bezier(.7,.2,.2,1),
-    box-shadow 0.18s cubic-bezier(.7,.2,.2,1);
-  box-shadow: none !important;
-  display: inline-block;
-  padding: 0 0 2px 0;
-}
-
-.nav-menu a:hover,
-.nav-menu a:focus,
-.nav-menu a.active,
-.nav-cta:hover,
-.nav-cta:focus {
-  color: var(--accent) !important;
-  border-bottom: 2px solid var(--accent) !important;
-  background: none !important;
-  transform: scale(1.07) translateY(-2px);
-  box-shadow: none !important;
-}
+    .nav-cta {
+      background: none !important;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-left: 2.2rem;
+      letter-spacing: .02em;
+      text-decoration: none;
+      border-bottom: 2px solid transparent !important;
+      transition: color 0.18s, border-bottom 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      box-shadow: none;
+      padding: 0 0 2px 0;
+    }
+    .nav-cta:hover,
+    .nav-cta:focus {
+      color: var(--accent) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      background: none !important;
+      box-shadow: none !important;
+      transform: scale(1.05);
+    }
+    .nav-menu a,
+    .nav-cta {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      background: none !important;
+      transition:
+        color 0.18s,
+        border-bottom 0.18s,
+        transform 0.18s cubic-bezier(.7,.2,.2,1),
+        box-shadow 0.18s cubic-bezier(.7,.2,.2,1);
+      box-shadow: none !important;
+      display: inline-block;
+      padding: 0 0 2px 0;
+    }
+    .nav-menu a:hover,
+    .nav-menu a:focus,
+    .nav-menu a.active,
+    .nav-cta:hover,
+    .nav-cta:focus {
+      color: var(--accent) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      background: none !important;
+      transform: scale(1.07) translateY(-2px);
+      box-shadow: none !important;
+    }
     .nav-logo { height: 44px; border-radius: 8px; }
 
     .hero-section {
@@ -251,29 +252,29 @@
       padding-bottom: 4.5rem;
       color: #fff;
       background: linear-gradient(135deg, #13162c 0%, #101522 85%);
-  position: relative;
-  overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
     .hero-section::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 120px;
-  background: url('https://www.svgbackgrounds.com/wp-content/uploads/2021/06/wave-haikei-3.svg') center bottom repeat-x;
-  opacity: 0.15;
-  pointer-events: none;
-  z-index: 0;
-}
-.glass-premium {
-  background: rgba(25, 42, 76, 0.44);
-  backdrop-filter: blur(13px) brightness(1.14);
-  border-radius: 18px;
-  box-shadow: 0 6px 32px 0 #4faaff3c, 0 1.5px 12px #fff2;
-  border: 1.6px solid #277bfa2a;
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
-  transition: box-shadow 0.25s, border-color 0.18s;
-}
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 120px;
+      background: url('https://www.svgbackgrounds.com/wp-content/uploads/2021/06/wave-haikei-3.svg') center bottom repeat-x;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glass-premium {
+      background: rgba(25, 42, 76, 0.44);
+      backdrop-filter: blur(13px) brightness(1.14);
+      border-radius: 18px;
+      box-shadow: 0 6px 32px 0 #4faaff3c, 0 1.5px 12px #fff2;
+      border: 1.6px solid #277bfa2a;
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+      transition: box-shadow 0.25s, border-color 0.18s;
+    }
 
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
@@ -281,25 +282,32 @@
       100% { background-position: 0% 50%; }
     }
     .hero-section .logo {
-  width: 155px;
-  margin: 1.2rem auto 0.8rem;
-  display: block;
-  border-radius: 18px;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
+      width: 155px;
+      margin: 1.2rem auto 0.8rem;
+      display: block;
+      border-radius: 18px;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
 
     .hero-section h1 {
-      font-size:3.2rem; font-weight: 800; margin-bottom:.55rem;
+      font-size: 3.2rem;
+      font-weight: 800;
+      margin-bottom: .55rem;
       background: linear-gradient(90deg,#4faaff 20%,#fff 100%);
-      background-clip: text; -webkit-background-clip: text; color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
       letter-spacing: 0.01em;
       animation: fadeInUp 1s cubic-bezier(.7,.2,.2,1);
     }
     .hero-section h2 {
-      font-size:1.31rem; font-weight:700; opacity:.99;
-      margin-bottom: 2.2rem; color: #e4f3ff;
+      font-size: 1.31rem;
+      font-weight: 700;
+      opacity: .99;
+      margin-bottom: 2.2rem;
+      color: #e4f3ff;
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(32px);}
@@ -328,13 +336,17 @@
       color: #fff;
       text-decoration: none;
     }
+
     .accent-bar, footer {
       background: linear-gradient(120deg, #11131a 0%, #1a2234 55%, #223259 80%, #245cf4 100%);
       background-size: 200% 200%;
       animation: gradientMove 8s ease-in-out infinite;
     }
     .kpi-row {
-      display: flex; justify-content: center; gap: 2.5rem; margin: 2.3rem 0 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 2.3rem 0 0.8rem;
       flex-wrap: wrap;
     }
     .kpi-card {
@@ -342,7 +354,8 @@
       border-radius: 13px;
       box-shadow: 0 2px 22px 0 #4faaff22;
       padding: 1.21rem 2.55rem;
-      min-width: 110px; text-align: center;
+      min-width: 110px;
+      text-align: center;
       backdrop-filter: blur(7px) brightness(1.15);
       transition: box-shadow .2s, transform .18s;
       border: 1.5px solid #27396e19;
@@ -355,13 +368,21 @@
       z-index: 2;
     }
     .kpi-number {
-      font-size: 2.19rem; font-weight: 800; color: var(--accent);
-      letter-spacing: .01em; text-shadow: 0 2px 14px #277bfa29;
-      display: block; margin-bottom: 0.12rem;
+      font-size: 2.19rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: .01em;
+      text-shadow: 0 2px 14px #277bfa29;
+      display: block;
+      margin-bottom: 0.12rem;
       font-variant-numeric: tabular-nums;
     }
     .kpi-label {
-      color: #c0d9f9; font-size: 1.07rem; margin-top: .08rem; font-weight: 700; letter-spacing: .01em;
+      color: #c0d9f9;
+      font-size: 1.07rem;
+      margin-top: .08rem;
+      font-weight: 700;
+      letter-spacing: .01em;
       display: block;
     }
     section, .testimonial-section, .about-bottom-inner, .chart-content-fade {
@@ -384,10 +405,9 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 3.2rem 1.5rem 1.5rem 1.5rem;
-      
     }
     .site-section:not(:first-child) {
-        /* border-top: 1px solid #eaeaea; */
+      /* border-top: 1px solid #eaeaea; */
     }
     .site-section h3 {
       font-size:2.09rem;
@@ -410,38 +430,35 @@
     }
     .testimonial-author { color: #3052e6; font-weight: 700; font-size: 1.08rem; }
     .chart-section {
-  width: 100vw;
-  background: #101522 !important;
-  margin: 0;
-  box-shadow: 0 2px 24px 0 #277bfa0d;
-  display: block;
-  min-height: 440px;
-  position: relative;
-}
-.chart-section-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2.5rem 1rem 2.5rem 1rem;
-  background: transparent;
-  position: relative;
-}
-
-.chart-section canvas {
-  max-width: 100%;
-  width: 100%;
-  margin: 1.3rem auto 0 auto;
-  display: block;
-  background: transparent;
-}
-
-@media (max-width: 850px) {
-  .chart-section canvas {
-    min-height: 260px !important;
-    height: 320px !important;
-    max-height: 320px !important;
-  }
-}
-
+      width: 100vw;
+      background: #101522 !important;
+      margin: 0;
+      box-shadow: 0 2px 24px 0 #277bfa0d;
+      display: block;
+      min-height: 440px;
+      position: relative;
+    }
+    .chart-section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 2.5rem 1rem;
+      background: transparent;
+      position: relative;
+    }
+    .chart-section canvas {
+      max-width: 100%;
+      width: 100%;
+      margin: 1.3rem auto 0 auto;
+      display: block;
+      background: transparent;
+    }
+    @media (max-width: 850px) {
+      .chart-section canvas {
+        min-height: 260px !important;
+        height: 320px !important;
+        max-height: 320px !important;
+      }
+    }
     .about-bottom {
       width: 100vw;
       background: #101522 !important;
@@ -561,230 +578,216 @@
       .footer-row { flex-direction: column; gap: 0.7rem;}
     }
 
-body *::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
-}
+    body *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      background: transparent !important;
+    }
 
-.site-section {
-  background: #181e2d !important;   /* Deep blue-gray */
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-.chart-section {
-  background: #151a27 !important;   /* Slightly bluer, premium */
-}
+    .site-section {
+      background: #181e2d !important;   /* Deep blue-gray */
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    .chart-section {
+      background: #151a27 !important;   /* Slightly bluer, premium */
+    }
 
-.site-section p, .site-section ul li,
-.about-bottom-inner p,
-.chart-section h3,
-.site-section ul li {
-  color: #fff !important;
-}
+    .site-section p, .site-section ul li,
+    .about-bottom-inner p,
+    .chart-section h3,
+    .site-section ul li {
+      color: #fff !important;
+    }
 
-.site-section h3, .about-bottom-inner h3 {
-  color: var(--accent2) !important;
-}
-body, html {
-  background: #101522 !important;
-}
-.site-section h3,
-.about-bottom-inner h3,
-.testimonial-author {
-  color: #4faaff !important; 
-  font-weight: 800;
-  letter-spacing: 0.01em;
-}
-@media (max-width: 700px) {
-  .hero-section {
-    padding-top: 54px !important;
-  }
-}
+    .site-section h3, .about-bottom-inner h3 {
+      color: var(--accent2) !important;
+    }
+    body, html {
+      background: #101522 !important;
+    }
+    .site-section h3,
+    .about-bottom-inner h3,
+    .testimonial-author {
+      color: #4faaff !important; 
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .hero-section {
+        padding-top: 54px !important;
+      }
+    }
 
-@media (max-width: 400px) {
-  .hero-section {
-    padding-top: 3.5rem !important;
-  }
-}
-/* REMOVE BULLET POINTS & RESET LIST STYLES FOR NAV MENU */
-.nav-menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 2.2rem;
-  align-items: center;
-}
-@media (max-width: 700px) {
-  .nav-center {
-    position: static !important;
-    left: 0 !important;
-    transform: none !important;
-    width: 100vw !important;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 0;
-    padding: 0;
-  }
-  .nav-menu {
-    position: fixed !important;
-    top: 44px;
-    left: 0;
-    width: 100vw !important;
-    height: calc(100vh - 44px);
-    background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
-    flex-direction: column;
-    align-items: flex-start;
-    z-index: 9999;
-    display: none;
-    padding: 2.2rem 0 0 0;
-    margin: 0;
-    box-shadow: 0 6px 32px #25325a33;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .nav-menu.open {
-    display: flex !important;
-  }
-  .nav-menu a {
-  font-size: 1.07rem;
-  font-weight: 700;
-  padding: 0.75rem 1.5rem;
-  color: #fff;
-  width: 100vw;
-  text-align: left;
-  border-bottom: 1px solid #2c3855;
-  border-radius: 0;
-  background: none;
-}
-
-  .nav-menu a:last-child {
-    border-bottom: none;
-  }
-}
-
-.nav-menu li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.burger {
-  display: none;
-}
-
-@media (max-width: 700px) {
-  .burger {
-    display: block;
-    background: #c7e5ff;
-    color: #3052e6;
-    border: none;
-    border-radius: 8px;
-    padding: 7px 13px 8px 13px;
-    font-size: 1.4rem;
-    font-weight: 900;
-    margin-left: auto;
-    margin-right: 0.3rem;
-    margin-top: 6px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px #4faaff29;
-    z-index: 2000;
-    transition: background 0.18s, color 0.18s, transform 0.15s;
-  }
-  .burger.active,
-  .burger:active {
-    background: #4faaff;
-    color: #fff;
-    transform: scale(1.08);
-  }
-}
-#backToTop {
-  bottom: 10px !important;
-  position: fixed !important;
-}
-#dcaChart {
-  width: 100% !important;
-  height: 380px !important;
-  max-height: 400px !important;
-  min-height: 220px !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  display: block !important;
-  margin: 0 auto !important;
-}
-@media (max-width: 850px) {
-  #dcaChart {
-    min-height: 200px !important;
-    height: 260px !important;
-    max-height: 320px !important;
-  }
-}
-
-@media (max-width: 850px) {
-  #dcaChart, #dcaChart canvas {
-    min-height: 260px !important;
-    height: 320px !important;
-    max-height: 320px !important;
-  }
-  #dcaResult {
-    font-size: 1rem !important;
-    padding: 13px 10px !important;
-    left: 10px !important;
-    top: 12px !important;
-  }
-}
-#cityYield,
-#dcaStartYear,
-#dcaLumpSum {
-  font-size: 1.14rem;
-  border-radius: 8px;
-  padding: 6px 16px;
-  background: #1a2234;           /* dark blue/gray background */
-  border: 1.5px solid #277bfa99; /* blue semi-transparent border */
-  color: #fff;                   /* white text */
-}
-
-#dcaStartYear {
-  margin-left: 0.3em;            /* spacing */
-}
-
-#dcaLumpSum {
-  width: 120px;                  /* fixed width */
-  text-align: right;             /* match input alignment */
-}
+    @media (max-width: 400px) {
+      .hero-section {
+        padding-top: 3.5rem !important;
+      }
+    }
+    /* REMOVE BULLET POINTS & RESET LIST STYLES FOR NAV MENU */
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) {
+      .nav-center {
+        position: static !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100vw !important;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0;
+        padding: 0;
+      }
+      .nav-menu {
+        position: fixed !important;
+        top: 44px;
+        left: 0;
+        width: 100vw !important;
+        height: calc(100vh - 44px);
+        background: linear-gradient(120deg, #232842 0%, #25325a 55%, #3053a5 80%, #4faaff 100%);
+        flex-direction: column;
+        align-items: flex-start;
+        z-index: 9999;
+        display: none;
+        padding: 2.2rem 0 0 0;
+        margin: 0;
+        box-shadow: 0 6px 32px #25325a33;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .nav-menu.open {
+        display: flex !important;
+      }
+      .nav-menu a {
+        font-size: 1.07rem;
+        font-weight: 700;
+        padding: 0.75rem 1.5rem;
+        color: #fff;
+        width: 100vw;
+        text-align: left;
+        border-bottom: 1px solid #2c3855;
+        border-radius: 0;
+        background: none;
+      }
+      .nav-menu a:last-child {
+        border-bottom: none;
+      }
+    }
+    .nav-menu li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .burger {
+      display: none;
+    }
+    @media (max-width: 700px) {
+      .burger {
+        display: block;
+        background: #c7e5ff;
+        color: #3052e6;
+        border: none;
+        border-radius: 8px;
+        padding: 7px 13px 8px 13px;
+        font-size: 1.4rem;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: 0.3rem;
+        margin-top: 6px;
+        cursor: pointer;
+        box-shadow: 0 2px 8px #4faaff29;
+        z-index: 2000;
+        transition: background 0.18s, color 0.18s, transform 0.15s;
+      }
+      .burger.active,
+      .burger:active {
+        background: #4faaff;
+        color: #fff;
+        transform: scale(1.08);
+      }
+    }
+    #backToTop {
+      bottom: 10px !important;
+      position: fixed !important;
+    }
+    #dcaChart {
+      width: 100% !important;
+      height: 380px !important;
+      max-height: 400px !important;
+      min-height: 220px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      display: block !important;
+      margin: 0 auto !important;
+    }
+    @media (max-width: 850px) {
+      #dcaChart {
+        min-height: 200px !important;
+        height: 260px !important;
+        max-height: 320px !important;
+      }
+    }
+    @media (max-width: 850px) {
+      #dcaChart, #dcaChart canvas {
+        min-height: 260px !important;
+        height: 320px !important;
+        max-height: 320px !important;
+      }
+      #dcaResult {
+        font-size: 1rem !important;
+        padding: 13px 10px !important;
+        left: 10px !important;
+        top: 12px !important;
+      }
+    }
+    #cityYield,
+    #dcaStartYear,
+    #dcaLumpSum {
+      font-size: 1.14rem;
+      border-radius: 8px;
+      padding: 6px 16px;
+      background: #1a2234;           
+      border: 1.5px solid #277bfa99; 
+      color: #fff;                 
+    }
+    #dcaStartYear {
+      margin-left: 0.3em;           
+    }
+    #dcaLumpSum {
+      width: 120px;                  
+      text-align: right;             
+    }
   </style>
 </head>
 <body>
-  <script>
-  // Prevent browser from restoring scroll position on reload
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
-  // Always scroll to top on load (covers mobile Safari and some edge cases)
-  window.addEventListener('load', function() {
-    window.scrollTo(0, 0);
-  });
-</script>
 
-<nav class="navbar">
-  <div class="nav-content">
-    <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
-    <button class="burger" id="burgerBtn" aria-label="Menu">&#9776;</button>
-    <div class="nav-center">
-      <ul class="nav-menu" id="mainNavMenu">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#mission">Mission</a></li>
-        <li><a href="#vision">Vision</a></li>
-        <li><a href="#comparisonChartSection">Chart</a></li>
-        <li><a href="#about-bottom">About</a></li>
-        <li><a href="#contact-bottom" class="nav-cta">Let's Talk</a></li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-content">
+      <img src="logo.jpg" class="nav-logo nav-logo-hide" alt="Logo" />
+      <button class="burger" id="burgerBtn" aria-label="Menu">&#9776;</button>
+      <div class="nav-center">
+        <ul class="nav-menu" id="mainNavMenu">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#vision">Vision</a></li>
+          <li><a href="#comparisonChartSection">Chart</a></li>
+          <li><a href="#about-bottom">About</a></li>
+          <li><a href="#contact-bottom" class="nav-cta">Let's Talk</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
+  <!-- Hero Section -->
   <section class="hero-section" id="home">
     <img src="logo.jpg" alt="Recompound Strategy Logo" class="logo fade-in">
     <h1 class="fade-in">Recompound Strategy</h1>
@@ -808,9 +811,11 @@ body, html {
     </p>
   </section>
   <div class="accent-bar"></div>
-  <!-- Main full-width sections -->
+
+  <!-- Main Content Sections -->
   <div class="site-section">
     <div class="section-inner">
+      <!-- Mission Section -->
       <section id="mission">
         <h3>My Mission</h3>
         <div class="section-divider"></div>
@@ -818,6 +823,7 @@ body, html {
           <b>Recompound Strategy</b> was founded to reclaim everything my family lost from being refugees twice, losing our business savings, and falling into debt caused by a corrupt government during the financial collapse. I come from survival, not privilege. My mission is to fight corruption, break out of this rigged system, and prove that wealth can be built from zero. Through strategy, ownership, and relentless reinvestment, I’m building real freedom outside the Matrix.
         </p>
       </section>
+      <!-- Vision Section -->
       <section id="vision">
         <h3>Core Belief</h3>
         <div class="section-divider"></div>
@@ -829,6 +835,7 @@ body, html {
           Through strategic, recurring investments in fractional real estate, I’m compounding income every single month. Every share I own generates cash flow. Every reinvestment multiplies it. It’s real ownership, backed by real assets. And by holding hard assets, I stay in full control, even if the banks collapse.
         </p>
       </section>
+      <!-- Extended Vision Section -->
       <section>
         <h3>Vision</h3>
         <div class="section-divider"></div>
@@ -842,6 +849,7 @@ body, html {
           While others chase hype, I build a fortress one brick at a time. This is the Buy-Hold-Recompound model. No shortcuts. No selling. Just exponential outcomes.
         </p>
       </section>
+      <!-- Testimonial Section -->
       <section class="testimonial-section">
         <blockquote>
           <span class="testimonial-quote">
@@ -852,95 +860,94 @@ body, html {
       </section>
     </div>
   </div>
-  <!-- Real Estate DCA Calculator (Live Data) -->
-<!-- Real Estate DCA Calculator (Live Data, Clean Centered Layout) -->
-<!-- Real Estate Lump Sum Backtest (Styled Like Old Block) -->
-<section class="chart-section" id="comparisonChartSection" style="margin-top:0;">
-  <div class="chart-section-inner" style="max-width:1100px;padding:2.5rem 1rem 2.5rem 1rem;">
-    <h3 id="chartTitle" style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">
-  Real Estate vs Cash (Live DCA Backtest)
-</h3>
-<p id="chartSubtitle" style="color:#aeeaff;font-size:1.14rem;font-weight:700;margin-bottom:1.1rem;">
-  See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
-</p>
-
-    <div style="text-align:center; margin-bottom: 1rem;">
-  <button id="btnRealEstate" style="padding: 0.5rem 1rem; font-weight: bold; margin-right: 1rem; cursor: pointer;">Real Estate</button>
-  <button id="btnBTC" style="padding: 0.5rem 1rem; cursor: pointer;">BTC</button>
-  <button id="btnSP500" style="padding: 0.5rem 1rem; cursor: pointer;">S&P 500</button>
-</div>
-    <!-- Results above the chart -->
-    <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;">
-      <!-- JS fills this -->
+  <!-- Chart Section (Live DCA Backtest) -->
+  <section class="chart-section" id="comparisonChartSection" style="margin-top:0;">
+    <div class="chart-section-inner" style="max-width:1100px;padding:2.5rem 1rem 2.5rem 1rem;">
+      <h3 id="chartTitle" style="font-weight:800;font-size:2.2rem;color:var(--accent);margin-bottom:1.2rem;">
+        Real Estate vs Cash (Live DCA Backtest)
+      </h3>
+      <p id="chartSubtitle" style="color:#aeeaff;font-size:1.14rem;font-weight:700;margin-bottom:1.1rem;">
+        See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.
+      </p>
+      <div style="text-align:center; margin-bottom: 1rem;">
+        <button id="btnRealEstate" style="padding: 0.5rem 1rem; font-weight: bold; margin-right: 1rem; cursor: pointer;">Real Estate</button>
+        <button id="btnBTC" style="padding: 0.5rem 1rem; cursor: pointer;">BTC</button>
+        <button id="btnSP500" style="padding: 0.5rem 1rem; cursor: pointer;">S&amp;P 500</button>
+      </div>
+      <!-- Results above the chart -->
+      <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;">
+        <!-- JS fills this -->
+      </div>
+      <!-- Chart (centered, old style) -->
+      <div style="width:100%;max-width:1100px;margin:0 auto;">
+        <canvas id="dcaChart" height="380" style="max-width:100%;width:100%;margin:1.3rem auto 0 auto;display:block;background:transparent;box-shadow:none;border-radius:0;"></canvas>
+      </div>
     </div>
-    <!-- Chart (centered, old style) -->
-    <div style="width:100%;max-width:1100px;margin:0 auto;">
-  <canvas id="dcaChart" height="380" style="max-width:100%;width:100%;margin:1.3rem auto 0 auto;display:block;background:transparent;box-shadow:none;border-radius:0;"></canvas>
-</div>
-  </div>
-  <!-- Controls -->
-<div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem;">
-  <form id="dcaForm" style="display:flex;align-items:center;gap:1rem;">
-    <label for="cityYield" style="color:#aeeaff;font-weight:700;font-size:1.15rem;">City:</label>
-    <select id="cityYield" style="font-size:1.14rem;border-radius:8px;padding:6px 16px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;"></select>
+    <!-- Real Estate Controls -->
+    <div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem;">
+      <form id="dcaForm" style="display:flex;align-items:center;gap:1rem;">
+        <label for="cityYield" style="color:#aeeaff;font-weight:700;font-size:1.15rem;">City:</label>
+        <select id="cityYield" style="font-size:1.14rem;border-radius:8px;padding:6px 16px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;"></select>
+        <label for="dcaStartYear" style="color:#aeeaff;font-weight:700;">From</label>
+        <select id="dcaStartYear" style="font-size:1.14rem;border-radius:8px;padding:6px 16px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;"></select>
+        <label for="dcaLumpSum" style="color:#aeeaff;font-weight:700;">invest €</label>
+        <input id="dcaLumpSum" type="number" value="50000" min="1000" max="10000000"
+          style="font-size:1.14rem;border-radius:8px;padding:6px 16px;width:120px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;">
+        <span style="color:#fff;font-weight:700;">one time.</span>
+      </form>
+    </div>
+    <!-- BTC Controls (hidden by default) -->
+    <div id="btcControls" style="display:none; align-items:center; gap:1rem; justify-content:center; margin-bottom:1.2rem;">
+      <form id="btcForm" style="display:flex; align-items:center; gap:1rem;">
+        <label for="btcStartYear" style="color:#aeeaff; font-weight:700; font-size:1.15rem;">From</label>
+        <select id="btcStartYear" style="font-size:1.14rem; border-radius:8px; padding:6px 16px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;"></select>
+        <label for="btcLumpSum" style="color:#aeeaff; font-weight:700;">invest €</label>
+        <input id="btcLumpSum" type="number" value="50000" min="1000" max="10000000"
+          style="font-size:1.14rem; border-radius:8px; padding:6px 16px; width:120px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;">
+        <span style="color:#fff; font-weight:700;">one time.</span>
+      </form>
+    </div>
+    <!-- SP500 Controls (hidden by default) -->
+    <div id="sp500Controls" style="display:none; align-items:center; gap:1rem; justify-content:center; margin-bottom:1.2rem;">
+      <form id="sp500Form" style="display:flex; align-items:center; gap:1rem;">
+        <label for="sp500StartYear" style="color:#aeeaff; font-weight:700; font-size:1.15rem;">From</label>
+        <select id="sp500StartYear" style="font-size:1.14rem; border-radius:8px; padding:6px 16px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;"></select>
+        <label for="sp500LumpSum" style="color:#aeeaff; font-weight:700;">invest €</label>
+        <input id="sp500LumpSum" type="number" value="50000" min="1000" max="10000000"
+          style="font-size:1.14rem; border-radius:8px; padding:6px 16px; width:120px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;">
+        <span style="color:#fff; font-weight:700;">one time.</span>
+      </form>
+    </div>
+  </section>
 
-    <label for="dcaStartYear" style="color:#aeeaff;font-weight:700;">From</label>
-    <select id="dcaStartYear" style="font-size:1.14rem;border-radius:8px;padding:6px 16px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;"></select>
+  <!-- About/Contact Section -->
+  <section id="about-bottom" class="site-section">
+    <div class="section-inner">
+      <h3>About</h3>
+      <div class="section-divider"></div>
+      <p style="font-size:1.17rem;font-weight:700;margin-bottom:1.45rem;">
+        I’m not a Real Estate “Guru”.<br>
+        I’m a strategist who started from zero and built a compounding real estate engine.
+      </p>
+      <h3 style="color:var(--accent);font-weight:800;letter-spacing:.01em;font-size:2.09rem;margin-bottom:1.2rem;">Co-Invest With Me</h3>
+      <div class="section-divider"></div>
+      <p style="font-size:1.07rem;margin-bottom:1.8rem;">
+        I focus exclusively on long-term, wealth building real estate strategies never hype, never quick flips.<br><br>
+        I’m open to select co-investment opportunities, strategic alliances, and fractional ownership structures with like minded capital partners.
+        If you’re seeking to deploy capital in projects with real staying power and you value transparency, alignment, and compounding over time let’s connect.
+      </p>
+      <a href="https://wa.me/35796318896" target="_blank" class="contact-btn" style="margin-top:0.6rem;">
+        Start a Conversation
+      </a>
+      <p style="font-size:0.98rem;color:#aeeaff;margin-top:1.1rem;">
+        Foundations are built alone. Empires are built together.
+      </p>
+    </div>
+  </section>
 
-    <label for="dcaLumpSum" style="color:#aeeaff;font-weight:700;">invest €</label>
-    <input id="dcaLumpSum" type="number" value="50000" min="1000" max="10000000"
-      style="font-size:1.14rem;border-radius:8px;padding:6px 16px;width:120px;background:#1a2234;color:#fff;border:1.5px solid #277bfa99;">
-    <span style="color:#fff;font-weight:700;">one time.</span>
-  </form>
-</div>
-  <!-- BTC Controls, hidden by default -->
-<div id="btcControls" style="display:none; align-items:center; gap:1rem; justify-content:center; margin-bottom:1.2rem;">
-  <form id="btcForm" style="display:flex; align-items:center; gap:1rem;">
-    <label for="btcStartYear" style="color:#aeeaff; font-weight:700; font-size:1.15rem;">From</label>
-    <select id="btcStartYear" style="font-size:1.14rem; border-radius:8px; padding:6px 16px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;"></select>
-
-    <label for="btcLumpSum" style="color:#aeeaff; font-weight:700;">invest €</label>
-    <input id="btcLumpSum" type="number" value="50000" min="1000" max="10000000"
-      style="font-size:1.14rem; border-radius:8px; padding:6px 16px; width:120px; background:#1a2234; color:#fff; border:1.5px solid #277bfa99;">
-    <span style="color:#fff; font-weight:700;">one time.</span>
-  </form>
-</div>
-
-</section>
-
-
-
-
-<section id="about-bottom" class="site-section">
-  <div class="section-inner">
-    <h3>About</h3>
-    <div class="section-divider"></div>
-    <p style="font-size:1.17rem;font-weight:700;margin-bottom:1.45rem;">
-      I’m not a Real Estate “Guru”.<br>
-      I’m a strategist who started from zero and built a compounding real estate engine.
-    </p>
-    <h3 style="color:var(--accent);font-weight:800;letter-spacing:.01em;font-size:2.09rem;margin-bottom:1.2rem;">Co-Invest With Me</h3>
-    <div class="section-divider"></div>
-    <p style="font-size:1.07rem;margin-bottom:1.8rem;">
-      I focus exclusively on long-term, wealth building real estate strategies never hype, never quick flips.<br><br>
-      I’m open to select co-investment opportunities, strategic alliances, and fractional ownership structures with like minded capital partners.
-      If you’re seeking to deploy capital in projects with real staying power and you value transparency, alignment, and compounding over time let’s connect.
-    </p>
-    <a href="https://wa.me/35796318896" target="_blank"
-      class="contact-btn"
-      style="margin-top:0.6rem;">
-      Start a Conversation
-    </a>
-    <p style="font-size:0.98rem;color:#aeeaff;margin-top:1.1rem;">
-      Foundations are built alone. Empires are built together.
-    </p>
-  </div>
-</section>
-
-
-
-  
   <div id="contact-bottom"></div>
+  
+  <!-- Footer -->
   <footer>
     <div class="footer-row">
       <span>&copy; 2025 Recompound Strategy. All rights reserved.</span>
@@ -948,402 +955,561 @@ body, html {
       <span class="footer-socials">
         <a href="https://instagram.com/recompound_strategy" target="_blank">
           <!-- Instagram SVG Icon -->
-          <svg width="21" height="21" viewBox="0 0 21 21" fill="none"><rect x="3" y="3" width="15" height="15" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="10.5" cy="10.5" r="3" stroke="currentColor" stroke-width="2"/><circle cx="15.5" cy="5.5" r="1" fill="currentColor"/></svg>
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none">
+            <rect x="3" y="3" width="15" height="15" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="10.5" cy="10.5" r="3" stroke="currentColor" stroke-width="2"/>
+            <circle cx="15.5" cy="5.5" r="1" fill="currentColor"/>
+          </svg>
           Instagram
         </a>
         <a href="mailto:info@recompoundstrategy.com">
           <!-- Mail SVG Icon -->
-          <svg width="21" height="21" viewBox="0 0 21 21" fill="none"><rect x="3" y="5" width="15" height="11" rx="3" stroke="currentColor" stroke-width="2"/><path d="M4 7l6.5 5 6.5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none">
+            <rect x="3" y="5" width="15" height="11" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 7l6.5 5 6.5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
           Email
         </a>
       </span>
     </div>
   </footer>
   <button id="backToTop" title="Back to top">↑</button>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  // --- Main site JS: everything except news strip ---
-  // scroll-fade reveal
-  window.addEventListener('scroll', function() {
-    document.querySelectorAll('.scroll-fade').forEach(function(el) {
-      const rect = el.getBoundingClientRect();
-      if(rect.top < window.innerHeight - 80) el.classList.add('visible');
-    });
-  });
-  window.dispatchEvent(new Event('scroll'));
+    function replaceChartCanvas() {
+  const oldCanvas = document.getElementById('dcaChart');
+  if (!oldCanvas) return;
+  const parent = oldCanvas.parentNode;
+  parent.removeChild(oldCanvas);
 
-  // Animated KPIs
-  document.querySelectorAll('.kpi-number').forEach(el => {
-    const target = +el.dataset.to;
-    let cur = 0;
-    const inc = Math.ceil(target/70);
-    const isPercent = el.classList.contains('percent');
-    function update() {
-      cur += inc; if(cur>target) cur=target;
-      el.textContent = isPercent ? `${cur}%` : cur;
-      el.classList.add('animated');
-      setTimeout(() => el.classList.remove('animated'), 600);
-      if(cur < target) requestAnimationFrame(update);
-    }
-    update();
-  });
+  const newCanvas = document.createElement('canvas');
+  newCanvas.id = 'dcaChart';
+  newCanvas.height = 380;
+  newCanvas.style.maxWidth = '100%';
+  newCanvas.style.width = '100%';
+  newCanvas.style.margin = '1.3rem auto 0 auto';
+  newCanvas.style.display = 'block';
+  newCanvas.style.background = 'transparent';
+  newCanvas.style.boxShadow = 'none';
+  newCanvas.style.borderRadius = '0';
 
-// --- Nav link proximity highlight (robust, one underline, distance limit) ---
-const navbar = document.querySelector('.navbar');
-const allNavLinks = Array.from(document.querySelectorAll('.nav-menu a'));
+  parent.appendChild(newCanvas);
 
-const sectionEls = [
-  document.getElementById('home'),
-  document.getElementById('mission'),
-  document.getElementById('vision'),
-  document.getElementById('comparisonChartSection'),
-  document.getElementById('about-bottom')
-];
-
-let proximityActive = false;
-
-navbar.addEventListener('mousemove', function(e) {
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-  let closestIdx = -1;
-  let minDist = Infinity;
-  const maxDistance = 120;
-
-  allNavLinks.forEach((a, i) => {
-    const rect = a.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const dist = Math.sqrt((mouseX - centerX) ** 2 + (mouseY - centerY) ** 2);
-    if (dist < minDist) {
-      minDist = dist;
-      closestIdx = i;
-    }
-  });
-
-  if (minDist > maxDistance) {
-    allNavLinks.forEach(a => a.classList.remove('active'));
-    proximityActive = false;
-    return;
-  }
-
-  allNavLinks.forEach((a, i) => a.classList.toggle('active', i === closestIdx));
-  proximityActive = true;
-});
-
-navbar.addEventListener('mouseleave', function() {
-  proximityActive = false;
-  updateActiveNav();
-});
-
-allNavLinks.forEach(link => {
-  link.addEventListener('mouseenter', () => {
-    allNavLinks.forEach(a => a.classList.remove('active'));
-    link.classList.add('active');
-    proximityActive = true;
-  });
-  link.addEventListener('mouseleave', () => {
-    proximityActive = false;
-    updateActiveNav();
-  });
-});
-
-function updateActiveNav() {
-  if (proximityActive) return;
-  let curIdx = 0;
-  for (let i = 0; i < sectionEls.length; i++) {
-    if (sectionEls[i]) {
-      const top = sectionEls[i].getBoundingClientRect().top;
-      if (top < window.innerHeight * 0.22) curIdx = i;
-    }
-  }
-  allNavLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
-  document.getElementById('backToTop').style.display = window.scrollY > 350 ? 'block' : 'none';
+  // IMPORTANT: update global!
+  window.dcaChartCtx = newCanvas.getContext('2d');
+  window.dcaChart = null;
 }
-window.addEventListener('scroll', updateActiveNav);
-window.addEventListener('DOMContentLoaded', updateActiveNav);
 
-
-
-  document.getElementById('backToTop').onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
-
-  // FADE IN HERO ELEMENTS ON LOAD
-  window.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      document.querySelectorAll('.fade-in').forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), 150 + i * 110);
+    // --- Main site JS: animation, nav, KPIs, etc. ---
+    // Scroll-fade reveal
+    window.addEventListener('scroll', function() {
+      document.querySelectorAll('.scroll-fade').forEach(function(el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) el.classList.add('visible');
       });
-    }, 100);
-  });
-
-  // CHART CODE (keep as is)
-  const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
-  async function fetchFRED(seriesId) {
-    const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
-    const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
-    const res = await fetch(url);
-    if (!res.ok) {
-      alert('Failed to fetch data from FRED via CORS proxy.');
-      return [];
-    }
-    const raw = await res.text();
-    try {
-      const data = JSON.parse(raw);
-      return data.observations.map(obs => ({
-        year: new Date(obs.date).getFullYear(),
-        value: parseFloat(obs.value)
-      })).filter(x => !isNaN(x.value));
-    } catch (e) {
-      alert('Failed to parse FRED data! ' + e);
-      return [];
-    }
-  }
-  function normalize(data, base = 100) {
-    const baseVal = data[0]?.value || 1;
-    return data.map(d => ({
-      year: d.year,
-      value: +(base * (d.value / baseVal)).toFixed(2)
-    }));
-  }
-
-  // LOGO SHOW/HIDE ON SCROLL (always show logo on mobile)
-window.addEventListener('scroll', function() {
-  var navLogo = document.querySelector('.nav-logo');
-  if(window.innerWidth <= 700) {
-    navLogo.classList.remove('nav-logo-hide');
-    navLogo.classList.add('nav-logo-show');
-    return;
-  }
-  var heroSection = document.getElementById('home');
-  var heroBottom = heroSection.getBoundingClientRect().bottom;
-  if (heroBottom <= 80) {
-    navLogo.classList.remove('nav-logo-hide');
-    navLogo.classList.add('nav-logo-show');
-  } else {
-    navLogo.classList.remove('nav-logo-show');
-    navLogo.classList.add('nav-logo-hide');
-  }
-});
-
-// Place at the TOP of your main script!
-// Place at the TOP of your main script!
-const allCities = [
-  "New York, NY",
-  "Atlanta, GA",
-  "Phoenix, AZ",
-  "Boston, MA",
-  "San Francisco, CA",
-  "Los Angeles, CA",
-  "San Diego, CA",
-  "Charlotte, NC",
-  "Chicago, IL",
-  "Cleveland, OH",
-  "Denver, CO",
-  "Dallas, TX",
-  "Washington, DC",
-  "Detroit, MI",
-  "Miami, FL",
-  "Tampa, FL",
-  "Las Vegas, NV",
-  "Minneapolis, MN",
-  "Portland, OR",
-  "Seattle, WA"
-];
-
-async function getHpiGain(city) {
-  const fredCode = cityToFRED[city];
-  if (!fredCode) return 0;
-  const url = `https://corsproxy.io/?https://api.stlouisfed.org/fred/series/observations?series_id=${fredCode}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    const vals = data.observations
-      .filter(x => !isNaN(parseFloat(x.value)))
-      .map(x => parseFloat(x.value));
-    if (vals.length < 2) return 0;
-    return ((vals[vals.length - 1] / vals[0]) - 1) * 100;
-  } catch {
-    return 0;
-  }
-}
-
-async function sortCitiesByHpiAndPopulateDropdown() {
-  const citySelect = document.getElementById('cityYield');
-  citySelect.innerHTML = '';
-  const cityGainPairs = [];
-  for (const city of allCities) {
-    const fredCode = cityToFRED[city];
-    const hpiRaw = await fetchFRED(fredCode);
-    const years = hpiRaw.map(x => x.year).filter(y => y >= 1990);
-    let hpiVals = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
-    if (hpiVals.length < 2) continue; // skip if not enough data
-    const base = hpiVals[0];
-    hpiVals = hpiVals.map(v => v / base * 100);
-    const hpiGain = ((hpiVals[hpiVals.length - 1] / hpiVals[0]) - 1) * 100;
-    cityGainPairs.push({ city, hpiGain });
-  }
-
-  // Sort cities by HPI gain (descending: highest first)
-  cityGainPairs.sort((a, b) => b.hpiGain - a.hpiGain);
-
-  for (const { city, hpiGain } of cityGainPairs) {
-    const opt = document.createElement('option');
-    opt.value = city;
-    opt.textContent = `${city} (${hpiGain.toFixed(1)}% HPI)`;
-    citySelect.appendChild(opt);
-  }
-
-  // Select the highest-gain city by default
-  citySelect.selectedIndex = 0;
-}
-
-
-// Populate the dropdown (sorted) on page load!
-window.addEventListener('DOMContentLoaded', async function() {
-  await sortCitiesByHpiAndPopulateDropdown();
-  // Force the correct HPI data + chart for the default (top) city after dropdown populated
-  await getHpiCpiData();
-  updateDca();
-});
-
-
-// (THEN the rest of your code)
-const cityYield = document.getElementById('cityYield');
-const dcaYield = document.getElementById('dcaYield');
-
-
-cityYield.addEventListener('change', async function() {
-  if (cityYield.value === "custom") {
-    dcaYield.value = '';
-    dcaYield.placeholder = "Enter yield (%)";
-    dcaYield.removeAttribute('readonly');
-    dcaYield.focus();
-  } else {
-    dcaYield.value = cityTypicalYields[cityYield.value] ?? '';
-    dcaYield.placeholder = "Annual yield (%)";
-    dcaYield.removeAttribute('readonly');
-  }
-  // NEW: re-fetch HPI/CPI for this city
-  await getHpiCpiData();
-  updateDca();
-});
-
-
-// Allow manual yield at all times
-dcaYield.addEventListener('input', function() {
-  updateDca();
-});
-
-</script>
-<script>
-  // Burger menu toggle for mobile
-  const burger = document.getElementById('burgerBtn');
-  const navMenu = document.getElementById('mainNavMenu');
-
-  burger.addEventListener('click', function(e) {
-    navMenu.classList.toggle('open');
-    burger.classList.toggle('active');
-    e.stopPropagation();
-  });
-
-  // Close menu on link click (mobile only)
-  document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      if(window.innerWidth <= 700) navMenu.classList.remove('open');
-      burger.classList.remove('active');
     });
-  });
+    window.dispatchEvent(new Event('scroll'));
 
-  // Click outside closes menu (mobile only)
-  document.addEventListener('click', function(e){
-    if(window.innerWidth > 700) return;
-    if(navMenu.classList.contains('open')) {
-      if(!navMenu.contains(e.target) && e.target !== burger) {
+    // Animated KPIs
+    document.querySelectorAll('.kpi-number').forEach(el => {
+      const target = +el.dataset.to;
+      let cur = 0;
+      const inc = Math.ceil(target / 70);
+      const isPercent = el.classList.contains('percent');
+      function update() {
+        cur += inc;
+        if (cur > target) cur = target;
+        el.textContent = isPercent ? `${cur}%` : cur;
+        el.classList.add('animated');
+        setTimeout(() => el.classList.remove('animated'), 600);
+        if (cur < target) requestAnimationFrame(update);
+      }
+      update();
+    });
+
+    // --- Nav link proximity highlight ---
+    const navbar = document.querySelector('.navbar');
+    const allNavLinks = Array.from(document.querySelectorAll('.nav-menu a'));
+
+    const sectionEls = [
+      document.getElementById('home'),
+      document.getElementById('mission'),
+      document.getElementById('vision'),
+      document.getElementById('comparisonChartSection'),
+      document.getElementById('about-bottom')
+    ];
+
+    let proximityActive = false;
+
+    navbar.addEventListener('mousemove', function(e) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      let closestIdx = -1;
+      let minDist = Infinity;
+      const maxDistance = 120;
+
+      allNavLinks.forEach((a, i) => {
+        const rect = a.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dist = Math.sqrt((mouseX - centerX) ** 2 + (mouseY - centerY) ** 2);
+        if (dist < minDist) {
+          minDist = dist;
+          closestIdx = i;
+        }
+      });
+
+      if (minDist > maxDistance) {
+        allNavLinks.forEach(a => a.classList.remove('active'));
+        proximityActive = false;
+        return;
+      }
+
+      allNavLinks.forEach((a, i) => a.classList.toggle('active', i === closestIdx));
+      proximityActive = true;
+    });
+
+    navbar.addEventListener('mouseleave', function() {
+      proximityActive = false;
+      updateActiveNav();
+    });
+
+    allNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        allNavLinks.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+        proximityActive = true;
+      });
+      link.addEventListener('mouseleave', () => {
+        proximityActive = false;
+        updateActiveNav();
+      });
+    });
+
+    function updateActiveNav() {
+      if (proximityActive) return;
+      let curIdx = 0;
+      for (let i = 0; i < sectionEls.length; i++) {
+        if (sectionEls[i]) {
+          const top = sectionEls[i].getBoundingClientRect().top;
+          if (top < window.innerHeight * 0.22) curIdx = i;
+        }
+      }
+      allNavLinks.forEach((a, i) => a.classList.toggle('active', i === curIdx));
+      document.getElementById('backToTop').style.display = window.scrollY > 350 ? 'block' : 'none';
+    }
+    window.addEventListener('scroll', updateActiveNav);
+    window.addEventListener('DOMContentLoaded', updateActiveNav);
+
+    document.getElementById('backToTop').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // FADE IN HERO ELEMENTS ON LOAD
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelectorAll('.fade-in').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), 150 + i * 110);
+        });
+      }, 100);
+    });
+
+    // LOGO SHOW/HIDE ON SCROLL (always show logo on mobile)
+    window.addEventListener('scroll', function() {
+      var navLogo = document.querySelector('.nav-logo');
+      if (window.innerWidth <= 700) {
+        navLogo.classList.remove('nav-logo-hide');
+        navLogo.classList.add('nav-logo-show');
+        return;
+      }
+      var heroSection = document.getElementById('home');
+      var heroBottom = heroSection.getBoundingClientRect().bottom;
+      if (heroBottom <= 80) {
+        navLogo.classList.remove('nav-logo-hide');
+        navLogo.classList.add('nav-logo-show');
+      } else {
+        navLogo.classList.remove('nav-logo-show');
+        navLogo.classList.add('nav-logo-hide');
+      }
+    });
+
+    // Burger menu toggle for mobile
+    const burger = document.getElementById('burgerBtn');
+    const navMenu = document.getElementById('mainNavMenu');
+    burger.addEventListener('click', function(e) {
+      navMenu.classList.toggle('open');
+      burger.classList.toggle('active');
+      e.stopPropagation();
+    });
+    // Close menu on link click (mobile only)
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 700) navMenu.classList.remove('open');
+        burger.classList.remove('active');
+      });
+    });
+    // Click outside closes menu (mobile only)
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth > 700) return;
+      if (navMenu.classList.contains('open')) {
+        if (!navMenu.contains(e.target) && e.target !== burger) {
+          navMenu.classList.remove('open');
+          burger.classList.remove('active');
+        }
+      }
+    });
+    // On resize, hide menu if desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 700) {
         navMenu.classList.remove('open');
         burger.classList.remove('active');
       }
-    }
-  });
-
-  // On resize, hide menu if desktop
-  window.addEventListener('resize', () => {
-    if(window.innerWidth > 700) {
+    });
+    // On page load, always close menu
+    window.addEventListener('DOMContentLoaded', () => {
       navMenu.classList.remove('open');
       burger.classList.remove('active');
+    });
+
+    // Dynamically set divider width to match preceding h3
+    function matchDividersToHeadings() {
+      document.querySelectorAll('.section-divider').forEach(div => {
+        const h3 = div.previousElementSibling;
+        if (h3 && h3.tagName.startsWith('H')) {
+          // Measure h3 width (including padding)
+          const style = getComputedStyle(h3);
+          const width = h3.offsetWidth
+            + parseFloat(style.marginLeft)
+            + parseFloat(style.marginRight);
+          div.style.width = width + "px";
+        }
+      });
+    }
+    // Run on load and on resize
+    window.addEventListener('DOMContentLoaded', matchDividersToHeadings);
+    window.addEventListener('resize', matchDividersToHeadings);
+    // ---------- Chart & DCA logic ----------
+
+    // Constants and API keys
+    const API_KEY = 'aa529084cdd675ed567d9c48c40c8a12';
+    const ALPHA_VANTAGE_API_KEY = '7WPYDOV3ZYE7P4UF';
+
+    // Elements & globals
+    const allCities = [
+      "New York, NY", "Atlanta, GA", "Phoenix, AZ", "Boston, MA",
+      "San Francisco, CA", "Los Angeles, CA", "San Diego, CA", "Charlotte, NC",
+      "Chicago, IL", "Cleveland, OH", "Denver, CO", "Dallas, TX", "Washington, DC",
+      "Detroit, MI", "Miami, FL", "Tampa, FL", "Las Vegas, NV", "Minneapolis, MN",
+      "Portland, OR", "Seattle, WA"
+    ];
+    const cityToFRED = {
+      "New York, NY": "NYXRSA", "Atlanta, GA": "ATXRSA", "Phoenix, AZ": "PHXRSA",
+      "Boston, MA": "BOXRSA", "San Francisco, CA": "SFXRSA", "Los Angeles, CA": "LXXRSA",
+      "San Diego, CA": "SDXRSA", "Charlotte, NC": "CRXRSA", "Chicago, IL": "CHXRSA",
+      "Cleveland, OH": "CEXRSA", "Denver, CO": "DNXRSA", "Dallas, TX": "DAXRSA",
+      "Washington, DC": "WDXRSA", "Detroit, MI": "DEXRSA", "Miami, FL": "MIXRSA",
+      "Tampa, FL": "TPXRSA", "Las Vegas, NV": "LVXRSA", "Minneapolis, MN": "MNXRSA",
+      "Portland, OR": "POXRSA", "Seattle, WA": "SEXRSA"
+    };
+
+    // Main datasets and chart context
+    let dcaChart;
+    let hpiYearly = [], cpiYearly = [], dcaYears = [];
+    let btcYears = [], btcPrices = [], btcLoaded = false, btcError = null;
+
+    // Preload S&P 500 and CPI data
+    let sp500Loaded = false, sp500Error = null;
+    let sp500Data = null, sp500CpiRaw = null;
+
+
+    // Chart controls
+    const dcaForm = document.getElementById('dcaForm');
+    const dcaStartYear = document.getElementById('dcaStartYear');
+    const dcaResult = document.getElementById('dcaResult');
+
+    // --- Data Fetch ---
+    async function fetchFRED(seriesId) {
+      const base = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${API_KEY}&file_type=json&frequency=a&observation_start=1990-01-01`;
+      const url = 'https://corsproxy.io/?' + encodeURIComponent(base);
+      const res = await fetch(url);
+      if (!res.ok) {
+        alert('Failed to fetch data from FRED via CORS proxy.');
+        return [];
+      }
+      const raw = await res.text();
+      try {
+        const data = JSON.parse(raw);
+        return data.observations.map(obs => ({
+          year: new Date(obs.date).getFullYear(),
+          value: parseFloat(obs.value)
+        })).filter(x => !isNaN(x.value));
+      } catch (e) {
+        alert('Failed to parse FRED data! ' + e);
+        return [];
+      }
+    }
+
+    // Populate cities in dropdown, sorted by HPI gain
+    async function sortCitiesByHpiAndPopulateDropdown() {
+      const citySelect = document.getElementById('cityYield');
+      citySelect.innerHTML = '';
+      const cityGainPairs = [];
+      for (const city of allCities) {
+        const fredCode = cityToFRED[city];
+        const hpiRaw = await fetchFRED(fredCode);
+        const years = hpiRaw.map(x => x.year).filter(y => y >= 1990);
+        let hpiVals = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
+        if (hpiVals.length < 2) continue;
+        const base = hpiVals[0];
+        hpiVals = hpiVals.map(v => v / base * 100);
+        const hpiGain = ((hpiVals[hpiVals.length - 1] / hpiVals[0]) - 1) * 100;
+        cityGainPairs.push({ city, hpiGain });
+      }
+      cityGainPairs.sort((a, b) => b.hpiGain - a.hpiGain);
+      for (const { city, hpiGain } of cityGainPairs) {
+        const opt = document.createElement('option');
+        opt.value = city;
+        opt.textContent = `${city} (${hpiGain.toFixed(1)}% HPI)`;
+        citySelect.appendChild(opt);
+      }
+      citySelect.selectedIndex = 0;
+    }
+
+    // Load HPI and CPI data for selected city
+    async function getHpiCpiData() {
+      let city = cityYield.value || "New York, NY";
+      let hpiCode = cityToFRED[city] || "USSTHPI";
+      const [cpiRaw, hpiRaw] = await Promise.all([
+        fetchFRED('CPIAUCSL'),
+        fetchFRED(hpiCode)
+      ]);
+      const years = hpiRaw.map(x => x.year).filter(y => y >= 1990 && cpiRaw.some(c => c.year == y));
+      hpiYearly = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
+      cpiYearly = years.map(y => cpiRaw.find(x => x.year == y)?.value || null);
+      dcaYears = years;
+      // Normalize HPI
+      const baseHPI = hpiYearly[0];
+      hpiYearly = hpiYearly.map(v => v / baseHPI * 100);
+      dcaStartYear.innerHTML = '';
+      years.slice(0, -1).forEach(y => {
+        dcaStartYear.innerHTML += `<option value="${y}">${y}</option>`;
+      });
+      dcaStartYear.value = years[0];
+    }
+
+    // Initialize city dropdown and first data, and preload S&P 500 & CPI
+      window.addEventListener('DOMContentLoaded', async function() {
+        await sortCitiesByHpiAndPopulateDropdown();
+        await getHpiCpiData();
+        updateDca();
+        // Preload SP500 and CPI
+        fetchSP500Yearly().then(data => {
+          sp500Data = data;
+          return fetchFRED('CPIAUCSL');
+        }).then(cpi => {
+          sp500CpiRaw = cpi;
+          sp500Loaded = true;
+          sp500Error = null;
+        }).catch(e => {
+          sp500Error = e.message || "Unknown error";
+          sp500Loaded = false;
+        });
+      });
+
+
+    // Real Estate DCA Logic
+    function calcLumpSumCurve(startYear, lumpSum) {
+      const idx0 = dcaYears.indexOf(+startYear);
+      let nYears = dcaYears.length - idx0;
+      let reVals = [], cashVals = [];
+      let propertyValue = lumpSum, cashValue = lumpSum;
+      for (let i = 0; i < nYears; i++) {
+        if (i > 0) {
+          propertyValue *= hpiYearly[idx0 + i] / hpiYearly[idx0 + i - 1];
+          cashValue *= cpiYearly[idx0 + i - 1] / cpiYearly[idx0 + i];
+        }
+        reVals.push(propertyValue);
+        cashVals.push(cashValue);
+      }
+      return {
+        years: dcaYears.slice(idx0),
+        invest: lumpSum,
+        reVals,
+        cashVals
+      };
+    }
+function updateDca() {
+  replaceChartCanvas();
+
+  // Ensure HPI/CPI data loaded
+  if (!hpiYearly.length || !cpiYearly.length || !dcaYears.length) return;
+
+  const startYear = +dcaStartYear.value || dcaYears[0];
+  const lumpSum = Math.min(10000000, +document.getElementById('dcaLumpSum').value || 0);
+  const idx0 = dcaYears.indexOf(startYear);
+
+  if (idx0 === -1) return;
+
+  // Compute property and cash curves
+  let propertyValue = lumpSum, cashValue = lumpSum;
+  let reVals = [], cashVals = [];
+  for (let i = 0; i < dcaYears.length - idx0; i++) {
+    if (i > 0) {
+      propertyValue *= hpiYearly[idx0 + i] / hpiYearly[idx0 + i - 1];
+      cashValue *= cpiYearly[idx0 + i - 1] / cpiYearly[idx0 + i];
+    }
+    reVals.push(propertyValue);
+    cashVals.push(cashValue);
+  }
+  const years = dcaYears.slice(idx0);
+  const lastRE = reVals[reVals.length - 1] || lumpSum;
+  const lastCash = cashVals[cashVals.length - 1] || lumpSum;
+  const gainPct = ((lastRE / lumpSum - 1) * 100).toFixed(1);
+  const cashPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
+
+  dcaResult.innerHTML = `
+    <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
+      Over the last ${years.length-1} years, your €${lumpSum.toLocaleString()} will be worth:
+    </div>
+    <div style="font-size:1.09em;text-align:center; color:#4faaff; font-weight:700; margin-bottom:0.3em;">
+      Invested in Real Estate: €${Math.round(lastRE).toLocaleString()} (${gainPct > 0 ? "+" : ""}${gainPct}% ${gainPct >= 0 ? "gain" : "loss"})
+    </div>
+    <div style="font-size:1.09em;text-align:center; color:#ff2323; font-weight:700;">
+      Only saved in cash: €${Math.round(lastCash).toLocaleString()} (${cashPct > 0 ? "+" : ""}${cashPct}% ${cashPct >= 0 ? "gain" : "loss"})
+    </div>
+  `;
+
+  // ===== CHART.JS CODE (REQUIRED) =====
+  dcaChart = new Chart(window.dcaChartCtx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'Real Estate Value (HPI)',
+          data: reVals,
+          borderColor: '#4faaff',
+          backgroundColor: 'rgba(79,170,255,0.11)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.21,
+          borderWidth: 6,
+        },
+        {
+          label: 'Cash (Inflation-Adjusted)',
+          data: cashVals,
+          borderColor: '#ff2323',
+          backgroundColor: 'rgba(255,35,35,0.13)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.19,
+          borderWidth: 6,
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+      },
+      responsive: true,
+      animation: { duration: 900 },
     }
   });
-
-  // On page load, always close menu
-  window.addEventListener('DOMContentLoaded', () => {
-    navMenu.classList.remove('open');
-    burger.classList.remove('active');
-  });
-</script>
-<!-- Real Estate DCA Logic (put AFTER your Chart.js script and after your current scripts) -->
-<script>
-// Reuse fetchFRED from above (already present!)
-// DCA Real Data Simulation
-const dcaForm = document.getElementById('dcaForm');
-const dcaStartYear = document.getElementById('dcaStartYear');
-const dcaResult = document.getElementById('dcaResult');
-const dcaChartCtx = document.getElementById('dcaChart').getContext('2d');
-let hpiYearly = [], cpiYearly = [], dcaYears = [];
-
-async function getHpiCpiData() {
-  // Get the selected city, fallback to NY
-  let city = cityYield.value || "New York, NY";
-  let hpiCode = cityToFRED[city] || "USSTHPI";
-  const [cpiRaw, hpiRaw] = await Promise.all([
-    fetchFRED('CPIAUCSL'),
-    fetchFRED(hpiCode)
-  ]);
-  // Only use years that are present in both HPI and CPI
-  const years = hpiRaw.map(x => x.year).filter(y => y >= 1990 && cpiRaw.some(c=>c.year==y));
-  hpiYearly = years.map(y => hpiRaw.find(x => x.year == y)?.value || null);
-  cpiYearly = years.map(y => cpiRaw.find(x => x.year == y)?.value || null);
-  dcaYears = years;
-  // Normalize HPI so the first year is always 100
-const baseHPI = hpiYearly[0];
-hpiYearly = hpiYearly.map(v => v / baseHPI * 100);
-  dcaStartYear.innerHTML = '';
-  // EXCLUDE last year so user can only select up to next-to-last year as start year
-  years.slice(0, -1).forEach(y => {
-    dcaStartYear.innerHTML += `<option value="${y}">${y}</option>`;
-  });
-  dcaStartYear.value = years[0];
+  setTimeout(() => {
+    if (dcaChart) dcaChart.resize();
+  }, 60);
 }
 
-const cityToFRED = {
-  "New York, NY": "NYXRSA",
-  "Atlanta, GA": "ATXRSA",
-  "Phoenix, AZ": "PHXRSA",
-  "Boston, MA": "BOXRSA",
-  "San Francisco, CA": "SFXRSA",
-  "Los Angeles, CA": "LXXRSA",
-  "San Diego, CA": "SDXRSA",
-  "Charlotte, NC": "CRXRSA",
-  "Chicago, IL": "CHXRSA",
-  "Cleveland, OH": "CEXRSA",
-  "Denver, CO": "DNXRSA",
-  "Dallas, TX": "DAXRSA",
-  "Washington, DC": "WDXRSA",
-  "Detroit, MI": "DEXRSA",
-  "Miami, FL": "MIXRSA",
-  "Tampa, FL": "TPXRSA",
-  "Las Vegas, NV": "LVXRSA",
-  "Minneapolis, MN": "MNXRSA",
-  "Portland, OR": "POXRSA",
-  "Seattle, WA": "SEXRSA"
-};
 
-let dcaChart;
-// --- BEGIN COINGECKO BTC HISTORICAL PRICES ---
-let btcYears = [];
-let btcPrices = [];
-let btcLoaded = false;
-let btcError = null;
+    // --- Chart tab toggle logic ---
+    let showingRealEstate = true;
 
+    function showRealEstate() {
+      showingRealEstate = true;
+      document.getElementById('btcControls').style.display = 'none';
+      document.getElementById('sp500Controls').style.display = 'none';
+      document.getElementById('dcaForm').style.display = 'flex';
+      if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
+      updateDca();
+    }
+    async function showBTC() {
+      showingRealEstate = false;
+      document.getElementById('dcaForm').style.display = 'none';
+      document.getElementById('sp500Controls').style.display = 'none';
+      document.getElementById('btcControls').style.display = 'flex';
+      if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
+      if (!btcLoaded && !btcError) {
+        dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading BTC prices...</span>';
+        await fetchBTCPrices();
+      }
+      populateBtcYears();
+      updateBtcDca();
+    }
+        async function showSP500() {
+      showingRealEstate = false;
+      document.getElementById('dcaForm').style.display = 'none';
+      document.getElementById('btcControls').style.display = 'none';
+      document.getElementById('sp500Controls').style.display = 'flex';
+      if (!sp500Loaded && !sp500Error) {
+        dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading S&amp;P 500 and CPI data...</span>';
+        // Wait for preload if still loading
+        while (!sp500Loaded && !sp500Error) {
+          await new Promise(res => setTimeout(res, 100));
+        }
+      }
+      if (sp500Error || !sp500Data || !sp500CpiRaw) {
+        dcaResult.innerHTML = '<span style="color:#ff2323;">Failed to fetch S&amp;P 500 or CPI data.</span>';
+        return;
+      }
+      // Populate S&P years and update chart
+      const years = sp500Data.years;
+      const sp500StartYear = document.getElementById('sp500StartYear');
+      sp500StartYear.innerHTML = '';
+      years.slice(0, -1).forEach(y => {
+        sp500StartYear.innerHTML += `<option value="${y}">${y}</option>`;
+      });
+      sp500StartYear.value = years[0];
+      updateSp500Dca(sp500Data, sp500CpiRaw);
+    }
+
+
+    // Button event listeners
+    document.getElementById('btnRealEstate').addEventListener('click', () => {
+      setChartTitle('realestate');
+      showRealEstate();
+    });
+    document.getElementById('btnBTC').addEventListener('click', () => {
+      setChartTitle('btc');
+      showBTC();
+    });
+    document.getElementById('btnSP500').addEventListener('click', () => {
+      setChartTitle('sp500');
+      showSP500();
+    });
+
+    // Chart tab titles
+    const chartTitle = document.getElementById('chartTitle');
+    const chartSubtitle = document.getElementById('chartSubtitle');
+    function setChartTitle(mode) {
+      if (mode === 'realestate') {
+        chartTitle.textContent = 'Real Estate vs Cash (Live One Time Investment)';
+        chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.';
+      } else if (mode === 'btc') {
+        chartTitle.textContent = 'Bitcoin vs Cash (Live One Time Investment)';
+        chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in Bitcoin vs. hold cash, using real <b>BTC & US CPI</b> data since 1990.';
+      } else if (mode === 'sp500') {
+        chartTitle.textContent = 'S&P 500 vs Cash (Live One Time Investment)';
+        chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in the S&P 500 vs. hold cash, using real <b>S&P 500 & US CPI</b> data since 1990.';
+      }
+    }
+// ----------------- BTC AND SP500 DATA UTILS -----------------
 async function fetchBTCPrices() {
-  btcLoaded = false;
-  btcError = null;
+  btcLoaded = false; btcError = null;
   try {
     const url = 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=EUR&limit=2000';
     const res = await fetch(url);
@@ -1355,38 +1521,29 @@ async function fetchBTCPrices() {
       const year = d.getFullYear();
       const month = d.getMonth();
       const day = d.getDate();
-      // Only take price if it's Jan 1st or the closest available to Jan 1st
       if (month === 0 && day === 1) {
         priceByYear[year] = point.close;
       } else if (!(year in priceByYear)) {
-        // Fallback: if Jan 1 not available, take the first day available for that year
         priceByYear[year] = point.close;
       }
     });
     btcYears = Object.keys(priceByYear).map(Number).sort((a, b) => a - b);
     btcPrices = btcYears.map(y => priceByYear[y]);
-    btcLoaded = true;
-    btcError = null;
+    btcLoaded = true; btcError = null;
   } catch (e) {
-    btcLoaded = false;
-    btcError = e.message || "Unknown error";
+    btcLoaded = false; btcError = e.message || "Unknown error";
   }
 }
-
-
-
 
 function populateBtcYears() {
   const btcStartYear = document.getElementById('btcStartYear');
   btcStartYear.innerHTML = '';
-  // Only allow BTC years that are ALSO in dcaYears (so always match inflation logic!)
   const btcDropdownYears = btcYears.filter(y => dcaYears.includes(y));
   btcDropdownYears.slice(0, -1).forEach(y => {
     btcStartYear.innerHTML += `<option value="${y}">${y}</option>`;
   });
   btcStartYear.value = btcDropdownYears[0];
 }
-
 
 function updateBtcDca() {
   if (!btcLoaded || btcError) {
@@ -1402,42 +1559,28 @@ function updateBtcDca() {
   const startIdx = btcYears.indexOf(start);
   if (startIdx === -1) return;
 
-  // Only include years within available CPI range and BTC range!
-// Only include years within available CPI range and BTC range!
-let years = [];
-let btcVals = [];
-let cpiCashVals = [];
+  let years = [];
+  let btcVals = [];
+  let cpiCashVals = [];
+  let baseBTC = btcPrices[startIdx];
 
-// Calculate BTC value as a lump sum held (not compounding year by year)
-let baseBTC = btcPrices[startIdx];
-let endIdx = btcYears.length - 1; // or whichever end year you want (currently last available)
+  for (let i = startIdx; i < btcYears.length; ++i) {
+    let yr = btcYears[i];
+    let cpiIdx = dcaYears.indexOf(yr);
 
-// Optionally, let user select end year (use last year by default)
-for (let i = startIdx; i < btcYears.length; ++i) {
-  let yr = btcYears[i];
-  let cpiIdx = dcaYears.indexOf(yr);
-
-  if (cpiIdx !== -1 && typeof btcPrices[i] !== 'undefined' && typeof cpiYearly[cpiIdx] !== 'undefined') {
-    // BTC: value = lumpSum * (price_now / price_at_start)
-    let btcValue = lumpSum * (btcPrices[i] / baseBTC);
-
-    // Cash: inflation logic as before
-    let cashValue;
-    if (i === startIdx) {
-      cashValue = lumpSum;
-    } else {
-      // Use cumulative product of inflation since startIdx to now
-      cashValue = cpiCashVals[cpiCashVals.length - 1] * (cpiYearly[cpiIdx - 1] / cpiYearly[cpiIdx]);
+    if (cpiIdx !== -1 && typeof btcPrices[i] !== 'undefined' && typeof cpiYearly[cpiIdx] !== 'undefined') {
+      let btcValue = lumpSum * (btcPrices[i] / baseBTC);
+      let cashValue;
+      if (i === startIdx) {
+        cashValue = lumpSum;
+      } else {
+        cashValue = cpiCashVals[cpiCashVals.length - 1] * (cpiYearly[cpiIdx - 1] / cpiYearly[cpiIdx]);
+      }
+      years.push(yr);
+      btcVals.push(btcValue);
+      cpiCashVals.push(cashValue);
     }
-
-    years.push(yr);
-    btcVals.push(btcValue);
-    cpiCashVals.push(cashValue);
   }
-}
-
-
-
 
   if (years.length === 0) return;
 
@@ -1462,305 +1605,19 @@ for (let i = startIdx; i < btcYears.length; ++i) {
     </div>
   `;
 
-  if (dcaChart) {
-  dcaChart.destroy();
-  dcaChart = null;
-  dcaChartCtx.clearRect(0, 0, dcaChartCtx.canvas.width, dcaChartCtx.canvas.height);
-  dcaChartCtx.canvas.width = dcaChartCtx.canvas.clientWidth;   // <--- ADD
-  dcaChartCtx.canvas.height = dcaChartCtx.canvas.clientHeight; // <--- ADD
-}
-dcaChart = new Chart(dcaChartCtx, {
-  type: 'line',
-  data: {
-    labels: years,
-    datasets: [
-      {
-        label: 'BTC Value (CryptoCompare)',
-        data: btcVals,
-        borderColor: '#ffaa00',
-        backgroundColor: 'rgba(255,170,0,0.11)',
-        fill: true,
-        pointRadius: 0,
-        tension: 0.21,
-        borderWidth: 6,
-      },
-      {
-        label: 'Cash (Inflation-Adjusted)',
-        data: cpiCashVals,
-        borderColor: '#ff2323',
-        backgroundColor: 'rgba(255,35,35,0.13)',
-        fill: true,
-        pointRadius: 0,
-        tension: 0.19,
-        borderWidth: 6,
-      }
-    ]
-  },
-  options: {
-    plugins: {
-      legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
-      tooltip: { mode: 'index', intersect: false }
-    },
-    scales: {
-      x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
-      y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
-    },
-    responsive: true,
-    animation: { duration: 900 },
-  }
-});
-// Always force resize after a short delay for safety!
-setTimeout(() => {
-  if (dcaChart) dcaChart.resize();
-}, 60);
-}
+replaceChartCanvas();
 
-
-
-function calcLumpSumCurve(startYear, lumpSum) {
-  const idx0 = dcaYears.indexOf(+startYear);
-  let nYears = dcaYears.length - idx0;
-  let reVals = [];
-  let cashVals = [];
-
-  let propertyValue = lumpSum;
-  let cashValue = lumpSum;
-
-  for (let i = 0; i < nYears; i++) {
-    // Grow property and cash each year
-    if (i > 0) {
-      propertyValue *= hpiYearly[idx0 + i] / hpiYearly[idx0 + i - 1];
-      cashValue *= cpiYearly[idx0 + i - 1] / cpiYearly[idx0 + i];
-    }
-    reVals.push(propertyValue);
-    cashVals.push(cashValue);
-  }
-  return {
-    years: dcaYears.slice(idx0),
-    invest: lumpSum,
-    reVals,
-    cashVals
-  };
-}
-
-
-function updateDca() {
-  const start = +dcaStartYear.value;
-  const lumpSum = Math.min(10000000, +document.getElementById('dcaLumpSum').value);
-  if (+document.getElementById('dcaLumpSum').value > 10000000) document.getElementById('dcaLumpSum').value = 10000000;
-  if (!hpiYearly.length) return;
-
-const {years, invest, reVals, cashVals} = calcLumpSumCurve(start, lumpSum);
-
-const startIdx = dcaYears.indexOf(+dcaStartYear.value);
-const endIdx = dcaYears.length - 1;
-
-// For headline: property uses start/end HPI only, cash stays compounded
-const lastRE = lumpSum * (hpiYearly[endIdx] / hpiYearly[startIdx]);
-const firstCash = cashVals[0] || 1; // prevent div by zero
-const lastCash = cashVals[cashVals.length - 1] || lumpSum || 0;
-
-const gainPct = ((lastRE / lumpSum - 1) * 100).toFixed(1);
-const lossPct = ((lastCash / firstCash - 1) * 100).toFixed(1);
-
-const adjustedCashValue = lumpSum * (lastCash / firstCash);
-
-dcaResult.innerHTML = `
-  <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
-    Over the last ${dcaYears[dcaYears.length - 1] - start} years, your €${invest.toLocaleString()} will be worth:
-  </div>
-  <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
-    <span>Invested in <span style="color:#4faaff;">Real estate</span>: </span>
-    <span>€${Math.round(lastRE).toLocaleString()}</span>
-    <span style="color:#4faaff;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
-  </div>
-  <div style="font-size:1.09em;text-align:center; color:#ff2323; font-weight:700;">
-    <span>Only saved in cash: </span>
-    <span>€${Math.round(adjustedCashValue).toLocaleString()}</span>
-    <span> (${lossPct > 0 ? "+" : ""}${lossPct}% ${lossPct >= 0 ? "gain" : "loss"})</span>
-  </div>
-`;
-
-
-
-if (dcaChart) {
-  dcaChart.destroy();
-  dcaChart = null;
-  dcaChartCtx.clearRect(0, 0, dcaChartCtx.canvas.width, dcaChartCtx.canvas.height);
-  dcaChartCtx.canvas.width = dcaChartCtx.canvas.clientWidth;   // <-- ADD THIS
-  dcaChartCtx.canvas.height = dcaChartCtx.canvas.clientHeight; // <-- AND THIS
-}
-dcaChart = new Chart(dcaChartCtx, {
-  type: 'line',
-  data: {
-    labels: years,
-    datasets: [
-      {
-        label: 'Property Value (Real Estate, HPI)',
-        data: reVals,
-        borderColor: '#4faaff',
-        backgroundColor: 'rgba(79,170,255,0.11)',
-        fill: true,
-        pointRadius: 0,
-        tension: 0.21,
-        borderWidth: 6,
-      },
-      {
-        label: 'Cash (Inflation-Adjusted)',
-        data: cashVals,
-        borderColor: '#ff2323',
-        backgroundColor: 'rgba(255,35,35,0.13)',
-        fill: true,
-        pointRadius: 0,
-        tension: 0.19,
-        borderWidth: 6,
-      }
-    ]
-  },
-  options: {
-    plugins: {
-      legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
-      tooltip: { mode: 'index', intersect: false }
-    },
-    scales: {
-      x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
-      y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
-    },
-    responsive: true,
-    animation: { duration: 900 },
-  }
-});
-// Always force resize after a short delay for safety!
-setTimeout(() => {
-  if (dcaChart) dcaChart.resize();
-}, 60);
-}
-let showingRealEstate = true; // keep this to track toggle state
-
-// Show Real Estate (existing, unchanged)
-// Show Real Estate (existing, unchanged)
-function showRealEstate() {
-  showingRealEstate = true;
-  // Hide BTC controls, show real estate controls
-  document.getElementById('btcControls').style.display = 'none';
-  document.getElementById('dcaForm').style.display = 'flex';
-
-  // Always destroy existing chart before creating new one
-  if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
-
-  // Update chart and result for real estate only
-  updateDca();
-}
-
-async function showBTC() {
-  showingRealEstate = false;
-  // Hide real estate controls, show BTC controls
-  document.getElementById('dcaForm').style.display = 'none';
-  document.getElementById('btcControls').style.display = 'flex';
-
-  // Always destroy existing chart before creating new one
-  if (dcaChart) { dcaChart.destroy(); dcaChart = null; }
-
-  // Fetch BTC data if not already loaded
-  if (!btcLoaded && !btcError) {
-    dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading BTC prices...</span>';
-    await fetchBTCPrices();
-  }
-  populateBtcYears();
-  updateBtcDca();
-}
-
-// Populate BTC years dropdown based on years available in dcaYears (same as real estate years)
-function populateBtcYears() {
-  const btcStartYear = document.getElementById('btcStartYear');
-  btcStartYear.innerHTML = '';
-  // Only allow BTC years that are ALSO in dcaYears (so always match inflation logic!)
-  const btcDropdownYears = btcYears.filter(y => dcaYears.includes(y));
-  btcDropdownYears.slice(0, -1).forEach(y => {
-    btcStartYear.innerHTML += `<option value="${y}">${y}</option>`;
-  });
-  btcStartYear.value = btcDropdownYears[0];
-}
-async function showSP500() {
-  showingRealEstate = false;
-
-  // Hide other controls
-  document.getElementById('dcaForm').style.display = 'none';
-  document.getElementById('btcControls').style.display = 'none';
-
-  // Show loading message
-  dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading S&P 500 and CPI data...</span>';
-
-  // Fetch S&P 500 data
-  const spData = await fetchSP500Yearly();
-  // Fetch CPI data for same years
-  const cpiRaw = await fetchFRED('CPIAUCSL');
-
-  if (!spData || !cpiRaw) {
-    dcaResult.innerHTML = '<span style="color:#ff2323;">Failed to fetch S&P 500 or CPI data.</span>';
-    return;
-  }
-
-  // Normalize CPI data
-  const years = spData.years;
-  // Find CPI values for S&P years
-  const cpiValsRaw = years.map(y => {
-    const cpiEntry = cpiRaw.find(x => x.year == y);
-    return cpiEntry ? cpiEntry.value : null;
-  }).filter(v => v !== null);
-
-  const baseCPI = cpiValsRaw[0];
-  const cpiVals = cpiValsRaw.map(v => (v / baseCPI) * 100);
-
-  // Update result summary
- const lumpSum = +document.getElementById('dcaLumpSum').value || 50000;
-const startYear = years[0];
-const endYear = years[years.length - 1];
-
-// S&P 500 growth (nominal)
-const lastSP500 = lumpSum * (spData.prices[spData.prices.length - 1] / spData.prices[0]);
-
-// S&P 500 growth (inflation-adjusted)
-const inflationFactor = cpiVals[cpiVals.length - 1] / cpiVals[0];
-const inflationAdjSP500 = lastSP500 / inflationFactor;
-
-// Cash after inflation
-const lastCash = lumpSum / inflationFactor;
-
-const nominalGainPct = ((lastSP500 / lumpSum - 1) * 100).toFixed(1);
-const realGainPct = ((inflationAdjSP500 / lumpSum - 1) * 100).toFixed(1);
-const cashGainPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
-
-dcaResult.innerHTML = `
-  <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
-    Over the last ${years.length - 1} years, your €${lumpSum.toLocaleString()} will be worth:
-  </div>
-  <div style="font-size:1.09em;text-align:center; color:#4faaff; font-weight:700; margin-bottom:0.3em;">
-    Invested in S&amp;P 500: €${Math.round(lastSP500).toLocaleString()} (${nominalGainPct > 0 ? "+" : ""}${nominalGainPct}% gain)
-  </div>
-  <div style="font-size:1.09em;text-align:center; color:#ff2323; font-weight:700;">
-    Only saved in cash: €${Math.round(lastCash).toLocaleString()} (${cashGainPct > 0 ? "+" : ""}${cashGainPct}% ${cashGainPct >= 0 ? "gain" : "loss"})
-  </div>
-`;
-
-
-
-  // Draw chart with CPI dataset added
-  if (dcaChart) {
-    dcaChart.destroy();
-    dcaChart = null;
-  }
-
-  dcaChart = new Chart(dcaChartCtx, {
+  replaceChartCanvas();
+  dcaChart = new Chart(window.dcaChartCtx, {
     type: 'line',
     data: {
       labels: years,
       datasets: [
         {
-          label: 'S&P 500 Value (Adj Close, Dec)',
-          data: spData.prices,
-          borderColor: '#4faaff',
-          backgroundColor: 'rgba(79,170,255,0.11)',
+          label: 'BTC Value (CryptoCompare)',
+          data: btcVals,
+          borderColor: '#ffaa00',
+          backgroundColor: 'rgba(255,170,0,0.11)',
           fill: true,
           pointRadius: 0,
           tension: 0.21,
@@ -1768,7 +1625,7 @@ dcaResult.innerHTML = `
         },
         {
           label: 'Cash (Inflation-Adjusted)',
-          data: cpiVals,
+          data: cpiCashVals,
           borderColor: '#ff2323',
           backgroundColor: 'rgba(255,35,35,0.13)',
           fill: true,
@@ -1791,105 +1648,12 @@ dcaResult.innerHTML = `
       animation: { duration: 900 },
     }
   });
+  setTimeout(() => {
+    if (dcaChart) dcaChart.resize();
+  }, 60);
 }
 
-
-document.getElementById('btnRealEstate').addEventListener('click', () => {
-  setChartTitle('realestate');
-  showRealEstate();
-});
-document.getElementById('btnBTC').addEventListener('click', () => {
-  setChartTitle('btc');
-  showBTC();
-});
-document.getElementById('btnSP500').addEventListener('click', () => {
-  setChartTitle('sp500');
-  showSP500();
-});
-
-
-
-// Chart titles for each mode
-const chartTitle = document.getElementById('chartTitle');
-const chartSubtitle = document.getElementById('chartSubtitle');
-
-function setChartTitle(mode) {
-  if (mode === 'realestate') {
-    chartTitle.textContent = 'Real Estate vs Cash (Live One Time Investment)';
-    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in real estate vs. hold cash, using real <b>US HPI & CPI</b> data since 1990.';
-  } else if (mode === 'btc') {
-    chartTitle.textContent = 'Bitcoin vs Cash (Live One Time Investment)';
-    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in Bitcoin vs. hold cash, using real <b>BTC & US CPI</b> data since 1990.';
-  } else if (mode === 'sp500') {
-    chartTitle.textContent = 'S&P 500 vs Cash (Live One Time Investment)';
-    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in the S&P 500 vs. hold cash, using real <b>S&P 500 & US CPI</b> data since 1990.';
-  }
-}
-
-// Event listeners for BTC inputs (update only if showing BTC)
-document.getElementById('btcStartYear').addEventListener('change', () => {
-  if (!showingRealEstate) updateBtcDca();
-});
-document.getElementById('btcLumpSum').addEventListener('input', () => {
-  if (!showingRealEstate) updateBtcDca();
-});
-
-// Update chart and text based on toggle (ASYNC, BTC is live, real estate is untouched)
-async function updateChartForToggle() {
-  if (dcaChart) {
-    dcaChart.destroy();
-    dcaChart = null;
-  }
-  if (showingRealEstate) {
-    updateDca();
-  } else {
-    if (!btcLoaded && !btcError) {
-      dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading BTC prices...</span>';
-      await fetchBTCPrices();
-    }
-    populateBtcYears();
-    updateBtcDca();
-  }
-}
-
-// Update chart normally on controls change, then update toggle to reflect state
-function updateDcaWithToggle() {
-  updateDca();  // your existing calc and update
-  updateChartForToggle();  // reapply toggle effect
-}
-
-// INIT DCA LOGIC (final, toggle-safe)
-window.addEventListener('DOMContentLoaded', async ()=>{
-  await getHpiCpiData();
-  updateDca();
-
-  // Only call toggle-safe update listeners!
-  document.getElementById('dcaLumpSum').addEventListener('input', updateDcaWithToggle);
-  document.getElementById('dcaStartYear').addEventListener('change', updateDcaWithToggle);
-  document.getElementById('cityYield').addEventListener('change', async function() {
-    await getHpiCpiData();
-    updateDcaWithToggle();
-  });
-});
-// Dynamically set divider width to match preceding h3
-function matchDividersToHeadings() {
-  document.querySelectorAll('.section-divider').forEach(div => {
-    const h3 = div.previousElementSibling;
-    if (h3 && h3.tagName.startsWith('H')) {
-      // Measure h3 width (including padding)
-      const style = getComputedStyle(h3);
-      const width = h3.offsetWidth
-        + parseFloat(style.marginLeft)
-        + parseFloat(style.marginRight);
-      div.style.width = width + "px";
-    }
-  });
-}
-// Run on load and on resize
-window.addEventListener('DOMContentLoaded', matchDividersToHeadings);
-window.addEventListener('resize', matchDividersToHeadings);
-const ALPHA_VANTAGE_API_KEY = '7WPYDOV3ZYE7P4UF';
-
+// ------------- S&P 500 FETCH AND RENDER ---------------
 async function fetchSP500Yearly() {
   const symbol = 'SPY';
   const proxyUrl = 'https://corsproxy.io/?';
@@ -1899,16 +1663,12 @@ async function fetchSP500Yearly() {
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Alpha Vantage HTTP error: ${res.status}`);
-
     const data = await res.json();
-
     if (data['Error Message'] || data['Note']) {
       throw new Error(data['Error Message'] || data['Note']);
     }
-
     const monthlyData = data['Monthly Adjusted Time Series'];
     if (!monthlyData) throw new Error('Invalid data format');
-
     const yearlyPrices = {};
     for (const dateStr in monthlyData) {
       const [year, month] = dateStr.split('-');
@@ -1916,10 +1676,8 @@ async function fetchSP500Yearly() {
         yearlyPrices[year] = parseFloat(monthlyData[dateStr]['5. adjusted close']);
       }
     }
-
     const years = Object.keys(yearlyPrices).sort();
     const prices = years.map(y => yearlyPrices[y]);
-
     return { years, prices };
   } catch (error) {
     console.error('Failed to fetch or parse Alpha Vantage data:', error);
@@ -1927,9 +1685,141 @@ async function fetchSP500Yearly() {
   }
 }
 
+function updateSp500Dca(spData, cpiRaw) {
+  const sp500StartYear = document.getElementById('sp500StartYear');
+  const sp500LumpSumInput = document.getElementById('sp500LumpSum');
+  const lumpSum = +sp500LumpSumInput.value || 50000;
+  const startYear = +sp500StartYear.value;
+  const idx0 = spData.years.indexOf(String(startYear));
+  if (idx0 === -1) return;
+  const years = spData.years.slice(idx0);
+  const prices = spData.prices.slice(idx0);
+
+  const cpiValsRaw = years.map(y => {
+    const cpiEntry = cpiRaw.find(x => x.year == y);
+    return cpiEntry ? cpiEntry.value : null;
+  }).filter(v => v !== null);
+
+  const baseCPI = cpiValsRaw[0];
+  const cpiVals = cpiValsRaw.map(v => (v / baseCPI) * 100);
+  const lastSP500 = lumpSum * (prices[prices.length - 1] / prices[0]);
+  const inflationFactor = cpiVals[cpiVals.length - 1] / cpiVals[0];
+  const lastCash = lumpSum / inflationFactor;
+  const nominalGainPct = ((lastSP500 / lumpSum - 1) * 100).toFixed(1);
+  const cashGainPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
+
+  dcaResult.innerHTML = `
+    <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
+      Over the last ${years.length - 1} years, your €${lumpSum.toLocaleString()} will be worth:
+    </div>
+    <div style="font-size:1.09em;text-align:center; color:#4faaff; font-weight:700; margin-bottom:0.3em;">
+      Invested in S&amp;P 500: €${Math.round(lastSP500).toLocaleString()} (${nominalGainPct > 0 ? "+" : ""}${nominalGainPct}% gain)
+    </div>
+    <div style="font-size:1.09em;text-align:center; color:#ff2323; font-weight:700;">
+      Only saved in cash: €${Math.round(lastCash).toLocaleString()} (${cashGainPct > 0 ? "+" : ""}${cashGainPct}% ${cashGainPct >= 0 ? "gain" : "loss"})
+    </div>
+  `;
+
+  const cashAfterInflation = cpiVals.map((val, i) =>
+    lumpSum * (cpiVals[0] / val)
+  );
+  const sp500Investment = prices.map((price, i) =>
+    lumpSum * (price / prices[0])
+  );
+
+  if (dcaChart) {
+    dcaChart.destroy();
+    dcaChart = null;
+  }
+  replaceChartCanvas();
+    dcaChart = new Chart(window.dcaChartCtx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'S&P 500 Value (Adj Close, Dec)',
+          data: sp500Investment,
+          borderColor: '#4faaff',
+          backgroundColor: 'rgba(79,170,255,0.11)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.21,
+          borderWidth: 6,
+        },
+        {
+          label: 'Cash (Inflation-Adjusted)',
+          data: cashAfterInflation,
+          borderColor: '#ff2323',
+          backgroundColor: 'rgba(255,35,35,0.13)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.19,
+          borderWidth: 6,
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+      },
+      responsive: true,
+      animation: { duration: 900 },
+    }
+  });
+  setTimeout(() => {
+    if (dcaChart) dcaChart.resize();
+  }, 60);
+}
+
+// Real Estate input event listeners
+document.getElementById('dcaLumpSum').addEventListener('input', updateDcaWithToggle);
+document.getElementById('dcaStartYear').addEventListener('change', updateDcaWithToggle);
+document.getElementById('cityYield').addEventListener('change', async function() {
+  await getHpiCpiData();
+  updateDcaWithToggle();
+});
+
+// BTC listeners
+document.getElementById('btcStartYear').addEventListener('change', () => {
+  if (!showingRealEstate) updateBtcDca();
+});
+document.getElementById('btcLumpSum').addEventListener('input', () => {
+  if (!showingRealEstate) updateBtcDca();
+});
+
+// SP500 listeners
+document.getElementById('sp500StartYear').addEventListener('change', () => {
+  if (sp500Loaded && sp500Data && sp500CpiRaw) {
+    updateSp500Dca(sp500Data, sp500CpiRaw);
+  }
+});
+document.getElementById('sp500LumpSum').addEventListener('input', () => {
+  if (sp500Loaded && sp500Data && sp500CpiRaw) {
+    updateSp500Dca(sp500Data, sp500CpiRaw);
+  }
+});
 
 
+// Unified update
+function updateDcaWithToggle() {
+  if (showingRealEstate) {
+    updateDca();
+  } else if (!showingRealEstate && document.getElementById('btcControls').style.display !== 'none') {
+    updateBtcDca();
+  } else if (!showingRealEstate && document.getElementById('sp500Controls').style.display !== 'none') {
+    if (sp500Loaded && sp500Data && sp500CpiRaw) {
+      updateSp500Dca(sp500Data, sp500CpiRaw);
+    }
+  }
+}
 
-</script>
+  </script>
 </body>
 </html>
+
