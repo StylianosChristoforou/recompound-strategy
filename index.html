@@ -867,6 +867,7 @@ body, html {
     <div style="text-align:center; margin-bottom: 1rem;">
   <button id="btnRealEstate" style="padding: 0.5rem 1rem; font-weight: bold; margin-right: 1rem; cursor: pointer;">Real Estate</button>
   <button id="btnBTC" style="padding: 0.5rem 1rem; cursor: pointer;">BTC</button>
+  <button id="btnSP500" style="padding: 0.5rem 1rem; cursor: pointer;">S&P 500</button>
 </div>
     <!-- Results above the chart -->
     <div id="dcaResult" style="font-size:1.25rem;color:#fff;margin:1.5rem 0 1.2rem 0;font-weight:700;text-align:center;">
@@ -1186,7 +1187,7 @@ async function sortCitiesByHpiAndPopulateDropdown() {
   for (const { city, hpiGain } of cityGainPairs) {
     const opt = document.createElement('option');
     opt.value = city;
-    opt.textContent = `${city} (1990–2024: ${hpiGain.toFixed(1)}% HPI)`;
+    opt.textContent = `${city} (${hpiGain.toFixed(1)}% HPI)`;
     citySelect.appendChild(opt);
   }
 
@@ -1447,7 +1448,7 @@ for (let i = startIdx; i < btcYears.length; ++i) {
 
   dcaResult.innerHTML = `
     <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
-      After ${years.length-1} years, your €${lumpSum.toLocaleString()} will be worth:
+      Over the last ${years.length-1} years, your €${lumpSum.toLocaleString()} will be worth:
     </div>
     <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
       <span>Invested in <span style="color:#ffaa00;">BTC</span>: </span>
@@ -1556,27 +1557,31 @@ const endIdx = dcaYears.length - 1;
 
 // For headline: property uses start/end HPI only, cash stays compounded
 const lastRE = lumpSum * (hpiYearly[endIdx] / hpiYearly[startIdx]);
-const lastCash = cashVals[cashVals.length-1] || 0;
+const firstCash = cashVals[0] || 1; // prevent div by zero
+const lastCash = cashVals[cashVals.length - 1] || lumpSum || 0;
 
 const gainPct = ((lastRE / lumpSum - 1) * 100).toFixed(1);
-const lossPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
+const lossPct = ((lastCash / firstCash - 1) * 100).toFixed(1);
+
+const adjustedCashValue = lumpSum * (lastCash / firstCash);
 
 dcaResult.innerHTML = `
   <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
-     After ${dcaYears[dcaYears.length-1] - start} years, your €${invest.toLocaleString()} will be worth:
+    Over the last ${dcaYears[dcaYears.length - 1] - start} years, your €${invest.toLocaleString()} will be worth:
   </div>
   <div style="font-size:1.09em;text-align:center;margin-bottom:0.3em; color:#fff; font-weight:700;">
     <span>Invested in <span style="color:#4faaff;">Real estate</span>: </span>
     <span>€${Math.round(lastRE).toLocaleString()}</span>
     <span style="color:#4faaff;"> (${gainPct > 0 ? "+" : ""}${gainPct}% gain)</span>
-
   </div>
-  <div style="font-size:1.09em;text-align:center; color:#fff; font-weight:700;">
+  <div style="font-size:1.09em;text-align:center; color:#ff2323; font-weight:700;">
     <span>Only saved in cash: </span>
-    <span>€${Math.round(lastCash).toLocaleString()}</span>
-    <span style="color:#ff2323;"> (${lossPct > 0 ? "+" : ""}${lossPct}% ${lossPct >= 0 ? "gain" : "loss"})</span>
+    <span>€${Math.round(adjustedCashValue).toLocaleString()}</span>
+    <span> (${lossPct > 0 ? "+" : ""}${lossPct}% ${lossPct >= 0 ? "gain" : "loss"})</span>
   </div>
 `;
+
+
 
 if (dcaChart) {
   dcaChart.destroy();
@@ -1676,9 +1681,133 @@ function populateBtcYears() {
   });
   btcStartYear.value = btcDropdownYears[0];
 }
+async function showSP500() {
+  showingRealEstate = false;
 
-document.getElementById('btnRealEstate').addEventListener('click', showRealEstate);
-document.getElementById('btnBTC').addEventListener('click', showBTC);
+  // Hide other controls
+  document.getElementById('dcaForm').style.display = 'none';
+  document.getElementById('btcControls').style.display = 'none';
+
+  // Show loading message
+  dcaResult.innerHTML = '<span style="color:#ffaa00;">Loading S&P 500 and CPI data...</span>';
+
+  // Fetch S&P 500 data
+  const spData = await fetchSP500Yearly();
+  // Fetch CPI data for same years
+  const cpiRaw = await fetchFRED('CPIAUCSL');
+
+  if (!spData || !cpiRaw) {
+    dcaResult.innerHTML = '<span style="color:#ff2323;">Failed to fetch S&P 500 or CPI data.</span>';
+    return;
+  }
+
+  // Normalize CPI data
+  const years = spData.years;
+  // Find CPI values for S&P years
+  const cpiValsRaw = years.map(y => {
+    const cpiEntry = cpiRaw.find(x => x.year == y);
+    return cpiEntry ? cpiEntry.value : null;
+  }).filter(v => v !== null);
+
+  const baseCPI = cpiValsRaw[0];
+  const cpiVals = cpiValsRaw.map(v => (v / baseCPI) * 100);
+
+  // Update result summary
+ const lumpSum = +document.getElementById('dcaLumpSum').value || 50000;
+const startYear = years[0];
+const endYear = years[years.length - 1];
+
+// S&P 500 growth (nominal)
+const lastSP500 = lumpSum * (spData.prices[spData.prices.length - 1] / spData.prices[0]);
+
+// S&P 500 growth (inflation-adjusted)
+const inflationFactor = cpiVals[cpiVals.length - 1] / cpiVals[0];
+const inflationAdjSP500 = lastSP500 / inflationFactor;
+
+// Cash after inflation
+const lastCash = lumpSum / inflationFactor;
+
+const nominalGainPct = ((lastSP500 / lumpSum - 1) * 100).toFixed(1);
+const realGainPct = ((inflationAdjSP500 / lumpSum - 1) * 100).toFixed(1);
+const cashGainPct = ((lastCash / lumpSum - 1) * 100).toFixed(1);
+
+dcaResult.innerHTML = `
+  <div style="font-size:1.15em;font-weight:800;color:#fff;margin-bottom:0.7em;">
+    Over the last ${years.length - 1} years, your €${lumpSum.toLocaleString()} will be worth:
+  </div>
+  <div style="font-size:1.09em;text-align:center; color:#4faaff; font-weight:700; margin-bottom:0.3em;">
+    Invested in S&amp;P 500: €${Math.round(lastSP500).toLocaleString()} (${nominalGainPct > 0 ? "+" : ""}${nominalGainPct}% gain)
+  </div>
+  <div style="font-size:1.09em;text-align:center; color:#ff2323; font-weight:700;">
+    Only saved in cash: €${Math.round(lastCash).toLocaleString()} (${cashGainPct > 0 ? "+" : ""}${cashGainPct}% ${cashGainPct >= 0 ? "gain" : "loss"})
+  </div>
+`;
+
+
+
+  // Draw chart with CPI dataset added
+  if (dcaChart) {
+    dcaChart.destroy();
+    dcaChart = null;
+  }
+
+  dcaChart = new Chart(dcaChartCtx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'S&P 500 Value (Adj Close, Dec)',
+          data: spData.prices,
+          borderColor: '#4faaff',
+          backgroundColor: 'rgba(79,170,255,0.11)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.21,
+          borderWidth: 6,
+        },
+        {
+          label: 'Cash (Inflation-Adjusted)',
+          data: cpiVals,
+          borderColor: '#ff2323',
+          backgroundColor: 'rgba(255,35,35,0.13)',
+          fill: true,
+          pointRadius: 0,
+          tension: 0.19,
+          borderWidth: 6,
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: '#fff', font: { size: 22, weight: 'bold' } } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: { ticks: { color:'#aeeaff', font:{weight:700, size:21}}, grid: {display:false} },
+        y: { ticks: { color:'#fff', font:{size:22}}, grid: {color:'rgba(255,255,255,0.09)'}, beginAtZero:true }
+      },
+      responsive: true,
+      animation: { duration: 900 },
+    }
+  });
+}
+
+
+document.getElementById('btnRealEstate').addEventListener('click', () => {
+  setChartTitle('realestate');
+  showRealEstate();
+});
+document.getElementById('btnBTC').addEventListener('click', () => {
+  setChartTitle('btc');
+  showBTC();
+});
+document.getElementById('btnSP500').addEventListener('click', () => {
+  setChartTitle('sp500');
+  showSP500();
+});
+
+
 
 // Chart titles for each mode
 const chartTitle = document.getElementById('chartTitle');
@@ -1691,24 +1820,11 @@ function setChartTitle(mode) {
   } else if (mode === 'btc') {
     chartTitle.textContent = 'Bitcoin vs Cash (Live One Time Investment)';
     chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in Bitcoin vs. hold cash, using real <b>BTC & US CPI</b> data since 1990.';
+  } else if (mode === 'sp500') {
+    chartTitle.textContent = 'S&P 500 vs Cash (Live One Time Investment)';
+    chartSubtitle.innerHTML = 'See what happens when you invest a lump sum in the S&P 500 vs. hold cash, using real <b>S&P 500 & US CPI</b> data since 1990.';
   }
 }
-
-// Modify the button click handlers:
-document.getElementById('btnRealEstate').addEventListener('click', () => {
-  setChartTitle('realestate');
-  showRealEstate();
-});
-document.getElementById('btnBTC').addEventListener('click', () => {
-  setChartTitle('btc');
-  showBTC();
-});
-
-// Optional: set initial state on page load
-window.addEventListener('DOMContentLoaded', () => {
-  setChartTitle('realestate');
-});
-
 
 // Event listeners for BTC inputs (update only if showing BTC)
 document.getElementById('btcStartYear').addEventListener('change', () => {
@@ -1772,6 +1888,47 @@ function matchDividersToHeadings() {
 // Run on load and on resize
 window.addEventListener('DOMContentLoaded', matchDividersToHeadings);
 window.addEventListener('resize', matchDividersToHeadings);
+const ALPHA_VANTAGE_API_KEY = '7WPYDOV3ZYE7P4UF';
+
+async function fetchSP500Yearly() {
+  const symbol = 'SPY';
+  const proxyUrl = 'https://corsproxy.io/?';
+  const apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${encodeURIComponent(symbol)}&apikey=${ALPHA_VANTAGE_API_KEY}`;
+  const url = proxyUrl + encodeURIComponent(apiUrl);
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Alpha Vantage HTTP error: ${res.status}`);
+
+    const data = await res.json();
+
+    if (data['Error Message'] || data['Note']) {
+      throw new Error(data['Error Message'] || data['Note']);
+    }
+
+    const monthlyData = data['Monthly Adjusted Time Series'];
+    if (!monthlyData) throw new Error('Invalid data format');
+
+    const yearlyPrices = {};
+    for (const dateStr in monthlyData) {
+      const [year, month] = dateStr.split('-');
+      if (month === '12') {
+        yearlyPrices[year] = parseFloat(monthlyData[dateStr]['5. adjusted close']);
+      }
+    }
+
+    const years = Object.keys(yearlyPrices).sort();
+    const prices = years.map(y => yearlyPrices[y]);
+
+    return { years, prices };
+  } catch (error) {
+    console.error('Failed to fetch or parse Alpha Vantage data:', error);
+    return null;
+  }
+}
+
+
+
 
 </script>
 </body>
