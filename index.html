@@ -533,13 +533,6 @@
     .footer-socials a { color: #4faaff; font-weight: 700; font-size: 1.13rem; text-decoration:none; display:flex; align-items:center;}
     .footer-socials a:hover { color: var(--accent);}
     .footer-socials svg { margin-right: 6px; vertical-align: middle;}
-    /* Back to Top */
-    #backToTop {
-      position:fixed;right:2vw;bottom:3vh;z-index:999;
-      padding:12px 17px;border:none;border-radius:50%;
-      background:#4faaff;box-shadow:0 2px 11px #3052e644;
-      color:#fff;font-size:1.35rem;cursor:pointer;display:none;transition:opacity 0.18s;
-    }
     /* FADE IN EFFECT */
     .fade-in {
       opacity: 0;
@@ -973,7 +966,6 @@
       </span>
     </div>
   </footer>
-  <button id="backToTop" title="Back to top">↑</button>
 
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1102,8 +1094,6 @@
     }
     window.addEventListener('scroll', updateActiveNav);
     window.addEventListener('DOMContentLoaded', updateActiveNav);
-
-    document.getElementById('backToTop').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // FADE IN HERO ELEMENTS ON LOAD
     window.addEventListener('DOMContentLoaded', function() {
