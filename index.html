@@ -4,12 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Recompound Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="canonical" href="https://recompoundstrategy.com/">
+<meta name="theme-color" content="#000000">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Recompound Strategy">
+<meta name="twitter:description" content="From refugee legacy to financial freedom. Strategy, ownership, and real wealth.">
+<meta name="twitter:image" content="logo.jpg">
+<meta property="og:url" content="https://recompoundstrategy.com/">
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="logo.jpg" />
   <meta property="og:title" content="Recompound Strategy">
   <meta property="og:description" content="From refugee legacy to financial freedom. Strategy, ownership, and real wealth.">
   <meta property="og:image" content="logo.jpg">
   <meta name="description" content="Recompound Strategy is a mission-driven platform proving you can build wealth from zero through ownership and reinvestment.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
   <style>
     html { scroll-behavior: smooth; }
 
@@ -44,20 +57,30 @@
       50%  { background-position:100% 50%; }
       100% { background-position:0% 50%; }
     }
-    /* Header with subtle white pulse line */
+    /* Header look aligned with model1 (semi-opaque + blur) */
 .navbar{
   position:fixed; top:0; left:0; width:100vw;
-  background:#000;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:saturate(160%) blur(8px);
   z-index:100; padding:.5rem 0;
   box-shadow:0 3px 24px rgba(0,0,0,.8);
-  transition:box-shadow .2s;
+  transition:box-shadow .2s, background .2s;
   overflow:hidden;
 }
 .navbar::after{
-  content:""; position:absolute; bottom:0; left:0; right:0; height:2px;
+  content:"";
+  position:absolute; bottom:0; left:0; right:0; height:2px;
   background:white; opacity:.18;
   animation:linePulse 6s ease-in-out infinite;
 }
+@keyframes linePulse{
+  0%,100%{opacity:.15;}
+  50%{opacity:.6;}
+}
+
+/* keep your center layout but clamp width like model1 */
+.nav-content{ max-width: var(--max-width); margin:0 auto; }
+
 @keyframes linePulse{
   0%,100%{opacity:.15;} 50%{opacity:.6;}
 }
@@ -305,8 +328,51 @@ footer::before{
   opacity: 1;
   transform: translateY(0);
 }
+/* Accessible focus ring across the site */
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Make nav links show focus clearly */
+.nav-menu a:focus-visible {
+  border-bottom-color:#fff !important;
+  transform: scale(1.07) translateY(-2px);
+}
+/* Privacy Policy modal */
+.modal { position: fixed; inset: 0; display: none; z-index: 99999; }
+.modal:target { display: block; }
+.modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,.65); }
+.modal__panel {
+  position: relative; margin: 8vh auto 0; max-width: 720px;
+  background:#000; color:#fff; border:1px solid #333; border-radius:16px;
+  padding: 1.5rem 1.3rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+.modal__close {
+  position:absolute; top:.4rem; right:.6rem; background:#111; color:#fff;
+  border:1px solid #333; border-radius:8px; font-size:1.5rem; line-height:1;
+  padding:.1rem .55rem; cursor:pointer;
+}
+.modal__close:hover { background:#fff; color:#000; }
 
   </style>
+  <!-- NEW: Organization schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InvestmentCompany",
+  "name": "Recompound Strategy",
+  "url": "https://recompoundstrategy.com/",
+  "logo": "https://recompoundstrategy.com/logo.jpg",
+  "sameAs": [
+    "https://instagram.com/recompound_strategy",
+    "mailto:info@recompoundstrategy.com"
+  ],
+  "description": "Private investment firm focused on acquiring income-producing assets and reinvesting to expand ownership and long-term cash flow."
+}
+</script>
+
 </head>
 <body>
 
@@ -317,8 +383,9 @@ footer::before{
     <ul class="nav-menu" id="mainNavMenu">
       <li style="display:flex;align-items:center;gap:1.2rem;">
         <img src="logo.jpg" class="nav-logo" alt="Logo" style="height:32px;border-radius:8px;margin-right:.8em;vertical-align:middle;"/>
-        <a href="#home" class="active" style="vertical-align:middle;">Home</a>
+        <a href="#home" class="active" aria-current="page" style="vertical-align:middle;">Home</a>
         <a href="#contact" style="vertical-align:middle;">Contact</a>
+        <li><a href="#model" id="nav-model" style="vertical-align:middle;">Acquisition Model</a></li>
       </li>
     </ul>
   </div>
@@ -388,11 +455,185 @@ footer::before{
     </div>
   </section>
 
+
+  <!-- Acquisition Model — exact styling/markup from model1.html -->
+<section id="model" style="display:none;">
+  <style>
+    :root{
+      --bg:#000000; --panel:#0e0e10; --muted:#1a1a1d; --ink:#ffffff; --ink-dim:#bdbdbd;
+      --accent:#ffffff; --ring:rgba(255,255,255,.15); --card:#101114; --tile:#0d0e11;
+      --tile-border:#1b1c21; --success:#23c55e; --warn:#f59e0b; --danger:#ef4444;
+    }
+    *{box-sizing:border-box}
+    .model-scope, .model-scope *{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .model-scope{background:var(--bg); color:var(--ink)}
+    /* Top nav (exact from model1.html) + white pulse line like footer */
+.nav{
+  position:fixed; top:0; left:0; right:0; width:100%;
+  z-index:1000;
+  border-bottom:1px solid #1a1a1d;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:saturate(160%) blur(8px);
+  overflow:hidden; /* allow ::after line to render edge-to-edge */
+}
+.nav::after{
+  content:"";
+  position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:#fff; opacity:.18;
+  animation:linePulse 6s ease-in-out infinite;
+}
+
+
+.nav-inner{
+  max-width:1200px; margin:0 auto; padding:14px 20px;
+  display:flex; align-items:center; gap:14px;
+}
+.mark{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
+.mark .eagle{filter:drop-shadow(0 0 12px rgba(255,255,255,.12))}
+.spacer{flex:1}
+.crumbs a{color:var(--ink-dim); text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.crumbs{font-size:.95rem}
+.crumbs .sep{opacity:.35; margin:0 6px}
+
+    .model-scope .wrap{
+  max-width:1200px;
+  margin:96px auto 32px;   /* 96px top to clear the fixed crumbs bar */
+  padding:0 20px;
+}
+
+    .model-scope h1{font-size:40px; line-height:1.1; margin:12px 0 0}
+    .model-scope .sub{color:var(--ink-dim); margin-top:10px; max-width:880px}
+    .model-scope .grid{margin-top:28px; display:grid; gap:20px; grid-template-columns:380px 1fr}
+    @media (max-width:1024px){ .model-scope .grid{grid-template-columns:1fr} }
+    .model-scope .panel{background:var(--panel); border:1px solid var(--tile-border); border-radius:14px; padding:18px}
+    .model-scope .panel h3{margin:0 0 14px; font-size:.95rem; letter-spacing:.2px; color:var(--ink-dim); font-weight:600; text-transform:uppercase}
+    .model-scope .inputs{display:grid; gap:12px}
+    .model-scope .row{display:grid; grid-template-columns:1fr 140px; gap:10px; align-items:center}
+    .model-scope .row label{color:var(--ink-dim); font-size:.95rem}
+    .model-scope .row input{width:100%; height:40px; border-radius:10px; background:var(--tile); border:1px solid var(--tile-border); color:var(--ink); padding:0 12px; font-size:.98rem}
+    .model-scope .row input:focus{outline:0; border-color:var(--ring); box-shadow:0 0 0 4px var(--ring)}
+    .model-scope .cta-bar{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+    .model-scope .btn{height:40px; padding:0 14px; border-radius:999px; border:1px solid var(--tile-border); background:var(--muted); color:var(--ink); font-weight:600; letter-spacing:.2px; cursor:pointer}
+    .model-scope .btn:hover{border-color:var(--ring)}
+    .model-scope .btn.primary{background:#111; border-color:#2a2a30; box-shadow:inset 0 0 0 1px #2a2a30}
+    .model-scope .btn.ghost{background:transparent}
+    .model-scope .results-grid{display:grid; gap:12px; grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media (max-width:900px){ .model-scope .results-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+    @media (max-width:560px){ .model-scope .results-grid{grid-template-columns:1fr} }
+    .model-scope .tile{background:var(--tile); border:1px solid var(--tile-border); border-radius:14px; padding:14px}
+    .model-scope .k-label{font-size:.8rem; color:var(--ink-dim); letter-spacing:.25px; text-transform:uppercase}
+    .model-scope .k-value{margin-top:6px; font-size:1.35rem; font-weight:800}
+    .model-scope .chart-card{margin-top:12px; padding:12px; background:var(--card); border:1px solid var(--tile-border); border-radius:14px}
+    .model-scope .disclaimer{margin:26px auto 0; color:var(--ink-dim); font-size:.92rem; max-width:980px}
+    .model-scope .note{color:var(--ink-dim); font-size:.9rem}
+  </style>
+
+  <div class="model-scope">
+    <!-- minimal crumb nav (like model1) -->
+<div class="nav">
+  <div class="nav-inner">
+    <div class="mark">
+      <img class="eagle" src="logo.jpg" alt="" width="26" height="26"/>
+      <div>Recompound Strategy</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="crumbs">
+      <a href="short.html#home">Home</a><span class="sep">/</span><a href="#">Acquisition Model</a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap">
+      <h1>Acquisition Model<br>Ownership Scaling Framework</h1>
+      <div class="sub">
+        Illustrative simulator for LBO style acquisitions: price = <strong>EBITDA × multiple</strong>,
+        debt financing, amortization, growth & equity over time.
+      </div>
+
+      <div class="grid">
+        <!-- LEFT: INPUTS -->
+        <div class="panel">
+          <h3>Inputs</h3>
+          <div class="inputs">
+            <div class="row">
+              <label for="ebitda">EBITDA (Year 1)</label>
+              <input id="ebitda" type="number" value="250000" min="0" step="5000">
+            </div>
+            <div class="row">
+              <label for="multiple">Purchase Multiple (× EBITDA)</label>
+              <input id="multiple" type="number" value="4.0" min="1" step="0.25">
+            </div>
+            <div class="row">
+              <label for="down">Down Payment (%)</label>
+              <input id="down" type="number" value="20" min="0" max="100" step="1">
+            </div>
+            <div class="row">
+              <label for="rate">Interest Rate (APR %)</label>
+              <input id="rate" type="number" value="8" min="0" step="0.25">
+            </div>
+            <div class="row">
+              <label for="term">Loan Term (years)</label>
+              <input id="term" type="number" value="7" min="1" step="1">
+            </div>
+            <div class="row">
+              <label for="growth">EBITDA Growth (%/yr)</label>
+              <input id="growth" type="number" value="6" step="0.5">
+            </div>
+            <div class="row">
+              <label for="reinvest">Reinvestment (% of FCF)</label>
+              <input id="reinvest" type="number" value="25" step="1">
+            </div>
+            <div class="row">
+              <label for="horizon">Horizon (years)</label>
+              <input id="horizon" type="number" value="10" min="1" step="1">
+            </div>
+
+            <div class="cta-bar">
+              <button class="btn primary" id="runBtn">Run Model</button>
+              <button class="btn ghost" id="presetSMB">Preset: SMB</button>
+              <button class="btn ghost" id="presetPE">Preset: Tight PE</button>
+              <button class="btn ghost" id="presetStress">Preset: Stress</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: RESULTS -->
+        <div class="panel">
+          <h3>Results</h3>
+          <div class="results-grid">
+            <div class="tile"><div class="k-label">Purchase Price</div><div class="k-value" id="kPrice">$—</div></div>
+            <div class="tile"><div class="k-label">Equity Invested</div><div class="k-value" id="kEquity">$—</div></div>
+            <div class="tile"><div class="k-label">Debt @ Close</div><div class="k-value" id="kDebt">$—</div></div>
+            <div class="tile"><div class="k-label">MOIC (Equity)</div><div class="k-value" id="kMoic">—×</div></div>
+          </div>
+
+          <div class="chart-card">
+            <canvas id="acqChart" height="320"></canvas>
+            <div id="chartErr" class="note" style="display:none; margin-top:8px; color:#fca5a5">
+              Chart.js didn’t load. Ensure you’re online or host the library locally.
+            </div>
+          </div>
+
+          <div class="disclaimer">
+            <strong>Disclaimer.</strong> This is an educational illustration. Assumptions are simplified
+            (constant exit multiple, straight-line annual payments, no taxes/working capital). Real outcomes will vary.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
   <!-- Footer -->
   <footer>
     <div class="footer-row">
       <span>&copy; 2025 Recompound Strategy. All rights reserved.</span>
-      <a href="#" class="footer-link">Privacy Policy</a>
+      <a href="#privacy" class="footer-link">Privacy Policy</a>
       <span class="footer-socials">
         <a href="https://instagram.com/recompound_strategy" target="_blank">
           <svg width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -412,6 +653,16 @@ footer::before{
       </span>
     </div>
   </footer>
+<!-- NEW: Privacy modal -->
+<div id="privacy" class="modal" aria-hidden="true" aria-labelledby="privacy-title" role="dialog">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel" role="document">
+    <button class="modal__close" aria-label="Close" data-close>&times;</button>
+    <h4 id="privacy-title">Privacy Policy</h4>
+    <p>We don’t sell data. We don’t run ads. If you email us, we’ll only use your message to reply, then archive it securely.</p>
+    <p>Basic site analytics may count page views and clicks with no personal profiles. You can request deletion of any email we hold by contacting <a href="mailto:info@recompoundstrategy.com">info@recompoundstrategy.com</a>.</p>
+  </div>
+</div>
 
   <!-- Scripts (same logic, monochrome UI) -->
   <script>
@@ -489,6 +740,253 @@ footer::before{
   }, { threshold: 0.2 });
   reveals.forEach(el => observer.observe(el));
 </script>
+<script>
+  // ... your existing IntersectionObserver reveal code stays above
+
+  // Active nav link on scroll
+  const sections = [
+    document.getElementById('home'),
+    document.getElementById('about'),
+    document.getElementById('what-we-do'),
+    document.getElementById('principles'),
+    document.getElementById('contact')
+  ].filter(Boolean);
+
+  const navLinks = Array.from(document.querySelectorAll('.nav-menu a'));
+
+  function setActive(hash) {
+    navLinks.forEach(a => {
+      const isActive = a.getAttribute('href') === hash;
+      a.classList.toggle('active', isActive);
+      if (isActive) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setActive('#' + entry.target.id);
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+
+  sections.forEach(sec => spy.observe(sec));
+</script>
+<script>
+// Close on backdrop click or X button
+document.addEventListener('click', (e) => {
+  const closeEl = e.target.closest('[data-close]');
+  if (!closeEl) return;
+  e.preventDefault(); // be safe
+  if (location.hash) location.hash = ''; // clears :target
+});
+
+// Close on ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && location.hash === '#privacy') {
+    e.preventDefault();
+    location.hash = '';
+  }
+});
+
+// Keep CSS state in sync if the hash changes (back/forward buttons, etc.)
+window.addEventListener('hashchange', () => {
+  const modal = document.getElementById('privacy');
+  if (!modal) return;
+  // If there is no hash, ensure modal is hidden; if '#privacy', ensure visible.
+  modal.style.display = (!location.hash) ? 'none' :
+                        (location.hash === '#privacy' ? 'block' : 'none');
+});
+
+// Ensure initial state matches the current hash on load
+window.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('privacy');
+  if (!modal) return;
+  modal.style.display = (location.hash === '#privacy') ? 'block' : 'none';
+});
+</script>
+
+<script>
+  const hero = document.getElementById('home');
+  const model = document.getElementById('model');
+  const siteNav = document.querySelector('.navbar');
+  const siteFooter = document.querySelector('footer');
+  const siteSections = Array.from(document.querySelectorAll('.site-section')); // about, what-we-do, principles, contact
+
+  const showHome = () => {
+    if (hero) hero.style.display = '';
+    if (model) model.style.display = 'none';
+    siteSections.forEach(s => s.style.display = '');     // show all other sections again
+    if (siteNav) siteNav.style.display = '';
+    if (siteFooter) siteFooter.style.display = '';
+    document.body.style.overflow = '';                   // re-enable page scroll
+    window.scrollTo(0,0);
+  };
+
+  const showModel = () => {
+    if (hero) hero.style.display = 'none';
+    if (model) model.style.display = '';                 // show the embedded model
+    siteSections.forEach(s => s.style.display = 'none'); // hide about/what-we-do/principles/contact
+    if (siteNav) siteNav.style.display = 'none';         // hide top site nav (model has its own crumb nav)
+    if (siteFooter) siteFooter.style.display = 'none';   // hide global footer
+    document.body.style.overflow = 'auto';               // allow scrolling inside the model section
+    window.scrollTo(0,0);
+  };
+
+  const openFromHash = () => (location.hash === '#model' ? showModel() : showHome());
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+
+  // Navbar link to open model
+  const navModel = document.getElementById('nav-model');
+  if (navModel) navModel.addEventListener('click', (e) => {
+    e.preventDefault();
+    location.hash = '#model';
+  });
+
+  // ------- Model logic (same core math)
+  const $ = id => document.getElementById(id);
+  const fmtMoney = (v, d=0) => isFinite(v)
+    ? v.toLocaleString(undefined, {style:'currency', currency:'USD', maximumFractionDigits:d, minimumFractionDigits:d})
+    : '—';
+  const fmtX = v => (isFinite(v) ? v.toFixed(2)+'×' : '—×');
+
+  const el = {
+    ebitda: $('ebitda'), multiple: $('multiple'), down: $('down'), rate: $('rate'),
+    term: $('term'), growth: $('growth'), reinvest: $('reinvest'), horizon: $('horizon'),
+    kPrice: $('kPrice'), kEquity: $('kEquity'), kDebt: $('kDebt'), kMoic: $('kMoic'), err: $('chartErr')
+  };
+
+  function amortPayment(P, r, n){
+    if (r <= 0) return P / Math.max(n,1);
+    return P * (r) / (1 - Math.pow(1+r, -n));
+  }
+
+  function runModel(){
+    const EBITDA0 = +el.ebitda.value || 0;
+    const multiple = +el.multiple.value || 0;
+    const downPct  = Math.min(100, Math.max(0, +el.down.value || 0)) / 100;
+    const apr      = (+el.rate.value || 0) / 100;
+    const termY    = Math.max(1, +el.term.value || 1);
+    const growth   = (+el.growth.value || 0) / 100;
+    const reinvest = Math.min(100, Math.max(0, +el.reinvest.value || 0)) / 100;
+    const horizon  = Math.max(1, +el.horizon.value || 1);
+
+    const price = EBITDA0 * multiple;
+    const equity0 = price * downPct;
+    const debt0 = price - equity0;
+
+    const years=[], eSeries=[], dSeries=[], eqSeries=[], exitMultiple = multiple;
+    const payment = amortPayment(debt0, apr, termY);
+    let bal = debt0;
+
+    for (let y=0; y<=horizon; y++){
+      years.push('Y'+y);
+      const e = EBITDA0 * Math.pow(1+growth, y);
+      eSeries.push(e);
+
+      if (y>0 && bal>0){
+        const interest = bal * apr;
+        const principal = Math.min(bal, payment - interest);
+        bal = Math.max(0, bal - principal);
+      }
+      dSeries.push(bal);
+
+      const eqVal = Math.max(0, e * exitMultiple - bal);
+      eqSeries.push(eqVal);
+    }
+
+    el.kPrice.textContent  = fmtMoney(price, 0);
+    el.kEquity.textContent = fmtMoney(equity0, 0);
+    el.kDebt.textContent   = fmtMoney(debt0, 0);
+    el.kMoic.textContent   = (equity0>0) ? ((eqSeries.at(-1)/equity0).toFixed(2)+'×') : '—×';
+
+    drawChart(years, eSeries, dSeries, eqSeries);
+  }
+
+  let chart;
+    function drawChart(labels, ebitda, debt, equity){
+      if (typeof Chart === 'undefined'){
+        el.err.style.display = 'block';
+        return;
+      }
+      el.err.style.display = 'none';
+
+      const ctx = document.getElementById('acqChart').getContext('2d');
+      if (chart){ chart.destroy(); }
+      chart = new Chart(ctx, {
+        type:'bar',
+        data:{
+          labels,
+          datasets:[
+            {
+              type:'bar',
+              label:'EBITDA (bars)',
+              data: ebitda,
+              yAxisID:'y',
+              borderWidth:0,
+              backgroundColor:'rgba(255,255,255,0.10)',
+              borderRadius:6
+            },
+            {
+              type:'line',
+              label:'Debt Remaining',
+              data: debt,
+              yAxisID:'y',
+              borderWidth:2
+            },
+            {
+              type:'line',
+              label:'Equity Value',
+              data: equity,
+              yAxisID:'y',
+              borderWidth:2
+            }
+          ]
+        },
+        options:{
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins:{
+            legend:{labels:{color:'#e7e7e7'}}
+          },
+          scales:{
+            x: {
+              ticks:{ color:'#bdbdbd' },
+              grid:{ color:'rgba(255,255,255,.05)'}
+            },
+            y: {
+              ticks:{
+                color:'#bdbdbd',
+                callback:(v)=>'$'+Number(v).toLocaleString()
+              },
+              grid:{ color:'rgba(255,255,255,.06)'}
+            }
+          }
+        }
+      });
+    }
+
+  // presets + bind
+  document.getElementById('runBtn')?.addEventListener('click', runModel);
+  document.getElementById('presetSMB')?.addEventListener('click', ()=>{
+    el.ebitda.value=400000; el.multiple.value=4.5; el.down.value=20;
+    el.rate.value=8; el.term.value=7; el.growth.value=6; el.reinvest.value=25; el.horizon.value=10; runModel();
+  });
+  document.getElementById('presetPE')?.addEventListener('click', ()=>{
+    el.ebitda.value=1500000; el.multiple.value=7; el.down.value=30;
+    el.rate.value=7; el.term.value=6; el.growth.value=5; el.reinvest.value=30; el.horizon.value=7; runModel();
+  });
+  document.getElementById('presetStress')?.addEventListener('click', ()=>{
+    el.ebitda.value=800000; el.multiple.value=5; el.down.value=10;
+    el.rate.value=11; el.term.value=5; el.growth.value=0; el.reinvest.value=0; el.horizon.value=8; runModel();
+  });
+
+  // initialize numbers/chart once
+  runModel();
+</script>
+
 
 </body>
 </html>
