@@ -81,21 +81,15 @@
 }
 
 .navbar::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.32),
-    rgba(255,255,255,0.04),
-    rgba(255,255,255,0.32)
-  );
-  opacity: 0.18;
-  pointer-events: none;
+  content:"";
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:2px;
+  background:#fff;
+  opacity:.18;
+  animation:linePulse 6s ease-in-out infinite;
 }
+
 
 .nav-content {
   max-width: var(--max-width);
@@ -637,13 +631,16 @@ html{ scroll-behavior: smooth; }
     .model-scope{background:var(--bg); color:var(--ink)}
     /* Top nav (exact from model1.html) + white pulse line like footer */
 .nav{
-  position:fixed; top:0; left:0; right:0; width:100%;
+  position:fixed;
+  top:0; left:0; right:0; width:100%;
   z-index:1000;
-  border-bottom:1px solid #1a1a1d;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:saturate(160%) blur(8px);
-  overflow:hidden; /* allow ::after line to render edge-to-edge */
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(14px);
+  box-shadow:0 6px 26px rgba(0,0,0,0.6);
+  transition:background 0.25s ease,padding 0.25s ease,box-shadow 0.25s ease,border-color 0.25s ease;
 }
+
 .nav::after{
   content:"";
   position:absolute; bottom:0; left:0; right:0; height:2px;
@@ -653,9 +650,15 @@ html{ scroll-behavior: smooth; }
 
 
 .nav-inner{
-  max-width:1200px; margin:0 auto; padding:14px 20px;
-  display:flex; align-items:center; gap:14px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:10px 16px;          /* match main navbar’s spacing */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.8rem;
 }
+
 .mark{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
 .mark .eagle{filter:drop-shadow(0 0 12px rgba(255,255,255,.12))}
 .spacer{flex:1}
@@ -723,6 +726,25 @@ html{ scroll-behavior: smooth; }
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+/* === Normalize navbar heights on main + model views === */
+
+/* Set the same fixed header height for both bars */
+.navbar,
+.model-scope .nav {
+  height: 48px;              /* adjust to taste: 60–64px works well */
+}
+
+/* Make inner containers fill that height and align center */
+.navbar .nav-content,
+.model-scope .nav-inner {
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* If any model nav inner padding was set earlier, this overrides it */
 
 </style>
 
@@ -1015,15 +1037,27 @@ html{ scroll-behavior: smooth; }
 document.addEventListener('click', (e) => {
   const closeEl = e.target.closest('[data-close]');
   if (!closeEl) return;
-  e.preventDefault(); // be safe
-  if (location.hash) location.hash = ''; // clears :target
+  e.preventDefault();
+
+  const modal = document.getElementById('privacy');
+  if (modal) modal.style.display = 'none';
+
+  // If we were at #privacy, drop the hash WITHOUT scrolling or triggering layout switches
+  if (location.hash === '#privacy') {
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+  }
 });
+
 
 // Close on ESC
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && location.hash === '#privacy') {
     e.preventDefault();
-    location.hash = '';
+
+    const modal = document.getElementById('privacy');
+    if (modal) modal.style.display = 'none';
+
+    history.replaceState(null, "", window.location.pathname + window.location.search);
   }
 });
 
@@ -1071,9 +1105,35 @@ window.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0,0);
   };
 
-  const openFromHash = () => (location.hash === '#model' ? showModel() : showHome());
+  const openFromHash = () => {
+    // If URL is #model -> always switch into model view
+    if (location.hash === '#model') {
+      showModel();
+      return;
+    }
+
+    // If we're currently in model view and the hash changed to some OTHER
+    // in-page section (like #home, #contact, etc.), then go back to home.
+    // BUT: ignore #privacy and empty hash so the Privacy modal
+    // can open/close without kicking us out of the model.
+    if (
+      model &&
+      model.style.display !== 'none' &&        // we are in model view
+      location.hash &&                         // there *is* a hash
+      location.hash !== '#privacy' &&          // not the privacy modal
+      location.hash !== '#model'               // and not model again
+    ) {
+      showHome();
+    }
+
+    // If we're on the normal page with hashes like #contact/#about/etc,
+    // we don't touch layout here; browser handles the scroll.
+  };
+
   openFromHash();
   window.addEventListener('hashchange', openFromHash);
+
+
 
   // Navbar link to open model
   const navModel = document.getElementById('nav-model');
@@ -1282,3 +1342,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 </html>
+
