@@ -280,7 +280,12 @@
 
     /* ===== Sections ===== */
     .site-section{ width:100vw; background:#000 !important; margin:0; padding:0; border-radius:0; box-shadow:none; display:block; }
-    .section-inner{ max-width:1100px; margin:0 auto; padding:3.2rem 1.5rem 1.5rem; }
+    .section-inner{
+  max-width:1200px;      /* match navbar container width */
+  margin:0 auto;
+  padding:3.2rem 16px 1.5rem; /* match navbar side padding */
+}
+
     .site-section h3{
       font-size:2.09rem; margin-bottom:1.2rem; color:#fff; font-weight:900; letter-spacing:0;
       position:relative;
@@ -1352,3 +1357,4 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
