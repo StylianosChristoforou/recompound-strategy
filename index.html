@@ -454,6 +454,19 @@ html{ scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce){
   .hero-title, .hero-subtitle { transition: none !important; transform: none !important; }
 }
+#scroll-progress{
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: #fff;
+  opacity: .18;
+  z-index: 2000;
+  pointer-events: none;
+}
+
 </style>
 
 
@@ -1337,9 +1350,5 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', onMove, { passive: true });
   })();
 </script>
-
 </body>
-
-
 </html>
-
