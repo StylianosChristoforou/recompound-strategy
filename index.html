@@ -208,25 +208,43 @@ body::after {
   }
 
   .nav-content {
-    padding: 0 12px;
+    padding: 0 16px;
     justify-content: space-between;
   }
 
+  /* Mobile dropdown:
+     - starts directly UNDER the fixed navbar
+     - no longer covers the logo / burger
+     - default: translucent over hero
+  */
   .nav-menu {
     position: fixed;
-    inset: 52px 0 auto 0;
+    top: 48px; /* same as .navbar height from your calc */
+    left: 0;
+    right: 0;
     display: none;
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-    padding: 1.8rem 1.4rem;
-    background: rgba(0,0,0,0.98);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.9);
-    z-index: 99;
+    padding: 0.9rem 1.4rem 1.4rem;
+    background: rgba(0, 0, 0, 0.28);  /* matches translucent navbar on hero */
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+    z-index: 999;
+    transition: background 0.22s ease;
   }
 
   .nav-menu.open {
     display: flex;
+  }
+
+  /* When navbar is solid (scrolled) OR when menu is open,
+     keep the dropdown solid too.
+     Uses classes you ALREADY toggle in JS.
+  */
+  .navbar.scrolled .nav-menu.open,
+  .navbar.menu-open .nav-menu.open {
+    background: rgba(0, 0, 0, 0.98);
   }
 
   .nav-menu a {
@@ -240,7 +258,6 @@ body::after {
     border-bottom: none;
   }
 }
-
 
 /* ===== Hero (full viewport, no darkening) ===== */
 .hero-section{
@@ -588,11 +605,12 @@ html{ scroll-behavior: smooth; }
     <button class="burger" id="burgerBtn" aria-label="Menu">&#9776;</button>
 
     <!-- Right: nav links -->
-    <ul class="nav-menu" id="mainNavMenu" style="list-style:none;display:flex;gap:1.8rem;margin:0;padding:0;align-items:center;">
-      <li><a href="#home" class="active" aria-current="page">Home</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#model" id="nav-model">Acquisition Model</a></li>
-    </ul>
+    <ul class="nav-menu" id="mainNavMenu">
+  <li><a href="#home" class="active" aria-current="page">Home</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#model" id="nav-model">Acquisition Model</a></li>
+</ul>
+
 
   </div>
 </nav>
@@ -822,14 +840,18 @@ html{ scroll-behavior: smooth; }
   opacity: 1;
   transform: translateY(0);
 }
-/* Navbar brand hidden at top; fades in after scroll */
-.navbar.scrolled .nav-logo {
-  opacity: 1 !important;
-}
-.navbar.scrolled .nav-wordmark {
+/* Brand:
+   - hidden at top (inline styles on .nav-logo / .nav-wordmark)
+   - visible when navbar is solid (scrolled)
+   - visible when mobile menu is open (burger) */
+.navbar.scrolled .nav-logo,
+.navbar.scrolled .nav-wordmark,
+.navbar.menu-open .nav-logo,
+.navbar.menu-open .nav-wordmark {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+
 /* === Normalize navbar heights on main + model views === */
 
 /* Set the same fixed header height for both bars */
@@ -1089,13 +1111,62 @@ html{ scroll-behavior: smooth; }
       },100);
     });
 
-    // Mobile menu
-    const burger=document.getElementById('burgerBtn');
-    const navMenu=document.getElementById('mainNavMenu');
-    burger.addEventListener('click',e=>{ navMenu.classList.toggle('open'); burger.classList.toggle('active'); e.stopPropagation(); });
-    document.querySelectorAll('.nav-menu a').forEach(a=>a.addEventListener('click',()=>{ if(window.innerWidth<=700){ navMenu.classList.remove('open'); burger.classList.remove('active'); }}));
-    document.addEventListener('click',e=>{ if(window.innerWidth>700) return; if(navMenu.classList.contains('open') && !navMenu.contains(e.target) && e.target!==burger){ navMenu.classList.remove('open'); burger.classList.remove('active'); }});
-    window.addEventListener('resize',()=>{ if(window.innerWidth>700){ navMenu.classList.remove('open'); burger.classList.remove('active'); }});
+    // Mobile menu (sync with navbar + brand)
+const burger = document.getElementById('burgerBtn');
+const navMenu = document.getElementById('mainNavMenu');
+const navbar = document.querySelector('.navbar');
+
+if (burger && navMenu && navbar) {
+  // Toggle menu
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = navMenu.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    navbar.classList.toggle('menu-open', isOpen); // controls logo/wordmark visibility
+  });
+
+  // Close on nav link click (mobile)
+  document.querySelectorAll('.nav-menu a').forEach((a) => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        navMenu.classList.remove('open');
+        burger.classList.remove('active');
+        navbar.classList.remove('menu-open');
+      }
+    });
+  });
+
+  // Close on outside click (mobile)
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth > 768) return;
+    if (
+      navMenu.classList.contains('open') &&
+      !navMenu.contains(e.target) &&
+      e.target !== burger
+    ) {
+      navMenu.classList.remove('open');
+      burger.classList.remove('active');
+      navbar.classList.remove('menu-open');
+    }
+  });
+
+  // Reset on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      navMenu.classList.remove('open');
+      burger.classList.remove('active');
+      navbar.classList.remove('menu-open');
+    }
+  });
+
+  // Clean initial state
+  window.addEventListener('DOMContentLoaded', () => {
+    navMenu.classList.remove('open');
+    burger.classList.remove('active');
+    navbar.classList.remove('menu-open');
+  });
+}
+
     window.addEventListener('DOMContentLoaded',()=>{ navMenu.classList.remove('open'); burger.classList.remove('active'); });
   </script>
 
@@ -1203,13 +1274,29 @@ html{ scroll-behavior: smooth; }
   }
 
   function updateNavbarScrollState() {
-    if (!navbar) return;
-    if (window.scrollY > brandTrigger) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+  if (!navbar) return;
+
+  const scrolledPastHero = window.scrollY > brandTrigger;
+
+  if (scrolledPastHero) {
+    // Navbar goes solid
+    navbar.classList.add('scrolled');
+
+    // Mobile menu (burger open) should also be solid
+    if (typeof navMenu !== 'undefined' && navMenu) {
+      navMenu.classList.add('menu-solid');
+    }
+  } else {
+    // Navbar back to translucent
+    navbar.classList.remove('scrolled');
+
+    // Mobile menu matches hero state (translucent)
+    if (typeof navMenu !== 'undefined' && navMenu) {
+      navMenu.classList.remove('menu-solid');
     }
   }
+}
+
 
   window.addEventListener('scroll', updateNavbarScrollState, { passive: true });
   window.addEventListener('resize', () => {
@@ -1225,6 +1312,8 @@ html{ scroll-behavior: smooth; }
   updateNavbarScrollState();
 
 </script>
+
+
 
 <script>
 // Close on backdrop click or X button
