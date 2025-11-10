@@ -821,6 +821,48 @@ html{ scroll-behavior: smooth; }
     .model-scope .chart-card{margin-top:12px; padding:12px; background:var(--card); border:1px solid var(--tile-border); border-radius:14px}
     .model-scope .disclaimer{margin:26px auto 0; color:var(--ink-dim); font-size:.92rem; max-width:980px}
     .model-scope .note{color:var(--ink-dim); font-size:.9rem}
+@media (max-width: 768px) {
+  .model-scope .crumbs {
+    display: none;
+  }
+  .model-scope .burger {
+    display: block;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  .model-scope .nav-menu {
+    display: none;
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.9rem 1.4rem 1.4rem;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+    z-index: 1000;
+  }
+  .model-scope .nav-menu.open {
+    display: flex;
+  }
+  .model-scope .nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.45rem;
+    font-size: 1.05rem;
+  }
+}
+
+
     /* ===== Fade Hero + Reveal Navbar Brand ===== */
 .hide-on-scroll {
   opacity: 1;
@@ -967,19 +1009,30 @@ html{ scroll-behavior: smooth; }
 
 
   <div class="model-scope">
-    <!-- minimal crumb nav (like model1) -->
 <div class="nav">
   <div class="nav-inner">
     <div class="mark">
       <img class="eagle" src="logo.jpg" alt="" width="26" height="26"/>
       <div>Recompound Strategy</div>
     </div>
+
     <div class="spacer"></div>
-    <div class="crumbs">
+
+    <!-- Mobile burger (only shows on small screens) -->
+    <button class="burger" id="modelBurger" aria-label="Menu">&#9776;</button>
+
+    <div class="crumbs" id="modelCrumbs">
       <a href="#home">Home</a><span class="sep">/</span><a href="#">Acquisition Model</a>
     </div>
   </div>
+
+  <!-- Burger dropdown menu (hidden by default) -->
+  <ul class="nav-menu" id="modelNavMenu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </div>
+
 
 
     <div class="wrap">
@@ -1627,6 +1680,39 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', onMove, { passive: true });
   })();
   
+</script>
+<script>
+  // --- Mobile burger inside model view ---
+  const modelBurger = document.getElementById('modelBurger');
+  const modelNav = document.getElementById('modelNavMenu');
+  const modelCrumbs = document.getElementById('modelCrumbs');
+
+  if (modelBurger && modelNav) {
+    modelBurger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = modelNav.classList.toggle('open');
+      modelBurger.classList.toggle('active', isOpen);
+      if (isOpen) {
+        modelCrumbs.style.display = 'none';
+      } else {
+        modelCrumbs.style.display = '';
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth > 768) return;
+      if (
+        modelNav.classList.contains('open') &&
+        !modelNav.contains(e.target) &&
+        e.target !== modelBurger
+      ) {
+        modelNav.classList.remove('open');
+        modelBurger.classList.remove('active');
+        modelCrumbs.style.display = '';
+      }
+    });
+  }
 </script>
 </body>
 </html>
