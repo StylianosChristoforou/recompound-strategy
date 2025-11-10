@@ -212,6 +212,7 @@ body::after {
     justify-content: space-between;
   }
 
+
   /* Mobile dropdown:
      - starts directly UNDER the fixed navbar
      - no longer covers the logo / burger
@@ -1369,24 +1370,30 @@ window.addEventListener('DOMContentLoaded', () => {
   const siteSections = Array.from(document.querySelectorAll('.site-section')); // about, what-we-do, principles, contact
 
   const showHome = () => {
-    if (hero) hero.style.display = '';
-    if (model) model.style.display = 'none';
-    siteSections.forEach(s => s.style.display = '');     // show all other sections again
-    if (siteNav) siteNav.style.display = '';
-    if (siteFooter) siteFooter.style.display = '';
-    document.body.style.overflow = '';                   // re-enable page scroll
-    window.scrollTo(0,0);
-  };
+  if (hero) hero.style.display = '';
+  if (model) model.style.display = 'none';
+  siteSections.forEach(s => s.style.display = '');
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsBar.style.display = '';            // SHOW stats bar on home
+  if (siteNav) siteNav.style.display = '';
+  if (siteFooter) siteFooter.style.display = '';
+  document.body.style.overflow = 'auto';
+  window.scrollTo(0,0);
+};
+
 
   const showModel = () => {
-    if (hero) hero.style.display = 'none';
-    if (model) model.style.display = '';                 // show the embedded model
-    siteSections.forEach(s => s.style.display = 'none'); // hide about/what-we-do/principles/contact
-    if (siteNav) siteNav.style.display = 'none';         // hide top site nav (model has its own crumb nav)
-    if (siteFooter) siteFooter.style.display = '';   // hide global footer
-    document.body.style.overflow = 'auto';               // allow scrolling inside the model section
-    window.scrollTo(0,0);
-  };
+  if (hero) hero.style.display = 'none';
+  if (model) model.style.display = '';                 
+  siteSections.forEach(s => s.style.display = 'none'); 
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsBar.style.display = 'none';        // HIDE stats bar on model
+  if (siteNav) siteNav.style.display = 'none';          
+  if (siteFooter) siteFooter.style.display = '';   
+  document.body.style.overflow = 'auto';               
+  window.scrollTo(0,0);
+};
+
 
   const openFromHash = () => {
     // If URL is #model -> always switch into model view
