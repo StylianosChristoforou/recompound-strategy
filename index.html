@@ -821,10 +821,16 @@ html{ scroll-behavior: smooth; }
     .model-scope .chart-card{margin-top:12px; padding:12px; background:var(--card); border:1px solid var(--tile-border); border-radius:14px}
     .model-scope .disclaimer{margin:26px auto 0; color:var(--ink-dim); font-size:.92rem; max-width:980px}
     .model-scope .note{color:var(--ink-dim); font-size:.9rem}
+/* hide model nav-menu on desktop */
+.model-scope .nav-menu {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .model-scope .crumbs {
     display: none;
   }
+
   .model-scope .burger {
     display: block;
     background: none;
@@ -834,6 +840,7 @@ html{ scroll-behavior: smooth; }
     cursor: pointer;
     z-index: 1001;
   }
+
   .model-scope .nav-menu {
     display: none;
     position: fixed;
@@ -849,9 +856,11 @@ html{ scroll-behavior: smooth; }
     box-shadow: 0 18px 40px rgba(0,0,0,0.7);
     z-index: 1000;
   }
+
   .model-scope .nav-menu.open {
     display: flex;
   }
+
   .model-scope .nav-menu a {
     color: #fff;
     text-decoration: none;
@@ -861,7 +870,6 @@ html{ scroll-behavior: smooth; }
     font-size: 1.05rem;
   }
 }
-
 
     /* ===== Fade Hero + Reveal Navbar Brand ===== */
 .hide-on-scroll {
