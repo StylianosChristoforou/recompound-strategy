@@ -1164,8 +1164,16 @@ html{ scroll-behavior: smooth; }
 
   <!-- Scripts (same logic, monochrome UI) -->
   <script>
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    window.onbeforeunload = function(){ window.scrollTo(0,0); };
+    // Prevent browser auto-scroll on back/forward, but don't force jump to top
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+// Always start at top only on *first load* (not when clicking anchors)
+window.addEventListener('load', () => {
+  if (!location.hash) {
+    window.scrollTo(0, 0);
+  }
+});
+
 
     window.addEventListener('DOMContentLoaded', function(){
       setTimeout(function(){
@@ -1456,29 +1464,35 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   const openFromHash = () => {
-    // If URL is #model -> always switch into model view
-    if (location.hash === '#model') {
-      showModel();
-      return;
-    }
+  // If URL is #model -> always switch into model view
+  if (location.hash === '#model') {
+    showModel();
+    return;
+  }
 
-    // If we're currently in model view and the hash changed to some OTHER
-    // in-page section (like #home, #contact, etc.), then go back to home.
-    // BUT: ignore #privacy and empty hash so the Privacy modal
-    // can open/close without kicking us out of the model.
-    if (
-      model &&
-      model.style.display !== 'none' &&        // we are in model view
-      location.hash &&                         // there *is* a hash
-      location.hash !== '#privacy' &&          // not the privacy modal
-      location.hash !== '#model'               // and not model again
-    ) {
-      showHome();
-    }
+  // When we're in model view and user clicks a link to home/contact,
+  // return to the main site and scroll to that section.
+  if (
+    model &&
+    model.style.display !== 'none' &&
+    location.hash &&
+    location.hash !== '#privacy' &&
+    location.hash !== '#model'
+  ) {
+    // Go back to home layout first
+    showHome();
 
-    // If we're on the normal page with hashes like #contact/#about/etc,
-    // we don't touch layout here; browser handles the scroll.
-  };
+    // Then scroll to the chosen section smoothly
+    const target = document.querySelector(location.hash);
+    if (target) {
+      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    }
+    return;
+  }
+
+  // Normal in-page navigation works as usual
+};
+
 
   openFromHash();
   window.addEventListener('hashchange', openFromHash);
