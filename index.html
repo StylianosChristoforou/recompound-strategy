@@ -1164,15 +1164,14 @@ html{ scroll-behavior: smooth; }
 
   <!-- Scripts (same logic, monochrome UI) -->
   <script>
-    // Prevent browser auto-scroll on back/forward, but don't force jump to top
+// Disable browser scroll restoration so we always control position
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-// Always start at top only on *first load* (not when clicking anchors)
+// Always load every page at top — including model view — no scroll animation
 window.addEventListener('load', () => {
-  if (!location.hash) {
-    window.scrollTo(0, 0);
-  }
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 });
+
 
 
     window.addEventListener('DOMContentLoaded', function(){
